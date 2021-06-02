@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function PlacementCard () {
+export default function OfferCard () {
 
   return (
     <article className="cities__place-card place-card">

@@ -1,9 +1,8 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
-import PlacementCard from '../placement-card/placement-card.jsx';
+import PlacementCard from '../offer-card/offer-card.jsx';
+import PropTypes from 'prop-types';
 
-
-export default function PageMainComponent({offers}) {
+export default function PageMain({ offers }) {
 
   return (
     <div className="page page--gray page--main">
@@ -105,3 +104,12 @@ export default function PageMainComponent({offers}) {
     </div>
   );
 }
+
+PageMain.propTypes = {
+  offers: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+    }),
+  ).isRequired,
+};
+

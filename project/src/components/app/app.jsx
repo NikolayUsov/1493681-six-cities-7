@@ -1,11 +1,11 @@
 import React from 'react';
-import PageMainComponent from '../page-main/page-main.jsx';
+import PageMain from '../page-main/page-main.jsx';
 import PropTypes from 'prop-types';
 
-function App({offers}) {
+function App({ offers = [] }) {
 
   return(
-    <PageMainComponent offers={offers}/>
+    <PageMain offers={offers}/>
   );
 
 }
@@ -16,10 +16,6 @@ App.propTypes  = {
       id: PropTypes.number.isRequired,
     }),
   ).isRequired,
-};
-
-App.defaultProps = {
-  offers: [],
 };
 
 export default App;
