@@ -13,6 +13,7 @@ import PageOfferDetails  from '../pages/offer-details';
 import PageNotFoundfrom from '../pages/404';
 import { AppRouts } from '../../const.js';
 
+
 function App({ offers = [] }) {
 
   return(
