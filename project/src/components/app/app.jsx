@@ -5,31 +5,33 @@ import {
   Route
 } from 'react-router-dom';
 
-import PageMain from '../page-main/page-main';
+import PageMain from '../pages/main';
 import PropTypes from 'prop-types';
-import PageLogin from '../page-login/page-login';
-import PageFavorites from '../page-favorites/page-favorites';
-import PageOfferDetails  from '../page-offer-details/page-offer-details';
-import PageNotFoundfrom from '../page-not-found/page-not-found';
-import { AppRouts } from '../../const/const.js';
+import PageLogin from '../pages/login';
+import PageFavorites from '../pages/favorites';
+import PageOfferDetails  from '../pages/offer-details';
+import PageNotFoundfrom from '../pages/404';
+import { AppRouts } from '../../const.js';
 
 function App({ offers = [] }) {
 
   return(
     <BrowserRouter>
       <Switch>
-        <Route exact path = {AppRouts.ROOT}>
-          <PageMain offers = {offers}/>
+        <Route exact path={AppRouts.ROOT}>
+          <PageMain offers={offers}/>
         </Route>
-        <Route exact path = {AppRouts.LOGIN}>
+        <Route exact path={AppRouts.LOGIN}>
           <PageLogin />
         </Route>
-        <Route exact path = {AppRouts.FAVORITES}>
+        <Route exact path={AppRouts.FAVORITES}>
           <PageFavorites />
         </Route>
-        <Route path="/offer/:id?" exact component={PageOfferDetails} />
+        <Route path={AppRouts.OFFER_DETAILS} >
+          <PageOfferDetails />
+        </Route>
         <Route>
-          <PageNotFoundfrom/>
+          <PageNotFoundfrom />
         </Route>
 
       </Switch>

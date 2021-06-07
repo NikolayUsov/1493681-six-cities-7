@@ -1,6 +1,5 @@
 import React from 'react';
 import Logo from '../logo/logo';
-import { LogoParrent } from '../../const/const.js';
 export default function PageFavorites() {
 
   return(
@@ -9,7 +8,7 @@ export default function PageFavorites() {
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <Logo parrent = {LogoParrent.HEADER}/>
+              <Logo />
             </div>
             <nav className="header__nav">
               <ul className="header__nav-list">
@@ -155,7 +154,7 @@ export default function PageFavorites() {
         </div>
       </main>
       <footer className="footer container">
-        <Logo parrent = {LogoParrent.FOOTER}/>
+        <Logo isFooter/>
       </footer>
     </div>
 

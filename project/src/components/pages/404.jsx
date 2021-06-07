@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { AppRouts, LogoParrent } from '../../const/const';
+import { AppRouts} from '../../const';
 import Logo from '../logo/logo';
 
 export default function PageNotFound() {
@@ -18,16 +18,19 @@ export default function PageNotFound() {
   };
   return (
     <div className="page">
-      <header style = {headerStyle} className="header">
+      <header style={headerStyle} className="header">
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <Logo parrent = {LogoParrent.HEADER}/>
+              <Logo />
             </div>
             <div>
               <p
                 style={linkStyle}
-              >Что то ты свернул не туда, может найдем другое <Link style={{ fontSize: '24px', color: 'gray' }} to ={AppRouts.ROOT}>Место</Link>
+              >Что то ты свернул не туда, может найдем другое
+                <Link style={{ fontSize: '24px', color: 'gray' }} to={AppRouts.ROOT}>
+                  Место
+                </Link>
               </p>
             </div>
           </div>

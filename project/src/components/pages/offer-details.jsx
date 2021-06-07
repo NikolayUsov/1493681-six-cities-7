@@ -1,5 +1,5 @@
 import React from 'react';
-import { LogoParrent } from '../../const/const';
+
 import Logo from '../logo/logo';
 
 export default  function PageOfferDetails() {
@@ -10,7 +10,7 @@ export default  function PageOfferDetails() {
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <Logo  parrent = {LogoParrent.HEADER}/>
+              <Logo />
             </div>
             <nav className="header__nav">
               <ul className="header__nav-list">

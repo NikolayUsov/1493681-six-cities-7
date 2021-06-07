@@ -2,8 +2,6 @@ import React from 'react';
 import OfferCard from '../offer-card/offer-card.jsx';
 import PropTypes from 'prop-types';
 import Logo from '../logo/logo';
-import { LogoParrent } from '../../const/const.js';
-
 
 export default function PageMain({ offers }) {
 
@@ -13,7 +11,7 @@ export default function PageMain({ offers }) {
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <Logo parrent = {LogoParrent.HEADER}/>
+              <Logo />
             </div>
             <nav className="header__nav">
               <ul className="header__nav-list">
