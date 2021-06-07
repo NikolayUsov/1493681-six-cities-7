@@ -1,6 +1,7 @@
 import React from 'react';
-import PlacementCard from '../offer-card/offer-card.jsx';
+import OfferCard from '../offer-card/offer-card.jsx';
 import PropTypes from 'prop-types';
+import Logo from '../logo/logo';
 
 export default function PageMain({ offers }) {
 
@@ -10,9 +11,7 @@ export default function PageMain({ offers }) {
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <a  href="/#" className="header__logo-link header__logo-link--active">
-                <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width={81} height={41} />
-              </a>
+              <Logo />
             </div>
             <nav className="header__nav">
               <ul className="header__nav-list">
@@ -92,7 +91,7 @@ export default function PageMain({ offers }) {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                {offers.map((offer) => <PlacementCard key={offer.id}/>)}
+                {offers.map((offer) => <OfferCard key={offer.id} offer={offer}/>)}
               </div>
             </section>
             <div className="cities__right-section">
