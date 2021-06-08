@@ -16,6 +16,7 @@ export default function OfferCard ({offer, page}) {
     title,
     type,
     isPremium,
+    previewImage,
   } = offer;
 
 
@@ -29,7 +30,7 @@ export default function OfferCard ({offer, page}) {
       {isPremium && <Premium />}
       <div className={`${page}__image-wrapper place-card__image-wrapper`}>
         <Link to={`/offer/${id}?`}>
-          <img className="place-card__image" src="img/apartment-01.jpg" width={260} height={200} alt="Place pic" />
+          <img className="place-card__image" src={previewImage} width={260} height={200} alt="Place pic" />
         </Link>
       </div>
       <div className="place-card__info">
@@ -70,5 +71,6 @@ OfferCard.propTypes = {
     title: PropTypes.string,
     type: PropTypes.string,
     isPremium: PropTypes.bool,
+    previewImage: PropTypes.string,
   }).isRequired,
 };
