@@ -1,17 +1,26 @@
 import React from 'react';
 import { CITYES } from '../../const.js';
-import CityNavigationitem from './city-navigation-item';
+import classNames from 'classnames';
 import PropTypes from 'prop-types';
 
 
 export default function CityNavigation ({currentMenu, changeActiveMenu}) {
-
   const menu = {...CITYES};
   return(
     <ul className="locations__list tabs__list">
       {Object.entries(menu)
-        .map(([id, name]) =>
-          <CityNavigationitem key={id} name={name} current={currentMenu} changeActiveMenu={changeActiveMenu}/>)}
+        .map(([id, name]) =>(
+          <li key={id} className="locations__item">
+            <a href="/#"
+              className={classNames('locations__item-link','tabs__item',{
+                'tabs__item--active': name === currentMenu,
+              })}
+              data-type={name}
+              onClick={(evt) => {changeActiveMenu(evt.currentTarget.dataset.type);}}
+            >
+              <span>{name}</span>
+            </a>
+          </li>))}
     </ul>
   );
 }

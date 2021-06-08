@@ -1,5 +1,5 @@
 import React from 'react';
-import SortOffers from './sort-offers';
+import SortOffers from '../sort-offer/sort-offers';
 import PropTypes from 'prop-types';
 
 export default function OffersBoard ({children, currentCity}) {
