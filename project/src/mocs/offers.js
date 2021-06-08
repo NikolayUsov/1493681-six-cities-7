@@ -13,7 +13,7 @@ const CITYES= [
 const NAMES = ['Fedor', 'Angelina', 'Gena', 'Slava'];
 const GOODS = ['Heating', 'Kitchen', 'Cable TV', 'Washing machine', 'Coffee machine', 'Dishwasher'];
 
-const Types = {
+export const Types = {
   apartment: 'Apartment',
   room: 'Private Room',
   house: 'House',

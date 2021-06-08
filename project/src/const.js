@@ -4,3 +4,8 @@ export const AppRouts = {
   FAVORITES: '/favorites',
   OFFER_DETAILS: '/offer/:id',
 };
+export const CITYES = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
+export const SORT_TYPES = ['Popular', 'Price: low to high', 'Price: high to low', 'Top rated first'];
+export const OfferCardParent = {
+  MAIN: 'cities',
+};

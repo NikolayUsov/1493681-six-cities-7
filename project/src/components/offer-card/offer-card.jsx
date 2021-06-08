@@ -3,13 +3,19 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { createProcent } from '../../utils/utils.js';
 import classNames from 'classnames';
-export default function OfferCard ({offer}) {
+import { Types } from '../../mocs/offers.js';
+import Premium from '../shared/premium';
 
+
+export default function OfferCard ({offer, page}) {
   const {
     id,
     price,
     rating,
     isFavorite,
+    title,
+    type,
+    isPremium,
   } = offer;
 
 
@@ -17,16 +23,11 @@ export default function OfferCard ({offer}) {
     'place-card__bookmark-button--active': isFavorite,
   });
 
-  // eslint-disable-next-line no-console
-  console.log(addToFavoritesClass);
   return (
 
-
-    <article className="cities__place-card place-card">
-      <div className="place-card__mark">
-        <span>Premium</span>
-      </div>
-      <div className="cities__image-wrapper place-card__image-wrapper">
+    <article className={ `${page}__place-card place-card`}>
+      {isPremium && <Premium />}
+      <div className={`${page}__image-wrapper place-card__image-wrapper`}>
         <Link to={`/offer/${id}?`}>
           <img className="place-card__image" src="img/apartment-01.jpg" width={260} height={200} alt="Place pic" />
         </Link>
@@ -51,19 +52,23 @@ export default function OfferCard ({offer}) {
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="/#">Beautiful &amp; luxurious apartment at great location</a>
+          <a href="/#">{title}</a>
         </h2>
-        <p className="place-card__type">Apartment</p>
+        <p className="place-card__type">{Types[type]}</p>
       </div>
     </article>
   );
 }
 
 OfferCard.propTypes = {
+  page: PropTypes.string,
   offer: PropTypes.shape({
     id: PropTypes.number.isRequired,
     price: PropTypes.number.isRequired,
     rating: PropTypes.number,
     isFavorite: PropTypes.bool,
+    title: PropTypes.string,
+    type: PropTypes.string,
+    isPremium: PropTypes.bool,
   }).isRequired,
 };
