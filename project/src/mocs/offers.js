@@ -20,21 +20,20 @@ export const Types = {
   hotel: 'Hotel',
 };
 
-const getHostId = createId(1);
-const getOffersId = createId(1);
+const getHostId = createId(0);
+const getOffersId = createId(0);
 
 const generateOfferItemMock = () => {
   const photos = new Array(getRandomInteger(1,6))
     .fill('')
     .map((elem) => `img/apartment-0${getRandomInteger(1, 3)}.jpg`);
-  // eslint-disable-next-line no-console
-  console.log(photos);
+
   return {
     bedrooms: getRandomInteger(1, 4),
     city:{
       location: {
-        latitude: getRandomFloat(52, 53),
-        longitude: getRandomFloat(4, 5),
+        latitude: Number(getRandomFloat(52, 53, 7)),
+        longitude: (getRandomFloat(4, 52, 7)),
         zoom: getRandomInteger(1, 10),
       },
       name: CITYES.randomElement(),
@@ -52,14 +51,14 @@ const generateOfferItemMock = () => {
     isFavorite:Boolean(getRandomInteger(0, 1)),
     isPremium: Boolean(getRandomInteger(0, 1)),
     location: {
-      latitude: getRandomFloat(52, 53),
-      longitude: getRandomFloat(4, 5),
+      latitude: getRandomFloat(52, 53, 7),
+      longitude: getRandomFloat(4, 5, 7),
       zoom: getRandomInteger(1, 10),
     },
     maxAdults: getRandomInteger(1, 6),
     previewImage: photos[0],
     price: getRandomInteger(69, 140),
-    rating: Number(getRandomFloat(0, 5)),
+    rating: getRandomFloat(0, 5),
     title: getRandomText().slice(0, 16),
     type: Object.keys(Types).randomElement(),
   };

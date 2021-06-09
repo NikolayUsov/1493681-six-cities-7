@@ -29,7 +29,7 @@ function App({ offers = [] }) {
           <PageFavorites />
         </Route>
         <Route path={AppRouts.OFFER_DETAILS} >
-          <PageOfferDetails />
+          <PageOfferDetails offers={offers}/>
         </Route>
         <Route>
           <PageNotFoundfrom />

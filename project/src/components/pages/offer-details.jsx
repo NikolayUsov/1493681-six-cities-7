@@ -1,70 +1,59 @@
 import React from 'react';
+import { useParams } from 'react-router';
+import Header from '../header/header';
+import PropTypes from 'prop-types';
+import OfferCardProp from '../offer-card/offer-card.prop';
+import GalleryDetails from '../details-gallery/details-gallery.jsx';
+import classNames from 'classnames';
+import { createProcent } from '../../utils/utils.js';
+import HostDeatails from '../details-host/details-host';
 
-import Logo from '../logo/logo';
+export default  function PageOfferDetails({offers}) {
+  const  { id } = useParams();
+  const idx = offers.findIndex((elem) => elem.id === +id);
+  const currentElement = offers[idx];
 
-export default  function PageOfferDetails() {
+  const {
+    images,
+    isPrime,
+    title,
+    isFavorite,
+    type,
+    bedrooms,
+    rating,
+    maxAdults,
+    price,
+    goods,
+    host,
+    description,
+  } = currentElement;
+
+  const addToFavoritesClass = classNames('property__bookmark-button', 'button',{
+    'property__bookmark-button--active': isFavorite,
+  });
 
   return (
     <div className="page">
-      <header className="header">
-        <div className="container">
-          <div className="header__wrapper">
-            <div className="header__left">
-              <Logo />
-            </div>
-            <nav className="header__nav">
-              <ul className="header__nav-list">
-                <li className="header__nav-item user">
-                  <a className="header__nav-link header__nav-link--profile" href="/#">
-                    <div className="header__avatar-wrapper user__avatar-wrapper">
-                    </div>
-                    <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                  </a>
-                </li>
-                <li className="header__nav-item">
-                  <a className="header__nav-link" href="/#">
-                    <span className="header__signout">Sign out</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
-          </div>
-        </div>
-      </header>
+      <Header />
       <main className="page__main page__main--property">
         <section className="property">
-          <div className="property__gallery-container container">
-            <div className="property__gallery">
-              <div className="property__image-wrapper">
-                <img className="property__image" src="img/room.jpg" alt="Pic studio" />
-              </div>
-              <div className="property__image-wrapper">
-                <img className="property__image" src="img/apartment-01.jpg" alt="Pic studio" />
-              </div>
-              <div className="property__image-wrapper">
-                <img className="property__image" src="img/apartment-02.jpg" alt="Pic studio" />
-              </div>
-              <div className="property__image-wrapper">
-                <img className="property__image" src="img/apartment-03.jpg" alt="Pic studio" />
-              </div>
-              <div className="property__image-wrapper">
-                <img className="property__image" src="img/studio-01.jpg" alt="Pic studio" />
-              </div>
-              <div className="property__image-wrapper">
-                <img className="property__image" src="img/apartment-01.jpg" alt="Pic studio" />
-              </div>
-            </div>
-          </div>
+          {images &&
+            <div className="property__gallery-container container">
+              <GalleryDetails photos={images}/>
+            </div>}
+
           <div className="property__container container">
             <div className="property__wrapper">
+              {isPrime &&
               <div className="property__mark">
                 <span>Premium</span>
-              </div>
+              </div>}
+
               <div className="property__name-wrapper">
                 <h1 className="property__name">
-                  Beautiful &amp; luxurious studio at great location
+                  {title}
                 </h1>
-                <button className="property__bookmark-button button" type="button">
+                <button className={addToFavoritesClass} type="button">
                   <svg className="property__bookmark-icon" width={31} height={33}>
                     <use xlinkHref="#icon-bookmark" />
                   </svg>
@@ -73,83 +62,40 @@ export default  function PageOfferDetails() {
               </div>
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">
-                  <span style={{width: '80%'}} />
+                  <span style={{width: `${createProcent(rating, 5)}%`}} />
                   <span className="visually-hidden">Rating</span>
                 </div>
-                <span className="property__rating-value rating__value">4.8</span>
+                <span className="property__rating-value rating__value">{rating}</span>
               </div>
               <ul className="property__features">
                 <li className="property__feature property__feature--entire">
-                  Apartment
+                  {type}
                 </li>
                 <li className="property__feature property__feature--bedrooms">
-                  3 Bedrooms
+                  {`${bedrooms} ${bedrooms > 1 ? 'Bedrooms' : 'Bedroom'}`}
                 </li>
                 <li className="property__feature property__feature--adults">
-                  Max 4 adults
+                  {`Max ${maxAdults} ${maxAdults > 1 ? 'adults' : 'adult'}`}
                 </li>
               </ul>
               <div className="property__price">
-                <b className="property__price-value">€120</b>
+                <b className="property__price-value">€{price}</b>
                 <span className="property__price-text">&nbsp;night</span>
               </div>
               <div className="property__inside">
                 <h2 className="property__inside-title">Whats inside</h2>
                 <ul className="property__inside-list">
-                  <li className="property__inside-item">
-                    Wi-Fi
-                  </li>
-                  <li className="property__inside-item">
-                    Washing machine
-                  </li>
-                  <li className="property__inside-item">
-                    Towels
-                  </li>
-                  <li className="property__inside-item">
-                    Heating
-                  </li>
-                  <li className="property__inside-item">
-                    Coffee machine
-                  </li>
-                  <li className="property__inside-item">
-                    Baby seat
-                  </li>
-                  <li className="property__inside-item">
-                    Kitchen
-                  </li>
-                  <li className="property__inside-item">
-                    Dishwasher
-                  </li>
-                  <li className="property__inside-item">
-                    Cabel TV
-                  </li>
-                  <li className="property__inside-item">
-                    Fridge
-                  </li>
+                  {goods.map((elem) =>
+                    (
+                      <li key={elem}
+                        className="property__inside-item"
+                      >{elem}
+                      </li>
+                    ))}
                 </ul>
               </div>
-              <div className="property__host">
-                <h2 className="property__host-title">Meet the host</h2>
-                <div className="property__host-user user">
-                  <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
-                    <img className="property__avatar user__avatar" src="img/avatar-angelina.jpg" width={74} height={74} alt="Host avatar" />
-                  </div>
-                  <span className="property__user-name">
-                    Angelina
-                  </span>
-                  <span className="property__user-status">
-                    Pro
-                  </span>
-                </div>
-                <div className="property__description">
-                  <p className="property__text">
-                    A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.
-                  </p>
-                  <p className="property__text">
-                    An independent House, strategically located between Rembrand Square and National Opera, but where the bustle of the city comes to rest in this alley flowery and colorful.
-                  </p>
-                </div>
-              </div>
+
+              <HostDeatails host={host} description={description}/>
               <section className="property__reviews reviews">
                 <h2 className="reviews__title">Reviews · <span className="reviews__amount">1</span></h2>
                 <ul className="reviews__list">
@@ -327,3 +273,7 @@ export default  function PageOfferDetails() {
     </div>
   );
 }
+
+PageOfferDetails.propTypes = {
+  offers: PropTypes.arrayOf(OfferCardProp),
+};

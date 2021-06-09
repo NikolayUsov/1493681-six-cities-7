@@ -5,9 +5,9 @@ import { createProcent } from '../../utils/utils.js';
 import classNames from 'classnames';
 import { Types } from '../../mocs/offers.js';
 import Premium from '../shared/premium';
+import OfferCardProp from './offer-card.prop';
 
-
-export default function OfferCard ({offer, page}) {
+export default function OfferCard ({offer, page, setHoverCard}) {
   const {
     id,
     price,
@@ -17,8 +17,10 @@ export default function OfferCard ({offer, page}) {
     type,
     isPremium,
     previewImage,
+    location,
   } = offer;
 
+  const {latitude, longitude, zoom} = location;
 
   const addToFavoritesClass = classNames('place-card__bookmark-button', 'button',{
     'place-card__bookmark-button--active': isFavorite,
@@ -26,7 +28,7 @@ export default function OfferCard ({offer, page}) {
 
   return (
 
-    <article className={ `${page}__place-card place-card`}>
+    <article onMouseOver={()=>setHoverCard({latitude, longitude, zoom})} className={`${page}__place-card place-card`}>
       {isPremium && <Premium />}
       <div className={`${page}__image-wrapper place-card__image-wrapper`}>
         <Link to={`/offer/${id}?`}>
@@ -63,14 +65,6 @@ export default function OfferCard ({offer, page}) {
 
 OfferCard.propTypes = {
   page: PropTypes.string,
-  offer: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    price: PropTypes.number.isRequired,
-    rating: PropTypes.number,
-    isFavorite: PropTypes.bool,
-    title: PropTypes.string,
-    type: PropTypes.string,
-    isPremium: PropTypes.bool,
-    previewImage: PropTypes.string,
-  }).isRequired,
+  setHoverCard: PropTypes.func,
+  offer: OfferCardProp,
 };

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { AppRouts } from '../../const.js';
 import { Link } from 'react-router-dom';
-//import classNames  from 'classnames';
+
 
 const LogoSize = {
   HEADER: { width: 81, height: 41 },

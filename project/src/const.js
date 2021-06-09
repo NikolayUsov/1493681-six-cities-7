@@ -6,6 +6,7 @@ export const AppRouts = {
 };
 export const CITYES = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
 export const SORT_TYPES = ['Popular', 'Price: low to high', 'Price: high to low', 'Top rated first'];
-export const OfferCardParent = {
+
+export const OfferCardListParent = {
   MAIN: 'cities',
 };

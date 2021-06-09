@@ -20,7 +20,7 @@ export const getRandomText = () => {
   return phrase.split('.').shuffle().slice(0, getRandomInteger(1,5)).join('.');
 };
 
-export const getRandomFloat = (min, max, point) => (Math.random() * (max - min) + min).toFixed(point);
+export const getRandomFloat = (min, max, point = 1) => (Math.random() * (max - min) + min).toFixed(point);
 
 Array.prototype.shuffle = function() {
   for (let i = this.length - 1; i > 0; i--) {

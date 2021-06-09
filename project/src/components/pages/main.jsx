@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import OfferCard from '../offer-card/offer-card.jsx';
+import OfferCardList from '../offers-list/offers-list.jsx';
 import PropTypes from 'prop-types';
-import { OfferCardParent } from '../../const.js';
+import { OfferCardListParent } from '../../const.js';
 import CityNavigation from '../city-navigation/city-navigation';
 import OffersBoard from '../offersBoard/offers-board.jsx';
 import Header from '../header/header.jsx';
@@ -9,9 +9,8 @@ import Header from '../header/header.jsx';
 const DEFAULT_MENU = 'Amsterdam';
 
 export default function PageMain({ offers }) {
+
   const [currentMenu, setCurrentMenu] = useState(DEFAULT_MENU);
-
-
   return (
     <div className="page page--gray page--main">
       <Header />
@@ -28,7 +27,7 @@ export default function PageMain({ offers }) {
         <div className="cities">
           <div className="cities__places-container container">
             <OffersBoard currentCity={currentMenu} /* currentSort = {currentSort} */>
-              {offers.map((offer) => <OfferCard key={offer.id} offer={offer} page={OfferCardParent.MAIN}/>)}
+              <OfferCardList offers={offers} page={OfferCardListParent.MAIN}/>
             </OffersBoard>
             <div className="cities__right-section">
               <section className="cities__map map" />
