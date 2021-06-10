@@ -3,13 +3,13 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { CITYES } from '../../const';
 
-export default function CityNavigation({ currentMenu, changeActiveMenu }) {
-  const menu = { ...CITYES };
+export default function CityNavigation ({ currentMenu, changeActiveMenu }) {
+
   return (
     <ul className="locations__list tabs__list">
-      {Object.entries(menu)
-        .map(([id, name]) => (
-          <li key={id} className="locations__item">
+      {
+        CITYES.map(([name, index]) => (
+          <li key={name + index} className="locations__item">
             <a
               href="/#"
               className={classNames('locations__item-link', 'tabs__item', {

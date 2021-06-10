@@ -12,6 +12,7 @@ import PageFavorites from '../pages/favorites';
 import PageOfferDetails from '../pages/offer-details';
 import PageNotFoundfrom from '../pages/404';
 import { AppRouts } from '../../const';
+import { createRandomReviews } from '../../mocs/reviews';
 
 function App({ offers = [] }) {
   return (
@@ -27,7 +28,7 @@ function App({ offers = [] }) {
           <PageFavorites />
         </Route>
         <Route path={AppRouts.OFFER_DETAILS}>
-          <PageOfferDetails offers={offers} />
+          <PageOfferDetails offers={offers} reviews={createRandomReviews()} />
         </Route>
         <Route>
           <PageNotFoundfrom />
