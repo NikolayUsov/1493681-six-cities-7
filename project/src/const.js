@@ -9,4 +9,5 @@ export const SORT_TYPES = ['Popular', 'Price: low to high', 'Price: high to low'
 
 export const OfferCardListParent = {
   MAIN: 'cities',
+  NEAR_PLACES: 'near-places',
 };

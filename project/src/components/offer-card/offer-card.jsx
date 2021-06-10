@@ -8,7 +8,7 @@ import Premium from '../shared/premium';
 import OfferCardProp from './offer-card.prop';
 import { OfferCardListParent } from '../../const';
 
-export default function OfferCard({ offer, page, setHoverCard }) {
+export default function OfferCard({ offer, container, setHoverCard }) {
   const {
     id,
     price,
@@ -29,9 +29,12 @@ export default function OfferCard({ offer, page, setHoverCard }) {
 
   return (
 
-    <article onFocus={() => setHoverCard({ latitude, longitude, zoom })} className={`${page}__place-card place-card`}>
+    <article
+      onFocus={() => setHoverCard({ latitude, longitude, zoom })}
+      className={`${container}__place-card place-card`}
+    >
       {isPremium && <Premium />}
-      <div className={`${page}__image-wrapper place-card__image-wrapper`}>
+      <div className={`${container}__image-wrapper place-card__image-wrapper`}>
         <Link to={`/offer/${id}?`}>
           <img className="place-card__image" src={previewImage} width={260} height={200} alt="Place pic" />
         </Link>
@@ -68,7 +71,7 @@ export default function OfferCard({ offer, page, setHoverCard }) {
 }
 
 OfferCard.propTypes = {
-  page: PropTypes.string.isRequired,
+  container: PropTypes.string.isRequired,
   setHoverCard: PropTypes.func.isRequired,
   offer: OfferCardProp.isRequired,
 };

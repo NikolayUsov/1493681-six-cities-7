@@ -26,7 +26,7 @@ export default function PageMain({ offers }) {
         <div className="cities">
           <div className="cities__places-container container">
             <OffersBoard currentCity={currentMenu}>
-              <OfferCardList offers={offers} page={OfferCardListParent.MAIN} />
+              <OfferCardList offers={offers} container={OfferCardListParent.MAIN} />
             </OffersBoard>
             <div className="cities__right-section">
               <section className="cities__map map" />
