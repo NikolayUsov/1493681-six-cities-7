@@ -29,6 +29,6 @@ export default PropTypes.shape({
     isPro: PropTypes.bool,
     name: PropTypes.string,
   }),
-  images: PropTypes.array,
+  images: PropTypes.arrayOf(PropTypes.string),
   maxAdults: PropTypes.number,
 }).isRequired;

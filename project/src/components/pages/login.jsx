@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
 import Logo from '../logo/logo';
 
@@ -14,8 +15,7 @@ export default function PageLogin() {
               <ul className="header__nav-list">
                 <li className="header__nav-item user">
                   <a className="header__nav-link header__nav-link--profile" href="/#">
-                    <div className="header__avatar-wrapper user__avatar-wrapper">
-                    </div>
+                    <div className="header__avatar-wrapper user__avatar-wrapper" />
                     <span className="header__login">Sign in</span>
                   </a>
                 </li>
@@ -30,8 +30,8 @@ export default function PageLogin() {
             <h1 className="login__title">Sign in</h1>
             <form className="login__form form" action="#" method="post">
               <div className="login__input-wrapper form__input-wrapper">
-                <label className="visually-hidden">E-mail</label>
-                <input className="login__input form__input" type="email" name="email" placeholder="Email" required />
+                <label htmlFor="email" className="visually-hidden">E-mail</label>
+                <input id="email" className="login__input form__input" type="email" name="email" placeholder="Email" required />
               </div>
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">Password</label>
@@ -52,4 +52,3 @@ export default function PageLogin() {
     </div>
   );
 }
-

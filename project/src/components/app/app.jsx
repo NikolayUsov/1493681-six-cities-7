@@ -2,25 +2,23 @@ import React from 'react';
 import {
   BrowserRouter,
   Switch,
-  Route
+  Route,
 } from 'react-router-dom';
 
-import PageMain from '../pages/main';
 import PropTypes from 'prop-types';
+import PageMain from '../pages/main';
 import PageLogin from '../pages/login';
 import PageFavorites from '../pages/favorites';
-import PageOfferDetails  from '../pages/offer-details';
+import PageOfferDetails from '../pages/offer-details';
 import PageNotFoundfrom from '../pages/404';
-import { AppRouts } from '../../const.js';
-
+import { AppRouts } from '../../const';
 
 function App({ offers = [] }) {
-
-  return(
+  return (
     <BrowserRouter>
       <Switch>
         <Route exact path={AppRouts.ROOT}>
-          <PageMain offers={offers}/>
+          <PageMain offers={offers} />
         </Route>
         <Route exact path={AppRouts.LOGIN}>
           <PageLogin />
@@ -28,8 +26,8 @@ function App({ offers = [] }) {
         <Route exact path={AppRouts.FAVORITES}>
           <PageFavorites />
         </Route>
-        <Route path={AppRouts.OFFER_DETAILS} >
-          <PageOfferDetails offers={offers}/>
+        <Route path={AppRouts.OFFER_DETAILS}>
+          <PageOfferDetails offers={offers} />
         </Route>
         <Route>
           <PageNotFoundfrom />
@@ -38,10 +36,9 @@ function App({ offers = [] }) {
       </Switch>
     </BrowserRouter>
   );
-
 }
 
-App.propTypes  = {
+App.propTypes = {
   offers: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,

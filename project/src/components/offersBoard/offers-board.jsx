@@ -1,10 +1,9 @@
 import React from 'react';
-import SortOffers from '../sort-offer/sort-offers';
 import PropTypes from 'prop-types';
+import SortOffers from '../sort-offer/sort-offers';
 
-export default function OffersBoard ({children, currentCity}) {
-
-  return(
+export default function OffersBoard({ children, currentCity }) {
+  return (
     <section className="cities__places places">
       <h2 className="visually-hidden">Places</h2>
       <b className="places__found">{`312 places to stay in ${currentCity}`}</b>
@@ -21,5 +20,5 @@ OffersBoard.propTypes = {
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,
   ]).isRequired,
-  currentCity: PropTypes.string,
+  currentCity: PropTypes.string.isRequired,
 };

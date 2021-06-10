@@ -1,10 +1,15 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
 
-function ReviewList({reviews}){
-
-  return(
+function ReviewList({ reviews }) {
+  return (
     <>
-      <h2 className="reviews__title">Reviews · <span className="reviews__amount">1</span></h2>
+      <h2 className="reviews__title">
+        Reviews ·
+        {' '}
+        <span className="reviews__amount">1</span>
+      </h2>
       <ul className="reviews__list">
         {reviews.map((elem) => (
           <li key={elem.id} className="reviews__item">
@@ -19,12 +24,14 @@ function ReviewList({reviews}){
             <div className="reviews__info">
               <div className="reviews__rating rating">
                 <div className="reviews__stars rating__stars">
-                  <span style={{width: '80%'}} />
+                  <span style={{ width: '80%' }} />
                   <span className="visually-hidden">Rating</span>
                 </div>
               </div>
               <p className="reviews__text">
-                A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.
+                A quiet cozy and picturesque that hides behind a
+                a river by the unique lightness of Amsterdam.
+                The building is green and from 18th century.
               </p>
               <time className="reviews__time" dateTime="2019-04-24">April 2019</time>
             </div>
@@ -36,11 +43,10 @@ function ReviewList({reviews}){
   );
 }
 
-export default function Reviews ({reviews}) {
-
-  return(
+export default function Reviews({ reviews }) {
+  return (
     <section className="property__reviews reviews">
-      <ReviewList reviews={reviews}/>
+      <ReviewList reviews={reviews} />
       <form className="reviews__form form" action="/#" method="post">
         <label className="reviews__label form__label" htmlFor="review">Your review</label>
         <div className="reviews__rating-form form__rating">
@@ -75,10 +81,17 @@ export default function Reviews ({reviews}) {
             </svg>
           </label>
         </div>
-        <textarea className="reviews__textarea form__textarea" id="review" name="review" placeholder="Tell how was your stay, what you like and what can be improved" defaultValue={''} />
+        <textarea className="reviews__textarea form__textarea" id="review" name="review" placeholder="Tell how was your stay, what you like and what can be improved" defaultValue="" />
         <div className="reviews__button-wrapper">
           <p className="reviews__help">
-            To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
+            To submit review please make sure to set
+            {' '}
+            <span className="reviews__star">rating</span>
+            {' '}
+            and describe your stay with at least
+            {' '}
+            <b className="reviews__text-amount">50 characters</b>
+            .
           </p>
           <button className="reviews__submit form__submit button" type="submit" disabled>Submit</button>
         </div>

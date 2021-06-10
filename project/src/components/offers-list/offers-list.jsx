@@ -1,13 +1,20 @@
 import React, { useState } from 'react';
-import OfferCard  from '../offer-card/offer-card.jsx';
 import PropTypes from 'prop-types';
-import OfferPropType from '../offer-card/offer-card.prop.js';
+import OfferCard from '../offer-card/offer-card';
+import OfferPropType from '../offer-card/offer-card.prop';
 
-export default function OfferCardList({offers, page}) {
+export default function OfferCardList({ offers, page }) {
   const [, setHoverCard] = useState({});
 
   return (
-    offers.map((offer) => <OfferCard key={offer.id} offer={offer} page={page} setHoverCard={setHoverCard}/>)
+    offers.map((offer) => (
+      <OfferCard
+        key={offer.id}
+        offer={offer}
+        page={page}
+        setHoverCard={setHoverCard}
+      />
+    ))
   );
 }
 

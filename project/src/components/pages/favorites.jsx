@@ -1,9 +1,9 @@
 import React from 'react';
 import Header from '../header/header';
 import Logo from '../logo/logo';
-export default function PageFavorites() {
 
-  return(
+export default function PageFavorites() {
+  return (
     <div className="page">
       <Header />
       <main className="page__main page__main--favorites">
@@ -41,7 +41,7 @@ export default function PageFavorites() {
                       </div>
                       <div className="place-card__rating rating">
                         <div className="place-card__stars rating__stars">
-                          <span style={{width: '100%'}} />
+                          <span style={{ width: '100%' }} />
                           <span className="visually-hidden">Rating</span>
                         </div>
                       </div>
@@ -72,7 +72,7 @@ export default function PageFavorites() {
                       </div>
                       <div className="place-card__rating rating">
                         <div className="place-card__stars rating__stars">
-                          <span style={{width: '80%'}} />
+                          <span style={{ width: '80%' }} />
                           <span className="visually-hidden">Rating</span>
                         </div>
                       </div>
@@ -114,7 +114,7 @@ export default function PageFavorites() {
                       </div>
                       <div className="place-card__rating rating">
                         <div className="place-card__stars rating__stars">
-                          <span style={{width: '100%'}} />
+                          <span style={{ width: '100%' }} />
                           <span className="visually-hidden">Rating</span>
                         </div>
                       </div>
@@ -131,7 +131,7 @@ export default function PageFavorites() {
         </div>
       </main>
       <footer className="footer container">
-        <Logo isFooter/>
+        <Logo isFooter />
       </footer>
     </div>
 

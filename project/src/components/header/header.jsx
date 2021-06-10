@@ -3,7 +3,7 @@ import Logo from '../logo/logo';
 import UserNavigation from '../user-navigation/user-navigation';
 
 export default function Header() {
-  return(
+  return (
     <header className="header">
       <div className="container">
         <div className="header__wrapper">

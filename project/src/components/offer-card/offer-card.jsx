@@ -1,13 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { createProcent } from '../../utils/utils.js';
 import classNames from 'classnames';
-import { Types } from '../../mocs/offers.js';
+import { createProcent } from '../../utils/utils';
+import { Types } from '../../mocs/offers';
 import Premium from '../shared/premium';
 import OfferCardProp from './offer-card.prop';
+import { OfferCardListParent } from '../../const';
 
-export default function OfferCard ({offer, page, setHoverCard}) {
+export default function OfferCard({ offer, page, setHoverCard }) {
   const {
     id,
     price,
@@ -20,15 +21,15 @@ export default function OfferCard ({offer, page, setHoverCard}) {
     location,
   } = offer;
 
-  const {latitude, longitude, zoom} = location;
+  const { latitude, longitude, zoom } = location;
 
-  const addToFavoritesClass = classNames('place-card__bookmark-button', 'button',{
+  const addToFavoritesClass = classNames('place-card__bookmark-button', 'button', {
     'place-card__bookmark-button--active': isFavorite,
   });
 
   return (
 
-    <article onMouseOver={()=>setHoverCard({latitude, longitude, zoom})} className={`${page}__place-card place-card`}>
+    <article onFocus={() => setHoverCard({ latitude, longitude, zoom })} className={`${page}__place-card place-card`}>
       {isPremium && <Premium />}
       <div className={`${page}__image-wrapper place-card__image-wrapper`}>
         <Link to={`/offer/${id}?`}>
@@ -38,7 +39,10 @@ export default function OfferCard ({offer, page, setHoverCard}) {
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
-            <b className="place-card__price-value">€{price}</b>
+            <b className="place-card__price-value">
+              €
+              {price}
+            </b>
             <span className="place-card__price-text">/&nbsp;night</span>
           </div>
           <button className={addToFavoritesClass} type="button">
@@ -50,7 +54,7 @@ export default function OfferCard ({offer, page, setHoverCard}) {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: `${createProcent(rating, 5)}%`}} />
+            <span style={{ width: `${createProcent(rating, 5)}%` }} />
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
@@ -64,7 +68,11 @@ export default function OfferCard ({offer, page, setHoverCard}) {
 }
 
 OfferCard.propTypes = {
-  page: PropTypes.string,
-  setHoverCard: PropTypes.func,
-  offer: OfferCardProp,
+  page: PropTypes.string.isRequired,
+  setHoverCard: PropTypes.func.isRequired,
+  offer: OfferCardProp.isRequired,
+};
+
+OfferCard.defaultProp = {
+  page: OfferCardListParent.MAIN,
 };

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { AppRouts} from '../../const';
+import { AppRouts } from '../../const';
 import Logo from '../logo/logo';
 
 export default function PageNotFound() {
@@ -27,7 +27,8 @@ export default function PageNotFound() {
             <div>
               <p
                 style={linkStyle}
-              >Что то ты свернул не туда, может найдем другое
+              >
+                Что то ты свернул не туда, может найдем другое
                 <Link style={{ fontSize: '24px', color: 'gray' }} to={AppRouts.ROOT}>
                   Место
                 </Link>

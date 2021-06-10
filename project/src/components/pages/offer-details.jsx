@@ -1,15 +1,16 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
 import { useParams } from 'react-router';
-import Header from '../header/header';
 import PropTypes from 'prop-types';
-import OfferCardProp from '../offer-card/offer-card.prop';
-import GalleryDetails from '../details-gallery/details-gallery.jsx';
 import classNames from 'classnames';
-import { createProcent } from '../../utils/utils.js';
+import Header from '../header/header';
+import OfferCardProp from '../offer-card/offer-card.prop';
+import GalleryDetails from '../details-gallery/details-gallery';
+import { createProcent } from '../../utils/utils';
 import HostDeatails from '../details-host/details-host';
 
-export default  function PageOfferDetails({offers}) {
-  const  { id } = useParams();
+export default function PageOfferDetails({ offers }) {
+  const { id } = useParams();
   const idx = offers.findIndex((elem) => elem.id === +id);
   const currentElement = offers[idx];
 
@@ -28,7 +29,7 @@ export default  function PageOfferDetails({offers}) {
     description,
   } = currentElement;
 
-  const addToFavoritesClass = classNames('property__bookmark-button', 'button',{
+  const addToFavoritesClass = classNames('property__bookmark-button', 'button', {
     'property__bookmark-button--active': isFavorite,
   });
 
@@ -37,17 +38,21 @@ export default  function PageOfferDetails({offers}) {
       <Header />
       <main className="page__main page__main--property">
         <section className="property">
-          {images &&
+          {images
+            && (
             <div className="property__gallery-container container">
-              <GalleryDetails photos={images}/>
-            </div>}
+              <GalleryDetails photos={images} />
+            </div>
+            )}
 
           <div className="property__container container">
             <div className="property__wrapper">
-              {isPrime &&
+              {isPrime
+              && (
               <div className="property__mark">
                 <span>Premium</span>
-              </div>}
+              </div>
+              )}
 
               <div className="property__name-wrapper">
                 <h1 className="property__name">
@@ -62,7 +67,7 @@ export default  function PageOfferDetails({offers}) {
               </div>
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">
-                  <span style={{width: `${createProcent(rating, 5)}%`}} />
+                  <span style={{ width: `${createProcent(rating, 5)}%` }} />
                   <span className="visually-hidden">Rating</span>
                 </div>
                 <span className="property__rating-value rating__value">{rating}</span>
@@ -79,25 +84,32 @@ export default  function PageOfferDetails({offers}) {
                 </li>
               </ul>
               <div className="property__price">
-                <b className="property__price-value">€{price}</b>
+                <b className="property__price-value">
+                  €
+                  {price}
+                </b>
                 <span className="property__price-text">&nbsp;night</span>
               </div>
               <div className="property__inside">
                 <h2 className="property__inside-title">Whats inside</h2>
                 <ul className="property__inside-list">
-                  {goods.map((elem) =>
-                    (
-                      <li key={elem}
-                        className="property__inside-item"
-                      >{elem}
-                      </li>
-                    ))}
+                  {goods.map((elem) => (
+                    <li
+                      key={elem}
+                      className="property__inside-item"
+                    >
+                      {elem}
+                    </li>
+                  ))}
                 </ul>
               </div>
 
-              <HostDeatails host={host} description={description}/>
+              <HostDeatails host={host} description={description} />
               <section className="property__reviews reviews">
-                <h2 className="reviews__title">Reviews · <span className="reviews__amount">1</span></h2>
+                <h2 className="reviews__title">
+                  Reviews ·
+                  <span className="reviews__amount">1</span>
+                </h2>
                 <ul className="reviews__list">
                   <li className="reviews__item">
                     <div className="reviews__user user">
@@ -111,12 +123,13 @@ export default  function PageOfferDetails({offers}) {
                     <div className="reviews__info">
                       <div className="reviews__rating rating">
                         <div className="reviews__stars rating__stars">
-                          <span style={{width: '80%'}} />
+                          <span style={{ width: '80%' }} />
                           <span className="visually-hidden">Rating</span>
                         </div>
                       </div>
                       <p className="reviews__text">
-                        A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.
+                        A quiet cozy and picturesque that hides behind a a river by the unique
+                        lightness of Amsterdam. The building is green and from 18th century.
                       </p>
                       <time className="reviews__time" dateTime="2019-04-24">April 2019</time>
                     </div>
@@ -156,10 +169,17 @@ export default  function PageOfferDetails({offers}) {
                       </svg>
                     </label>
                   </div>
-                  <textarea className="reviews__textarea form__textarea" id="review" name="review" placeholder="Tell how was your stay, what you like and what can be improved" defaultValue={''} />
+                  <textarea className="reviews__textarea form__textarea" id="review" name="review" placeholder="Tell how was your stay, what you like and what can be improved" defaultValue="" />
                   <div className="reviews__button-wrapper">
                     <p className="reviews__help">
-                      To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
+                      To submit review please make sure to set
+                      {' '}
+                      <span className="reviews__star">rating</span>
+                      {' '}
+                      and describe your stay with at least
+                      {' '}
+                      <b className="reviews__text-amount">50 characters</b>
+                      .
                     </p>
                     <button className="reviews__submit form__submit button" type="submit" disabled>Submit</button>
                   </div>
@@ -194,7 +214,7 @@ export default  function PageOfferDetails({offers}) {
                   </div>
                   <div className="place-card__rating rating">
                     <div className="place-card__stars rating__stars">
-                      <span style={{width: '80%'}} />
+                      <span style={{ width: '80%' }} />
                       <span className="visually-hidden">Rating</span>
                     </div>
                   </div>
@@ -225,7 +245,7 @@ export default  function PageOfferDetails({offers}) {
                   </div>
                   <div className="place-card__rating rating">
                     <div className="place-card__stars rating__stars">
-                      <span style={{width: '80%'}} />
+                      <span style={{ width: '80%' }} />
                       <span className="visually-hidden">Rating</span>
                     </div>
                   </div>
@@ -256,7 +276,7 @@ export default  function PageOfferDetails({offers}) {
                   </div>
                   <div className="place-card__rating rating">
                     <div className="place-card__stars rating__stars">
-                      <span style={{width: '100%'}} />
+                      <span style={{ width: '100%' }} />
                       <span className="visually-hidden">Rating</span>
                     </div>
                   </div>
@@ -275,5 +295,5 @@ export default  function PageOfferDetails({offers}) {
 }
 
 PageOfferDetails.propTypes = {
-  offers: PropTypes.arrayOf(OfferCardProp),
+  offers: PropTypes.arrayOf(OfferCardProp).isRequired,
 };
