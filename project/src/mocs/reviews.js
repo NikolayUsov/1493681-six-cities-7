@@ -1,6 +1,10 @@
 import dayjs from 'dayjs';
 import {
-  getRandomText, getRandomInteger, createId, getRandomFloat,
+  getRandomText,
+  getRandomInteger,
+  createId,
+  getRandomFloat,
+  getRandomElement,
 } from './mock-utils';
 
 const AVATAR_URL = 'https://i.pravatar.cc/';
@@ -15,7 +19,7 @@ const review = () => ({
   user: {
     avatarUrl: `${AVATAR_URL}${getRandomInteger(1, 50)}`,
     isPro: Boolean(getRandomInteger(0, 1)),
-    name: NAMES.randomElement(),
+    name: getRandomElement(NAMES),
     id: getRandomInteger(100, 900),
   },
 });

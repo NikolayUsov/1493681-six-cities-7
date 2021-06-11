@@ -6,6 +6,10 @@ import OfferPropType from '../offer-card/offer-card.prop';
 export default function OfferCardList({ offers, container, slice = 0 }) {
   const [, setHoverCard] = useState({});
 
+  const handlerOnMouseEnter = (offer) => {
+    setHoverCard(offer);
+  };
+
   const renderedCard = slice ? offers.slice(0, slice) : offers.slice();
   return (
     renderedCard.map((offer) => (
@@ -13,7 +17,7 @@ export default function OfferCardList({ offers, container, slice = 0 }) {
         key={offer.id}
         offer={offer}
         container={container}
-        setHoverCard={setHoverCard}
+        handlerOnMouseEnter={handlerOnMouseEnter}
       />
     ))
   );

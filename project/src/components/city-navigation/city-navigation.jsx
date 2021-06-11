@@ -1,13 +1,15 @@
 import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import { CITYES } from '../../const';
+import { CITIES } from '../../const';
 
 export default function CityNavigation({ currentMenu, changeActiveMenu }) {
   return (
-    <ul className="locations__list tabs__list">
-      {
-        CITYES.map((name, index) => (
+    <div className="tabs">
+      <section className="locations container">
+        <ul className="locations__list tabs__list">
+          {
+        CITIES.map((name, index) => (
           <li key={name + String(index)} className="locations__item">
             <a
               href="/#"
@@ -20,8 +22,10 @@ export default function CityNavigation({ currentMenu, changeActiveMenu }) {
             </a>
           </li>
         ))
-}
-    </ul>
+      }
+        </ul>
+      </section>
+    </div>
   );
 }
 

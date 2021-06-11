@@ -1,8 +1,8 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
-import Logo from '../logo/logo';
+import Logo from '../components/logo/logo';
 
-export default function PageLogin() {
+export default function Login() {
   return (
     <div className="page page--gray page--login">
       <header className="header">

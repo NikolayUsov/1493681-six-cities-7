@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { AppRouts } from '../../const';
-import Logo from '../logo/logo';
+import { AppRoutes } from '../const';
+import Logo from '../components/logo/logo';
 
-export default function PageNotFound() {
+export default function NotFound() {
   const headerStyle = {
     height: '100vh',
     background: 'url(https://www.varlamov.me/2016/omsk_ploh/00s.jpg), no-repeat',
@@ -29,7 +29,7 @@ export default function PageNotFound() {
                 style={linkStyle}
               >
                 Что то ты свернул не туда, может найдем другое
-                <Link style={{ fontSize: '24px', color: 'gray' }} to={AppRouts.ROOT}>
+                <Link style={{ fontSize: '24px', color: 'gray' }} to={AppRoutes.ROOT}>
                   Место
                 </Link>
               </p>

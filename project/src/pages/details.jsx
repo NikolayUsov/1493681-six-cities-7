@@ -3,21 +3,27 @@ import React from 'react';
 import { useParams } from 'react-router';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import Header from '../header/header';
-import OfferCardProp from '../offer-card/offer-card.prop';
-import GalleryDetails from '../details-gallery/details-gallery';
-import { createProcent } from '../../utils/utils';
-import HostDeatails from '../details-host/details-host';
-import Reviews from '../reviews/reviews';
-import { review } from '../review-list/review.prop';
-import OfferCardList from '../offers-list/offers-list';
-import { OfferCardListParent } from '../../const';
+import { Redirect } from 'react-router-dom';
+import Header from '../components/header/header';
+import OfferCardProp from '../components/offer-card/offer-card.prop';
+import GalleryDetails from '../components/details-gallery/details-gallery';
+import { createPercent } from '../utils/utils';
+import HostDetails from '../components/details-host/details-host';
+import Reviews from '../components/reviews/reviews';
+import { review } from '../components/review-list/review.prop';
+import OfferCardList from '../components/offer-card-list/offer-card-list';
+import { OfferCardListParent } from '../const';
 
-const MAX_NEIGHBOURHOOD = 3;
+const MAX_NEIGHBORHOOD = 3;
 
-export default function PageOfferDetails({ offers, reviews }) {
+export default function Details({ offers, reviews }) {
   const { id } = useParams();
   const idx = offers.findIndex((elem) => elem.id === +id);
+
+  if (idx === -1) {
+    return <Redirect to="/" />;
+  }
+
   const currentElement = offers[idx];
 
   const {
@@ -73,7 +79,7 @@ export default function PageOfferDetails({ offers, reviews }) {
               </div>
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">
-                  <span style={{ width: `${createProcent(rating, 5)}%` }} />
+                  <span style={{ width: `${createPercent(rating, 5)}%` }} />
                   <span className="visually-hidden">Rating</span>
                 </div>
                 <span className="property__rating-value rating__value">{rating}</span>
@@ -110,7 +116,7 @@ export default function PageOfferDetails({ offers, reviews }) {
                 </ul>
               </div>
 
-              <HostDeatails host={host} description={description} />
+              <HostDetails host={host} description={description} />
               <Reviews reviews={reviews} />
             </div>
           </div>
@@ -120,18 +126,10 @@ export default function PageOfferDetails({ offers, reviews }) {
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              {/* Вот тут с классами дикая жопа как переиспользовать  оффер лист ????
-              По умному старался сделать но не выходило повезло что у класов в мейне
-              и тут одинаковые
-              стили и все работает, но нужно придумать
-
-              А еще по клику на этот список карточек меняется вся страница но ui ужасен
-              не понятно что произошло
-              */}
               <OfferCardList
                 container={OfferCardListParent.MAIN}
                 offers={offers}
-                slice={MAX_NEIGHBOURHOOD}
+                slice={MAX_NEIGHBORHOOD}
               />
             </div>
           </section>
@@ -141,7 +139,7 @@ export default function PageOfferDetails({ offers, reviews }) {
   );
 }
 
-PageOfferDetails.propTypes = {
+Details.propTypes = {
   offers: PropTypes.arrayOf(OfferCardProp).isRequired,
   reviews: PropTypes.arrayOf(review).isRequired,
 };

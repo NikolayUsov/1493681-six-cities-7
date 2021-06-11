@@ -10,10 +10,17 @@ const StarTitles = {
   5: 'perfect',
 };
 
-function StarItem({ value, title }) {
+function StarItem({ value, title, handleChangeRating }) {
   return (
     <>
-      <input className="form__rating-input visually-hidden" name="rating" defaultValue={value} id={`${value}-stars`} type="radio" />
+      <input
+        className="form__rating-input visually-hidden"
+        name="rating"
+        value={value}
+        id={`${value}-stars`}
+        type="radio"
+        onChange={() => handleChangeRating(value)}
+      />
       <label htmlFor={`${value}-stars`} className="reviews__rating-label form__rating-label" title={title}>
         <svg className="form__star-image" width={37} height={33}>
           <use xlinkHref="#icon-star" />
@@ -24,12 +31,17 @@ function StarItem({ value, title }) {
   );
 }
 
-// eslint-disable-next-line no-unused-vars
-export default function StarRating({ setRating }) {
+export default function StarRating({ handleChangeRating }) {
   return (
-    <div className="reviews__rating-form form__rating" onChange={(evt) => setRating(evt.target.value)}>
+    <div className="reviews__rating-form form__rating">
       { Object.entries(StarTitles)
-        .map(([star, title]) => <StarItem value={star} title={title} />)
+        .map(([star, title]) => (
+          <StarItem
+            value={star}
+            title={title}
+            setRating={handleChangeRating}
+          />
+        ))
         .reverse()}
     </div>
   );
@@ -38,8 +50,9 @@ export default function StarRating({ setRating }) {
 StarItem.propTypes = {
   value: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
+  handleChangeRating: PropTypes.func.isRequired,
 };
 
 StarRating.propTypes = {
-  setRating: PropTypes.func.isRequired,
+  handleChangeRating: PropTypes.func.isRequired,
 };

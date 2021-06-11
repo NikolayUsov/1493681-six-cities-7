@@ -1,8 +1,8 @@
 import React from 'react';
-import Header from '../header/header';
-import Logo from '../logo/logo';
+import Header from '../components/header/header';
+import Logo from '../components/logo/logo';
 
-export default function PageFavorites() {
+export default function Favorites() {
   return (
     <div className="page">
       <Header />

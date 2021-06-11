@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { AppRouts } from '../../const';
+import { AppRoutes } from '../../const';
 
 const LogoSize = {
   HEADER: { width: 81, height: 41 },
@@ -14,7 +14,7 @@ export default function Logo({ isFooter }) {
   const imageClass = `${isFooter ? 'footer' : 'header'}__logo`;
 
   return (
-    <Link className={linkClass} to={AppRouts.ROOT}>
+    <Link className={linkClass} to={AppRoutes.ROOT}>
       <img
         className={imageClass}
         src="img/logo.svg"

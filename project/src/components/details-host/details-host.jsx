@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export default function HostDeatails({ host, description }) {
+export default function HostDetails({ host, description }) {
   const {
     avatarUrl,
     isPro,
@@ -41,16 +41,12 @@ export default function HostDeatails({ host, description }) {
   );
 }
 
-HostDeatails.propTypes = {
+HostDetails.propTypes = {
   host: PropTypes.shape({
     avatarUrl: PropTypes.string,
     id: PropTypes.number,
     isPro: PropTypes.bool,
     name: PropTypes.string,
   }).isRequired,
-  description: PropTypes.string,
-};
-
-HostDeatails.defaultProps = {
-  description: '',
+  description: PropTypes.string.isRequired,
 };

@@ -1,9 +1,14 @@
 import {
-  getRandomFloat, getRandomInteger, getRandomText, createId,
+  getRandomFloat,
+  getRandomInteger,
+  getRandomText,
+  createId,
+  shuffleArray,
+  getRandomElement,
 } from './mock-utils';
 
 const AVATAR_URL = 'https://i.pravatar.cc/';
-const CITYES = [
+const CITIES = [
   'Paris',
   'Cologne',
   'Brussels',
@@ -38,15 +43,15 @@ const generateOfferItemMock = () => {
         longitude: (getRandomFloat(4, 52, 7)),
         zoom: getRandomInteger(1, 10),
       },
-      name: CITYES.randomElement(),
+      name: getRandomElement(CITIES),
     },
     description: getRandomText(),
-    goods: GOODS.shuffle(),
+    goods: shuffleArray(GOODS),
     host: {
       avatarUrl: `${AVATAR_URL}${getRandomInteger(1, 50)}`,
       id: getHostId(),
       isPro: Boolean(getRandomInteger(0, 1)),
-      name: NAMES.randomElement(),
+      name: getRandomElement(NAMES),
     },
     id: getOffersId(),
     images: photos,
@@ -62,7 +67,7 @@ const generateOfferItemMock = () => {
     price: getRandomInteger(69, 140),
     rating: getRandomFloat(0, 5),
     title: getRandomText().slice(0, 16),
-    type: Object.keys(Types).randomElement(),
+    type: getRandomElement(Object.keys(Types)),
   };
 };
 

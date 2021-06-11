@@ -2,13 +2,12 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { createProcent } from '../../utils/utils';
+import { createPercent } from '../../utils/utils';
 import { Types } from '../../mocs/offers';
-import Premium from '../shared/premium';
 import OfferCardProp from './offer-card.prop';
 import { OfferCardListParent } from '../../const';
 
-export default function OfferCard({ offer, container, setHoverCard }) {
+export default function OfferCard({ offer, container, handlerOnMouseEnter }) {
   const {
     id,
     price,
@@ -18,10 +17,7 @@ export default function OfferCard({ offer, container, setHoverCard }) {
     type,
     isPremium,
     previewImage,
-    location,
   } = offer;
-
-  const { latitude, longitude, zoom } = location;
 
   const addToFavoritesClass = classNames('place-card__bookmark-button', 'button', {
     'place-card__bookmark-button--active': isFavorite,
@@ -30,12 +26,16 @@ export default function OfferCard({ offer, container, setHoverCard }) {
   return (
 
     <article
-      onFocus={() => setHoverCard({ latitude, longitude, zoom })}
+      onMouseEnter={() => handlerOnMouseEnter(offer)}
       className={`${container}__place-card place-card`}
     >
-      {isPremium && <Premium />}
+      {isPremium && (
+      <div className="place-card__mark">
+        <span>Premium</span>
+      </div>
+      )}
       <div className={`${container}__image-wrapper place-card__image-wrapper`}>
-        <Link to={`/offer/${id}?`}>
+        <Link to={`/offer/${id}`}>
           <img className="place-card__image" src={previewImage} width={260} height={200} alt="Place pic" />
         </Link>
       </div>
@@ -57,12 +57,12 @@ export default function OfferCard({ offer, container, setHoverCard }) {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: `${createProcent(rating, 5)}%` }} />
+            <span style={{ width: `${createPercent(rating, 5)}%` }} />
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="/#">{title}</a>
+          <Link to={`/offer/${id}`}>{title}</Link>
         </h2>
         <p className="place-card__type">{Types[type]}</p>
       </div>
@@ -72,7 +72,7 @@ export default function OfferCard({ offer, container, setHoverCard }) {
 
 OfferCard.propTypes = {
   container: PropTypes.string.isRequired,
-  setHoverCard: PropTypes.func.isRequired,
+  handlerOnMouseEnter: PropTypes.func.isRequired,
   offer: OfferCardProp.isRequired,
 };
 
