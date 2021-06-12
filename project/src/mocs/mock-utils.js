@@ -15,7 +15,7 @@ export const createId = (start = 0) => {
   };
 };
 
-export const getRandomFloat = (min, max, point = 1) => (Math.random() * (max - min) + min)
+export const getRandomFloat = (min, max, point = 1) => +(Math.random() * (max - min) + min)
   .toFixed(point);
 
 export const shuffleArray = (array) => {

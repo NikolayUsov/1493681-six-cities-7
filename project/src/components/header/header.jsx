@@ -10,7 +10,7 @@ export default function Header() {
           <div className="header__left">
             <Logo />
           </div>
-          <UserNavigation />
+          <UserNavigation isAuthorization />
         </div>
       </div>
     </header>

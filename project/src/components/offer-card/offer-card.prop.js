@@ -22,7 +22,7 @@ export default PropTypes.shape({
     city: PropTypes.string,
   }),
   description: PropTypes.string,
-  goods: PropTypes.string,
+  goods: PropTypes.arrayOf(PropTypes.string),
   host: PropTypes.shape({
     avatarUrl: PropTypes.string,
     id: PropTypes.number,
