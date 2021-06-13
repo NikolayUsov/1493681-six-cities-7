@@ -1,10 +1,10 @@
 # Личный проект «Шесть городов»
 ![GitHub top language](https://img.shields.io/github/languages/top/NikolayUsov/1493681-six-cities-7)
-![Code Climate maintainability](https://img.shields.io/codeclimate/maintainability/NikolayUsov/1493681-six-cities-7)
+[![Maintainability](https://api.codeclimate.com/v1/badges/a99a88d28ad37a79dbf6/maintainability)](https://codeclimate.com/github/codeclimate/codeclimate/maintainability)
 ![GitHub language count](https://img.shields.io/github/languages/count/NikolayUsov/1493681-six-cities-7)
 ![GitHub repo size](https://img.shields.io/github/repo-size/NikolayUsov/1493681-six-cities-7)
 * Студент: [Nikolay Usov](https://up.htmlacademy.ru/react/7/user/1493681).
-* Наставник: [Алексей Хабиров].
+* Наставник: [Алексей Хабиров](https://htmlacademy.ru/profile/alex_khab).
 
 ---
 
