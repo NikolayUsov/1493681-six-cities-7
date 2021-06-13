@@ -2,50 +2,43 @@ import React from 'react';
 import {
   BrowserRouter,
   Switch,
-  Route
+  Route,
 } from 'react-router-dom';
 
-import PageMain from '../pages/main';
-import PropTypes from 'prop-types';
-import PageLogin from '../pages/login';
-import PageFavorites from '../pages/favorites';
-import PageOfferDetails  from '../pages/offer-details';
-import PageNotFoundfrom from '../pages/404';
-import { AppRouts } from '../../const.js';
+import Main from '../../pages/main';
+import Login from '../../pages/login';
+import Favorites from '../../pages/favorites';
+import Details from '../../pages/details';
+import NotFound from '../../pages/not-found';
+import { AppRoutes } from '../../const';
+import { createRandomReviews } from '../../mocs/reviews';
+import { offers } from '../../mocs/offers';
 
-function App({ offers = [] }) {
+const reviews = createRandomReviews();
 
-  return(
+function App() {
+  return (
     <BrowserRouter>
       <Switch>
-        <Route exact path={AppRouts.ROOT}>
-          <PageMain offers={offers}/>
+        <Route exact path={AppRoutes.ROOT}>
+          <Main offers={offers} />
         </Route>
-        <Route exact path={AppRouts.LOGIN}>
-          <PageLogin />
+        <Route exact path={AppRoutes.LOGIN}>
+          <Login />
         </Route>
-        <Route exact path={AppRouts.FAVORITES}>
-          <PageFavorites />
+        <Route exact path={AppRoutes.FAVORITES}>
+          <Favorites offers={offers} />
         </Route>
-        <Route path={AppRouts.OFFER_DETAILS} >
-          <PageOfferDetails />
+        <Route path={AppRoutes.OFFER_DETAILS}>
+          <Details offers={offers} reviews={reviews} />
         </Route>
         <Route>
-          <PageNotFoundfrom />
+          <NotFound />
         </Route>
 
       </Switch>
     </BrowserRouter>
   );
-
 }
-
-App.propTypes  = {
-  offers: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-    }),
-  ).isRequired,
-};
 
 export default App;

@@ -6,11 +6,13 @@
     "@reduxjs/toolkit": "^1.5.0",
     "axios": "^0.21.1",
     "classnames": "^2.3.1",
+    "dayjs": "^1.10.5",
     "history": "^4.10.1",
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-redux": "^7.2.2",
+    "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "reselect": "^4.0.0"
@@ -21,13 +23,15 @@
     "test": "react-scripts test --passWithNoTests",
     "eject": "react-scripts eject",
     "eslint": "eslint --ext .jsx --ext .js src/",
-    "test:eslint": "npm run eslint"
+    "test:eslint": "npm run eslint",
+    "eslint-fix": "eslint --fix src/"
   },
   "eslintConfig": {
     "extends": [
       "react-app",
       "react-app/jest",
-      "htmlacademy/react"
+      "htmlacademy/react",
+      "airbnb"
     ]
   },
   "browserslist": {
@@ -48,6 +52,7 @@
     "@testing-library/react-hooks": "^5.1.0",
     "@testing-library/user-event": "^12.8.0",
     "axios-mock-adapter": "^1.19.0",
+    "eslint-config-airbnb": "^18.2.1",
     "eslint-config-htmlacademy": "^4.0.1",
     "redux-devtools-extension": "^2.13.9",
     "redux-mock-store": "^1.5.4"
