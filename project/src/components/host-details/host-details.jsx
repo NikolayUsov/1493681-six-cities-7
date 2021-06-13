@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 export default function HostDetails({ host, description }) {
   const {
@@ -8,11 +9,14 @@ export default function HostDetails({ host, description }) {
     name,
   } = host;
 
+  const hostAvatarClasses = classNames('property__avatar-wrapper',
+    'user__avatar-wrapper', { 'property__avatar-wrapper--pro': isPro });
+
   return (
     <div className="property__host">
       <h2 className="property__host-title">Meet the host</h2>
       <div className="property__host-user user">
-        <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
+        <div className={hostAvatarClasses}>
           <img
             className="property__avatar user__avatar"
             src={avatarUrl}

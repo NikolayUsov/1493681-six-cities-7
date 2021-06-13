@@ -18,13 +18,13 @@ export default function SortOffers() {
 
     if (isEnter || isClick) {
       setCurrentSort(currSort);
-      setVisible((prefState) => !prefState);
+      setVisible((prevState) => !prevState);
     }
   };
 
-  const handlerOnKeyDownVisibleMenu = (evt) => {
+  const handleKeyDownVisibleMenu = (evt) => {
     if (evt.keyCode === 13) {
-      setVisible((prefState) => !prefState);
+      setVisible((prevState) => !prevState);
     }
   };
 
@@ -34,7 +34,7 @@ export default function SortOffers() {
       <span
         className="places__sorting-type"
         tabIndex={0}
-        onKeyDown={(evt) => handlerOnKeyDownVisibleMenu(evt)}
+        onKeyDown={(evt) => handleKeyDownVisibleMenu(evt)}
         onClick={() => setVisible((state) => !state)}
       >
         {currentSort}

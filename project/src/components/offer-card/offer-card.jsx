@@ -26,7 +26,7 @@ const classNamesByPath = {
   },
 };
 
-export default function OfferCard({ offer, handlerOnMouseEnter }) {
+export default function OfferCard({ offer, handleMouseEnter }) {
   const {
     id,
     price,
@@ -38,16 +38,12 @@ export default function OfferCard({ offer, handlerOnMouseEnter }) {
     previewImage,
   } = offer;
 
-  const PictureSize = {
-    width: 260,
-    height: 200,
-  };
-
   const { path } = useRouteMatch();
-  if (path === AppRoutes.FAVORITES) {
-    PictureSize.width = 150;
-    PictureSize.height = 110;
-  }
+  const isFavoriteView = path === AppRoutes.FAVORITES;
+  const PictureSize = {
+    WIDTH: isFavoriteView ? 150 : 260,
+    HEIGHT: isFavoriteView ? 110 : 200,
+  };
 
   const addToFavoritesClass = classNames('place-card__bookmark-button', 'button', {
     'place-card__bookmark-button--active': isFavorite,
@@ -56,7 +52,7 @@ export default function OfferCard({ offer, handlerOnMouseEnter }) {
   return (
 
     <article
-      onMouseEnter={() => handlerOnMouseEnter(offer)}
+      onMouseEnter={() => handleMouseEnter(offer)}
       className={`${classNamesByPath[path].article} place-card`}
     >
       {isPremium && (
@@ -69,8 +65,8 @@ export default function OfferCard({ offer, handlerOnMouseEnter }) {
           <img
             className="place-card__image"
             src={previewImage}
-            width={PictureSize.width}
-            height={PictureSize.height}
+            width={PictureSize.WIDTH}
+            height={PictureSize.HEIGHT}
             alt="Place pic"
           />
         </Link>
@@ -107,6 +103,10 @@ export default function OfferCard({ offer, handlerOnMouseEnter }) {
 }
 
 OfferCard.propTypes = {
-  handlerOnMouseEnter: PropTypes.func.isRequired,
+  handleMouseEnter: PropTypes.func,
   offer: OfferCardProp.isRequired,
+};
+
+OfferCard.defaultProps = {
+  handleMouseEnter: () => {},
 };

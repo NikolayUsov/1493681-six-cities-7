@@ -31,4 +31,4 @@ export default PropTypes.shape({
   }),
   images: PropTypes.arrayOf(PropTypes.string),
   maxAdults: PropTypes.number,
-}).isRequired;
+});

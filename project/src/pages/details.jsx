@@ -8,11 +8,10 @@ import Header from '../components/header/header';
 import OfferCardProp from '../components/offer-card/offer-card.prop';
 import GalleryDetails from '../components/details-gallery/details-gallery';
 import { createPercent } from '../utils/utils';
-import HostDetails from '../components/details-host/details-host';
+import HostDetails from '../components/host-details/host-details';
 import Reviews from '../components/reviews/reviews';
 import { review } from '../components/review-list/review.prop';
-import OfferCardList from '../components/offer-card-list/offer-card-list';
-import { OfferCardListParent } from '../const';
+import OfferCard from '../components/offer-card/offer-card';
 
 const MAX_NEIGHBORHOOD = 3;
 
@@ -124,13 +123,11 @@ export default function Details({ offers, reviews }) {
         </section>
         <div className="container">
           <section className="near-places places">
-            <h2 className="near-places__title">Other places in the neighbourhood</h2>
+            <h2 className="near-places__title">Other places in the neighborhood</h2>
             <div className="near-places__list places__list">
-              <OfferCardList
-                container={OfferCardListParent.MAIN}
-                offers={offers}
-                slice={MAX_NEIGHBORHOOD}
-              />
+              {offers
+                .slice(0, MAX_NEIGHBORHOOD)
+                .map((offer) => <OfferCard offer={offer} />)}
             </div>
           </section>
         </div>

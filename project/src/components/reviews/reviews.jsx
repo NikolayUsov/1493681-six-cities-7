@@ -15,7 +15,7 @@ export default function Reviews({ reviews }) {
     <section className="property__reviews reviews">
       <h2 className="reviews__title">
         Reviews ·
-        <span className="reviews__amount">{reviews.length}</span>
+        <span className="reviews__amount">{reviewsState.length}</span>
       </h2>
       <ReviewList reviews={reviewsState} />
       <ReviewForm addComment={addNewComment} />

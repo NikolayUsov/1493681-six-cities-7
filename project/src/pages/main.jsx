@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import CityNavigation from '../components/city-navigation/city-navigation';
 import OffersBoard from '../components/offersBoard/offers-board';
 import Header from '../components/header/header';
+import offerCardProp from '../components/offer-card/offer-card.prop';
 
 const DEFAULT_MENU = 'Amsterdam';
 
@@ -26,9 +27,5 @@ export default function Main({ offers }) {
 }
 
 Main.propTypes = {
-  offers: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-    }),
-  ).isRequired,
+  offers: PropTypes.arrayOf(offerCardProp).isRequired,
 };

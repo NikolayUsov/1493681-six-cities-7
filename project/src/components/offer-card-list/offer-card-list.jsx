@@ -3,20 +3,19 @@ import PropTypes from 'prop-types';
 import OfferCard from '../offer-card/offer-card';
 import OfferPropType from '../offer-card/offer-card.prop';
 
-export default function OfferCardList({ offers, slice = 0 }) {
+export default function OfferCardList({ offers }) {
   const [, setHoverCard] = useState({});
 
-  const handlerOnMouseEnter = (offer) => {
+  const handleMouseEnter = (offer) => {
     setHoverCard(offer);
   };
 
-  const renderedCard = slice ? offers.slice(0, slice) : offers.slice();
   return (
-    renderedCard.map((offer) => (
+    offers.map((offer) => (
       <OfferCard
         key={offer.id}
         offer={offer}
-        handlerOnMouseEnter={handlerOnMouseEnter}
+        handleMouseEnter={handleMouseEnter}
       />
     ))
   );

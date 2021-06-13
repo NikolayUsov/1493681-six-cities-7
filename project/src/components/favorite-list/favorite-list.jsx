@@ -1,19 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import OfferCardList from '../offer-card-list/offer-card-list';
+import OfferCard from '../offer-card/offer-card';
 import OfferCardProp from '../offer-card/offer-card.prop';
 
 const createFavoritesList = (arr) => arr.reduce((acc, element) => {
   if (element.city.name in acc) {
     acc[element.city.name].push(element);
-  } else {
-    acc[element.city.name] = [element];
+    return acc;
   }
+
+  acc[element.city.name] = [element];
   return acc;
 }, {});
 
 export default function FavoriteList({ offers }) {
-  const favoritesList = createFavoritesList(offers);
+  const favoritesList = createFavoritesList(offers.filter((elem) => elem.isFavorite));
   return (
 
     <section className="favorites">
@@ -30,7 +31,7 @@ export default function FavoriteList({ offers }) {
               </div>
             </div>
             <div className="favorites__places">
-              <OfferCardList offers={cityOffers} />
+              {cityOffers.map((offer) => <OfferCard key={offer.id} offer={offer} />)}
             </div>
           </li>
         ))
