@@ -26,7 +26,7 @@ const classNamesByPath = {
   },
 };
 
-export default function OfferCard({ offer, handleMouseEnter }) {
+export default function OfferCard({ offer, handleActiveOfferCard }) {
   const {
     id,
     price,
@@ -52,7 +52,7 @@ export default function OfferCard({ offer, handleMouseEnter }) {
   return (
 
     <article
-      onMouseEnter={() => handleMouseEnter(offer)}
+      onMouseEnter={() => handleActiveOfferCard(offer)}
       className={`${classNamesByPath[path].article} place-card`}
     >
       {isPremium && (
@@ -103,10 +103,10 @@ export default function OfferCard({ offer, handleMouseEnter }) {
 }
 
 OfferCard.propTypes = {
-  handleMouseEnter: PropTypes.func,
+  handleActiveOfferCard: PropTypes.func,
   offer: OfferCardProp.isRequired,
 };
 
 OfferCard.defaultProps = {
-  handleMouseEnter: () => {},
+  handleActiveOfferCard: () => {},
 };
