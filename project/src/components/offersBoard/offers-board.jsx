@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import SortOffers from '../sort-offer/sort-offers';
 import OfferCardList from '../offer-card-list/offer-card-list';
 import offerCardProp from '../offer-card/offer-card.prop';
 import Map from '../map/map';
 import OffersBoardEmpty from '../offers-board-empty/offers-board-empty';
-import usePrevious from '../../hooks/usePrevious';
 
 const createCityLocation = (offers) => offers.reduce((acc, offer) => {
   acc[offer.city.name] = offer.city.location;
@@ -14,7 +13,7 @@ const createCityLocation = (offers) => offers.reduce((acc, offer) => {
 
 export default function OffersBoard({ offers, currentCity }) {
   const [activeOffer, setActiveCard] = useState({});
-  const prevCurrentCity = usePrevious(currentCity);
+
   const currentCityOffer = offers.filter((offer) => offer.city.name === currentCity);
   const sortComponent = currentCityOffer.length === 1 ? false : <SortOffers />;
   const citiesLocation = createCityLocation(offers);// возможно от этого надо избавиться to-do
@@ -22,12 +21,6 @@ export default function OffersBoard({ offers, currentCity }) {
   const handleActiveOfferCard = (offerCard) => {
     setActiveCard(offerCard);
   };
-
-  useEffect(() => {
-    if (currentCity !== prevCurrentCity) {
-      setActiveCard({});
-    }
-  }, [currentCity]);
 
   return (
     <div className="cities">

@@ -53,6 +53,7 @@ export default function OfferCard({ offer, handleActiveOfferCard }) {
 
     <article
       onMouseEnter={() => handleActiveOfferCard(offer)}
+      onMouseLeave={() => handleActiveOfferCard({})}
       className={`${classNamesByPath[path].article} place-card`}
     >
       {isPremium && (

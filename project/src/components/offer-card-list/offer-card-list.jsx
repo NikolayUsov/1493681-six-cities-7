@@ -9,7 +9,7 @@ export default function OfferCardList({ offers, handleActiveOfferCard }) {
       <OfferCard
         key={offer.id}
         offer={offer}
-        handleActiveOfferCard={() => handleActiveOfferCard(offer)}
+        handleActiveOfferCard={handleActiveOfferCard}
       />
     ))
   );
