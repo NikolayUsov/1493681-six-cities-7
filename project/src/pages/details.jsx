@@ -10,7 +10,7 @@ import GalleryDetails from '../components/details-gallery/details-gallery';
 import { createPercent } from '../utils/utils';
 import HostDetails from '../components/host-details/host-details';
 import Reviews from '../components/reviews/reviews';
-import { review } from '../components/review-list/review.prop';
+import { ReviewItemProp } from '../components/review-item/review.prop';
 import OfferCard from '../components/offer-card/offer-card';
 import Map from '../components/map/map';
 
@@ -141,5 +141,5 @@ export default function Details({ offers, reviews }) {
 
 Details.propTypes = {
   offers: PropTypes.arrayOf(OfferCardProp).isRequired,
-  reviews: PropTypes.arrayOf(review).isRequired,
+  reviews: PropTypes.arrayOf(ReviewItemProp).isRequired,
 };

@@ -40,7 +40,7 @@ const generateOfferItemMock = () => {
       location: {
         lat: Number(getRandomFloat(52, 53, 7)),
         lng: Number(getRandomFloat(4, 52, 7)),
-        zoom: 18,
+        zoom: 10,
       },
       name: getRandomElement(CITIES),
     },

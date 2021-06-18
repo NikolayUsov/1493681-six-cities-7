@@ -7,7 +7,7 @@ const user = PropTypes.shape({
   isPro: PropTypes.bool,
 });
 
-const review = PropTypes.shape({
+const ReviewItemProp = PropTypes.shape({
   comment: PropTypes.string,
   id: PropTypes.number,
   rating: PropTypes.number,
@@ -15,4 +15,4 @@ const review = PropTypes.shape({
   date: PropTypes.instanceOf(dayjs),
 }).isRequired;
 
-export { review, user };
+export { ReviewItemProp, user };

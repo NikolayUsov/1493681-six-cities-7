@@ -1,53 +1,16 @@
 import React from 'react';
-import dayjs from 'dayjs';
 import PropTypes from 'prop-types';
-import { createPercent } from '../../utils/utils';
-import { review } from './review.prop';
+import { ReviewItemProp } from '../review-item/review.prop';
+import ReviewItem from '../review-item/review-item';
 
 export default function ReviewList({ reviews = [] }) {
   return (
     <ul className="reviews__list">
-      {reviews.map(({
-        id, comment, rating, user, date,
-      }) => (
-        <li key={id} className="reviews__item">
-          <div className="reviews__user user">
-            <div className="reviews__avatar-wrapper user__avatar-wrapper">
-              <img
-                className="reviews__avatar user__avatar"
-                src={user.avatarUrl}
-                width={54}
-                height={54}
-                alt="Reviews avatar"
-              />
-            </div>
-            <span className="reviews__user-name">
-              {user.name}
-            </span>
-          </div>
-          <div className="reviews__info">
-            <div className="reviews__rating rating">
-              <div className="reviews__stars rating__stars">
-                <span style={{ width: `${createPercent(rating, 5)}%` }} />
-                <span className="visually-hidden">Rating</span>
-              </div>
-            </div>
-            <p className="reviews__text">
-              {comment}
-            </p>
-            <time
-              className="reviews__time"
-              dateTime={`${dayjs(date).format('YYYY-MM-DD')}`}
-            >
-              {`${dayjs(date).format('MMMM YYYY')}`}
-            </time>
-          </div>
-        </li>
-      ))}
+      {reviews.map((review) => (<ReviewItem review={review} />))}
     </ul>
   );
 }
 
 ReviewList.propTypes = {
-  reviews: PropTypes.arrayOf(review).isRequired,
+  reviews: PropTypes.arrayOf(ReviewItemProp).isRequired,
 };
