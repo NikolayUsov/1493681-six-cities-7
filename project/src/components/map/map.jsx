@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useRouteMatch } from 'react-router';
 import classNames from 'classnames';
@@ -9,7 +9,7 @@ import useMarker from '../../hooks/use-marker';
 import { AppRoutes } from '../../const';
 
 export default function Map({ city, offers, activeOffer }) {
-// тут возникает ошибка activeOffer хз почему to-do
+  const { lat, lng, zoom } = city;
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
   useMarker(map, city, offers, activeOffer);
@@ -19,6 +19,12 @@ export default function Map({ city, offers, activeOffer }) {
     cities__map: path === AppRoutes.ROOT,
     property__map: path === AppRoutes.OFFER_DETAILS,
   });
+
+  useEffect(() => {
+    if (map) {
+      map.panTo([lat, lng], zoom);
+    }
+  }, [city]);
 
   return (
     <section
@@ -40,5 +46,5 @@ Map.propTypes = {
 };
 
 Map.defaultProps = {
-  activeOffer: OfferPropType,
+  activeOffer: null,
 };

@@ -12,7 +12,7 @@ const createCityLocation = (offers) => offers.reduce((acc, offer) => {
 }, {});
 
 export default function OffersBoard({ offers, currentCity }) {
-  const [activeOffer, setActiveCard] = useState({});
+  const [activeOffer, setActiveCard] = useState(null);
 
   const currentCityOffer = offers.filter((offer) => offer.city.name === currentCity);
   const sortComponent = currentCityOffer.length === 1 ? false : <SortOffers />;

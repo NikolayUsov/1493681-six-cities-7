@@ -8,7 +8,7 @@ export const AppRoutes = {
 export const CITIES = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
 export const SORT_TYPES = ['Popular', 'Price: low to high', 'Price: high to low', 'Top rated first'];
 
-export const LeafletProperty = {
+export const LeafletProperties = {
   PIN_WIDTH: 30,
   PIN_HEIGHT: 40,
   LAYER: 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',

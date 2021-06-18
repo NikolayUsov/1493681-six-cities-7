@@ -1,28 +1,26 @@
 import { useEffect, useState } from 'react';
 import Leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { LeafletProperty } from '../const';
+import { LeafletProperties } from '../const';
 
-export default function useMap(ref, { lat, lng, zoom }) {
+export default function useMap(ref, city) {
+  const { lat, lng, zoom } = city;
   const [map, setMap] = useState(null);
 
   useEffect(() => {
-    if (map === null) {
-      const initMap = Leaflet.map(ref.current).setView([lat, lng], zoom);
+    if (ref !== null && map === null) {
+      const instance = Leaflet.map(ref.current).setView([lat, lng], zoom);
       Leaflet.tileLayer(
-        LeafletProperty.LAYER,
+        LeafletProperties.LAYER,
         {
-          attribution: LeafletProperty.ATTRIBUTION,
+          attribution: LeafletProperties.ATTRIBUTION,
         },
       )
-        .addTo(initMap);
+        .addTo(instance);
 
-      setMap(initMap);
-    } else {
-      setMap(map.setView(new Leaflet.LatLng(lat, lng), zoom));
+      setMap(instance);
     }
   },
-  [map, lat, lng, zoom, ref]);
-
+  [ref, city]);
   return map;
 }
