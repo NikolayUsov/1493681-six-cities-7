@@ -1,3 +1,4 @@
+/* eslint-disable import/no-named-as-default */
 import React from 'react';
 import Logo from '../logo/logo';
 import UserNavigation from '../user-navigation/user-navigation';
@@ -10,7 +11,7 @@ export default function Header() {
           <div className="header__left">
             <Logo />
           </div>
-          <UserNavigation isAuthorization />
+          <UserNavigation />
         </div>
       </div>
     </header>

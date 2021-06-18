@@ -70,6 +70,6 @@ const generateOfferItemMock = () => {
   };
 };
 
-const offers = new Array(10).fill('').map(generateOfferItemMock);
+const offers = new Array(40).fill('').map(generateOfferItemMock);
 
 export { offers };

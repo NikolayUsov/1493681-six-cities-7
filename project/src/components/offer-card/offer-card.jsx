@@ -1,8 +1,8 @@
-/* eslint-disable no-console */
 import React from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { connect } from 'react-redux';
 import { createPercent } from '../../utils/utils';
 import { Types } from '../../mocs/offers';
 import OfferCardProp from './offer-card.prop';
@@ -26,7 +26,7 @@ const classNamesByPath = {
   },
 };
 
-export default function OfferCard({ offer, handleActiveOfferCard }) {
+export function OfferCard({ offer, handleActiveOfferCard, isAuthorization }) {
   const {
     id,
     price,
@@ -44,9 +44,8 @@ export default function OfferCard({ offer, handleActiveOfferCard }) {
     WIDTH: isFavoriteView ? 150 : 260,
     HEIGHT: isFavoriteView ? 110 : 200,
   };
-
   const addToFavoritesClass = classNames('place-card__bookmark-button', 'button', {
-    'place-card__bookmark-button--active': isFavorite,
+    'place-card__bookmark-button--active': isFavorite && isAuthorization,
   });
 
   return (
@@ -106,8 +105,15 @@ export default function OfferCard({ offer, handleActiveOfferCard }) {
 OfferCard.propTypes = {
   handleActiveOfferCard: PropTypes.func,
   offer: OfferCardProp.isRequired,
+  isAuthorization: PropTypes.bool.isRequired,
 };
 
 OfferCard.defaultProps = {
   handleActiveOfferCard: () => {},
 };
+
+const mapStateToProps = (state) => ({
+  isAuthorization: state.isLogin,
+});
+
+export default connect(mapStateToProps, null)(OfferCard);
