@@ -12,13 +12,14 @@ import HostDetails from '../components/host-details/host-details';
 import Reviews from '../components/reviews/reviews';
 import { review } from '../components/review-list/review.prop';
 import OfferCard from '../components/offer-card/offer-card';
+import Map from '../components/map/map';
 
 const MAX_NEIGHBORHOOD = 3;
 
 export default function Details({ offers, reviews }) {
   const { id } = useParams();
   const idx = offers.findIndex((elem) => elem.id === +id);
-
+  const nearOffers = offers.slice(0, MAX_NEIGHBORHOOD);
   if (idx === -1) {
     return <Redirect to="/" />;
   }
@@ -38,6 +39,7 @@ export default function Details({ offers, reviews }) {
     goods,
     host,
     description,
+    city,
   } = currentElement;
 
   const addToFavoritesClass = classNames('property__bookmark-button', 'button', {
@@ -119,15 +121,16 @@ export default function Details({ offers, reviews }) {
               <Reviews reviews={reviews} />
             </div>
           </div>
-          <section className="property__map map" />
+          <Map
+            city={city.location}
+            offers={nearOffers}
+          />
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighborhood</h2>
             <div className="near-places__list places__list">
-              {offers
-                .slice(0, MAX_NEIGHBORHOOD)
-                .map((offer) => <OfferCard offer={offer} />)}
+              { nearOffers.map((offer) => <OfferCard offer={offer} key={offer.id} />)}
             </div>
           </section>
         </div>

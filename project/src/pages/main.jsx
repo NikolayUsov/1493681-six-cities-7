@@ -20,7 +20,7 @@ export default function Main({ offers }) {
           currentMenu={currentMenu}
         />
 
-        <OffersBoard currentCity={currentMenu} offers={offers} />
+        <OffersBoard currentCity={currentMenu} offers={offers} setCurrentMenu={setCurrentMenu} />
       </main>
     </div>
   );
