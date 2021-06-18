@@ -46,5 +46,9 @@ export default function ReviewItem({ review }) {
 }
 
 ReviewItem.propTypes = {
-  review: ReviewItemProp.isRequired,
+  review: ReviewItemProp,
+};
+
+ReviewItem.defaultProps = {
+  review: ReviewItemProp,
 };

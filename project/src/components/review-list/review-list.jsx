@@ -6,7 +6,7 @@ import ReviewItem from '../review-item/review-item';
 export default function ReviewList({ reviews = [] }) {
   return (
     <ul className="reviews__list">
-      {reviews.map((review) => (<ReviewItem review={review} />))}
+      {reviews.map((review) => (<ReviewItem key={review.id} review={review} />))}
     </ul>
   );
 }
