@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import ReviewForm from '../review-form/review-form';
 import ReviewList from '../review-list/review-list';
-import { review } from '../review-list/review.prop';
+import { ReviewItemProp } from '../review-item/review.prop';
 
 export default function Reviews({ reviews }) {
   const [reviewsState, setReview] = useState(reviews);
@@ -24,5 +24,5 @@ export default function Reviews({ reviews }) {
 }
 
 Reviews.propTypes = {
-  reviews: PropTypes.arrayOf(review).isRequired,
+  reviews: PropTypes.arrayOf(ReviewItemProp).isRequired,
 };
