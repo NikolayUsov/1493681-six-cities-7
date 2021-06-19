@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { ActionCreator } from '../../store/actions';
 
-export function UserNavigation({ isAuthorization, toggleAuthorization }) {
+export function UserNavigation({ isAuth, toggleAuthorization }) {
   return (
     <nav className="header__nav">
       <ul className="header__nav-list">
@@ -11,11 +11,11 @@ export function UserNavigation({ isAuthorization, toggleAuthorization }) {
           <a onClick={toggleAuthorization} className="header__nav-link header__nav-link--profile" href="/#">
             <div className="header__avatar-wrapper user__avatar-wrapper" />
             <span className="header__user-name user__name">
-              {`${isAuthorization ? 'Oliver.conner@gmail.com' : 'Sign in'}`}
+              {`${isAuth ? 'Oliver.conner@gmail.com' : 'Sign in'}`}
             </span>
           </a>
         </li>
-        {isAuthorization && (
+        {isAuth && (
         <li className="header__nav-item">
           <a className="header__nav-link" href="/#" onClick={toggleAuthorization}>
             <span className="header__signout">Sign out</span>
@@ -28,21 +28,21 @@ export function UserNavigation({ isAuthorization, toggleAuthorization }) {
 }
 
 UserNavigation.propTypes = {
-  isAuthorization: PropTypes.bool.isRequired,
+  isAuth: PropTypes.bool.isRequired,
 };
 
 UserNavigation.propTypes = {
-  isAuthorization: PropTypes.bool.isRequired,
+  isAuth: PropTypes.bool.isRequired,
   toggleAuthorization: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  isAuthorization: state.isLogin,
+  isAuth: state.isLogin,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   toggleAuthorization() {
-    dispatch(ActionCreator.TOGGLE_AUTH());
+    dispatch(ActionCreator.toggleAuth());
   },
 });
 export default connect(mapStateToProps, mapDispatchToProps)(UserNavigation);

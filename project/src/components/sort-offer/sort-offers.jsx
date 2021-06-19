@@ -73,7 +73,7 @@ const stateToProps = (state) => ({
 
 const dispatchToProps = (dispatch) => ({
   setCurrentSort(value) {
-    dispatch(ActionCreator.CHANGE_SORT_TYPE(value));
+    dispatch(ActionCreator.changeSortType(value));
   },
 });
 export default connect(stateToProps, dispatchToProps)(SortOffers);

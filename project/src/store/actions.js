@@ -1,19 +1,27 @@
 export const ActionType = {
+  SUCCESS_LOAD_DATA: 'successLoadData',
+  ERROR_LOAD_DATA: 'errorLoadData',
   CHANGE_CURRENT_CITY: 'changeCurrentCity',
   CHANGE_SORT_TYPE: 'changeSortType',
   TOGGLE_AUTH: 'toggleAuth',
 };
 
 export const ActionCreator = {
-  CHANGE_CITY: (currentCity) => ({
+  successLoadData: () => ({
+    type: ActionType.SUCCESS_LOAD_DATA,
+  }),
+  errorLoadData: () => ({
+    type: ActionType.ERROR_LOAD_DATA,
+  }),
+  changeCity: (currentCity) => ({
     type: ActionType.CHANGE_CURRENT_CITY,
     payload: currentCity,
   }),
-  CHANGE_SORT_TYPE: (sortType) => ({
+  changeSortType: (sortType) => ({
     type: ActionType.CHANGE_SORT_TYPE,
     payload: sortType,
   }),
-  TOGGLE_AUTH: () => ({
+  toggleAuth: () => ({
     type: ActionType.TOGGLE_AUTH,
   }),
 };

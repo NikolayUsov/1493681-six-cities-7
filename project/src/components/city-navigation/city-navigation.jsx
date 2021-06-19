@@ -42,7 +42,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   changeActiveMenu(city) {
-    dispatch(ActionCreator.CHANGE_CITY(city));
+    dispatch(ActionCreator.changeCity(city));
   },
 });
 

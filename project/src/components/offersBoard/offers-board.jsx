@@ -15,7 +15,7 @@ const createCityLocation = (offers) => offers.reduce((acc, offer) => {
 
 export function OffersBoard({ offers, currentCity, allOffers }) {
   const [activeOffer, setActiveCard] = useState(null);
-  const sortComponent = offers.length === 1 ? false : <SortOffers />;
+  const sortComponent = offers.length > 1 ? <SortOffers /> : null;
   const citiesLocation = createCityLocation(allOffers);// возможно от этого надо избавиться to-do
 
   const handleActiveOfferCard = (offerCard) => {
@@ -28,7 +28,7 @@ export function OffersBoard({ offers, currentCity, allOffers }) {
         <div className="cities__places-container container">
           <section className="cities__places places">
             <h2 className="visually-hidden">Places</h2>
-            <b className="places__found">{`${offers.length} ${offers.length === 1 ? 'place' : 'places'} to stay in ${currentCity}`}</b>
+            <b className="places__found">{`${offers.length} ${offers.length > 1 ? 'places' : 'place'} to stay in ${currentCity}`}</b>
             {sortComponent}
             <div className="cities__places-list places__list tabs__content">
               <OfferCardList
@@ -59,9 +59,9 @@ OffersBoard.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  offers: state.rendered,
+  offers: state.currentOffers,
   allOffers: state.offers,
   currentCity: state.currentCity,
 });
 
-export default connect(mapStateToProps, null)(OffersBoard);
+export default connect(mapStateToProps)(OffersBoard);

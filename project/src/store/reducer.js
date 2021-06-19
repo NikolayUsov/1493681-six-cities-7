@@ -1,22 +1,26 @@
 import { ActionType } from './actions';
 import { offers } from '../mocs/offers';
-import { SortFunctions } from '../const';
+import { CITIES, SortFunctions } from '../const';
 
 const SORT_TYPE_DEFAULT = 'Popular';
-const CITY_DEFAULT = 'Amsterdam';
 
-const getRenderedOffers = (arr, filterType, sortType) => arr.slice()
-  .filter((elem) => elem.city.name === filterType)
+const getCurrentOffers = (arr, city, sortType) => arr
+  .filter((elem) => elem.city.name === city)
   .sort(SortFunctions[sortType]);
 
-const rendered = getRenderedOffers(offers, CITY_DEFAULT, SORT_TYPE_DEFAULT);
+const currentOffers = getCurrentOffers(offers, CITIES[0], SORT_TYPE_DEFAULT);
 
 const initState = {
   offers,
-  currentCity: CITY_DEFAULT,
+  currentCity: CITIES[0],
   sortType: SORT_TYPE_DEFAULT,
-  rendered,
+  currentOffers,
   isLogin: true,
+  appStatus: {
+    isLoading: true,
+    isSuccess: false,
+    isError: false,
+  },
 };
 
 export default function reducer(state = initState, action) {
@@ -25,18 +29,28 @@ export default function reducer(state = initState, action) {
       return {
         ...state,
         currentCity: action.payload,
-        rendered: getRenderedOffers(state.offers, action.payload, state.sortType),
+        currentOffers: getCurrentOffers(state.offers, action.payload, state.sortType),
       };
     case ActionType.CHANGE_SORT_TYPE:
       return {
         ...state,
         sortType: action.payload,
-        rendered: getRenderedOffers(state.offers, state.currentCity, action.payload),
+        currentOffers: getCurrentOffers(state.offers, state.currentCity, action.payload),
       };
     case ActionType.TOGGLE_AUTH:
       return {
         ...state,
         isLogin: !state.isLogin,
+      };
+    case ActionType.SUCCESS_LOAD_DATA:
+      return {
+        ...state,
+        appStatus: { ...state.appStatus, isLoading: false, isSuccess: true },
+      };
+    case ActionType.ERROR_LOAD_DATA:
+      return {
+        ...state,
+        appStatus: { ...state.appStatus, isLoading: false, isError: true },
       };
     default: return state;
   }
