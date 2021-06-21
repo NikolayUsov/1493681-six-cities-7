@@ -7,13 +7,16 @@ import OfferCardList from '../offer-card-list/offer-card-list';
 import offerCardProp from '../offer-card/offer-card.prop';
 import Map from '../map/map';
 import OffersBoardEmpty from '../offers-board-empty/offers-board-empty';
+import Loader from '../loader/loader';
 
 const createCityLocation = (offers) => offers.reduce((acc, offer) => {
   acc[offer.city.name] = offer.city.location;
   return acc;
 }, {});
 
-export function OffersBoard({ offers, currentCity, allOffers }) {
+export function OffersBoard({
+  offers, currentCity, allOffers, isLoading, isError,
+}) {
   const [activeOffer, setActiveCard] = useState(null);
   const sortComponent = offers.length > 1 ? <SortOffers /> : null;
   const citiesLocation = createCityLocation(allOffers);// возможно от этого надо избавиться to-do
@@ -21,6 +24,13 @@ export function OffersBoard({ offers, currentCity, allOffers }) {
   const handleActiveOfferCard = (offerCard) => {
     setActiveCard(offerCard);
   };
+
+  if (isLoading) {
+    return <Loader />;
+  }
+  if (isError) {
+    return <OffersBoardEmpty isError={isError} />;
+  }
 
   return (
     <div className="cities">
@@ -56,12 +66,16 @@ OffersBoard.propTypes = {
   offers: PropTypes.arrayOf(offerCardProp).isRequired,
   allOffers: PropTypes.arrayOf(offerCardProp).isRequired,
   currentCity: PropTypes.string.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  isError: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   offers: state.currentOffers,
   allOffers: state.offers,
   currentCity: state.currentCity,
+  isLoading: state.appStatus.isLoading,
+  isError: state.appStatus.isError,
 });
 
 export default connect(mapStateToProps)(OffersBoard);

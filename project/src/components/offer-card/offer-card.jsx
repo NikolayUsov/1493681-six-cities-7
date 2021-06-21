@@ -28,7 +28,7 @@ const classNamesByPath = {
   },
 };
 
-export function OfferCard({ offer, handleActiveOfferCard, isAuth }) {
+function OfferCard({ offer, handleActiveOfferCard, isAuth }) {
   const {
     id,
     price,
@@ -123,5 +123,5 @@ OfferCard.defaultProps = {
 const mapStateToProps = (state) => ({
   isAuth: state.isLogin,
 });
-
+export { OfferCard };
 export default connect(mapStateToProps)(OfferCard);

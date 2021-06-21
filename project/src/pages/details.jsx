@@ -1,4 +1,5 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable import/no-named-as-default */
 import React from 'react';
 import { useParams } from 'react-router';
 import PropTypes from 'prop-types';
