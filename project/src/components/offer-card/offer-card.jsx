@@ -1,8 +1,10 @@
-/* eslint-disable no-console */
 import React from 'react';
-import { Link, useRouteMatch } from 'react-router-dom';
+import {
+  Link, useRouteMatch, useHistory,
+} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { connect } from 'react-redux';
 import { createPercent } from '../../utils/utils';
 import { Types } from '../../mocs/offers';
 import OfferCardProp from './offer-card.prop';
@@ -26,7 +28,7 @@ const classNamesByPath = {
   },
 };
 
-export default function OfferCard({ offer, handleActiveOfferCard }) {
+function OfferCard({ offer, handleActiveOfferCard, isAuth }) {
   const {
     id,
     price,
@@ -37,17 +39,22 @@ export default function OfferCard({ offer, handleActiveOfferCard }) {
     isPremium,
     previewImage,
   } = offer;
-
+  const history = useHistory();
   const { path } = useRouteMatch();
   const isFavoriteView = path === AppRoutes.FAVORITES;
   const PictureSize = {
     WIDTH: isFavoriteView ? 150 : 260,
     HEIGHT: isFavoriteView ? 110 : 200,
   };
-
   const addToFavoritesClass = classNames('place-card__bookmark-button', 'button', {
-    'place-card__bookmark-button--active': isFavorite,
+    'place-card__bookmark-button--active': isFavorite && isAuth,
   });
+
+  const handleAddFavorites = () => {
+    if (!isAuth) {
+      history.push(AppRoutes.LOGIN);
+    }
+  };
 
   return (
 
@@ -81,7 +88,7 @@ export default function OfferCard({ offer, handleActiveOfferCard }) {
             </b>
             <span className="place-card__price-text">/&nbsp;night</span>
           </div>
-          <button className={addToFavoritesClass} type="button">
+          <button className={addToFavoritesClass} type="button" onClick={handleAddFavorites}>
             <svg className="place-card__bookmark-icon" width={18} height={19}>
               <use xlinkHref="#icon-bookmark" />
             </svg>
@@ -106,8 +113,15 @@ export default function OfferCard({ offer, handleActiveOfferCard }) {
 OfferCard.propTypes = {
   handleActiveOfferCard: PropTypes.func,
   offer: OfferCardProp.isRequired,
+  isAuth: PropTypes.bool.isRequired,
 };
 
 OfferCard.defaultProps = {
   handleActiveOfferCard: () => {},
 };
+
+const mapStateToProps = (state) => ({
+  isAuth: state.isLogin,
+});
+export { OfferCard };
+export default connect(mapStateToProps)(OfferCard);

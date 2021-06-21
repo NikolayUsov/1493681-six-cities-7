@@ -1,38 +1,48 @@
+/* eslint-disable import/no-named-as-default */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import SortOffers from '../sort-offer/sort-offers';
 import OfferCardList from '../offer-card-list/offer-card-list';
 import offerCardProp from '../offer-card/offer-card.prop';
 import Map from '../map/map';
 import OffersBoardEmpty from '../offers-board-empty/offers-board-empty';
+import Loader from '../loader/loader';
 
 const createCityLocation = (offers) => offers.reduce((acc, offer) => {
   acc[offer.city.name] = offer.city.location;
   return acc;
 }, {});
 
-export default function OffersBoard({ offers, currentCity }) {
+export function OffersBoard({
+  offers, currentCity, allOffers, isLoading, isError,
+}) {
   const [activeOffer, setActiveCard] = useState(null);
-
-  const currentCityOffer = offers.filter((offer) => offer.city.name === currentCity);
-  const sortComponent = currentCityOffer.length === 1 ? false : <SortOffers />;
-  const citiesLocation = createCityLocation(offers);// возможно от этого надо избавиться to-do
+  const sortComponent = offers.length > 1 ? <SortOffers /> : null;
+  const citiesLocation = createCityLocation(allOffers);// возможно от этого надо избавиться to-do
 
   const handleActiveOfferCard = (offerCard) => {
     setActiveCard(offerCard);
   };
 
+  if (isLoading) {
+    return <Loader />;
+  }
+  if (isError) {
+    return <OffersBoardEmpty isError={isError} />;
+  }
+
   return (
     <div className="cities">
-      {!currentCityOffer.length ? <OffersBoardEmpty currentCity={currentCity} /> : (
+      {!offers.length ? <OffersBoardEmpty currentCity={currentCity} /> : (
         <div className="cities__places-container container">
           <section className="cities__places places">
             <h2 className="visually-hidden">Places</h2>
-            <b className="places__found">{`${currentCityOffer.length} ${currentCityOffer.length === 1 ? 'place' : 'places'} to stay in ${currentCity}`}</b>
+            <b className="places__found">{`${offers.length} ${offers.length > 1 ? 'places' : 'place'} to stay in ${currentCity}`}</b>
             {sortComponent}
             <div className="cities__places-list places__list tabs__content">
               <OfferCardList
-                offers={currentCityOffer}
+                offers={offers}
                 handleActiveOfferCard={handleActiveOfferCard}
               />
             </div>
@@ -40,7 +50,7 @@ export default function OffersBoard({ offers, currentCity }) {
           <div className="cities__right-section">
             <Map
               city={citiesLocation[currentCity]}
-              offers={currentCityOffer}
+              offers={offers}
               activeOffer={activeOffer}
             />
           </div>
@@ -54,5 +64,18 @@ export default function OffersBoard({ offers, currentCity }) {
 
 OffersBoard.propTypes = {
   offers: PropTypes.arrayOf(offerCardProp).isRequired,
+  allOffers: PropTypes.arrayOf(offerCardProp).isRequired,
   currentCity: PropTypes.string.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  isError: PropTypes.bool.isRequired,
 };
+
+const mapStateToProps = (state) => ({
+  offers: state.currentOffers,
+  allOffers: state.offers,
+  currentCity: state.currentCity,
+  isLoading: state.appStatus.isLoading,
+  isError: state.appStatus.isError,
+});
+
+export default connect(mapStateToProps)(OffersBoard);

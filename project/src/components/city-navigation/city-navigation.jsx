@@ -1,9 +1,11 @@
 import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { CITIES } from '../../const';
+import { ActionCreator } from '../../store/actions';
 
-export default function CityNavigation({ currentMenu, changeActiveMenu }) {
+export function CityNavigation({ currentMenu, changeActiveMenu }) {
   return (
     <div className="tabs">
       <section className="locations container">
@@ -33,3 +35,15 @@ CityNavigation.propTypes = {
   currentMenu: PropTypes.string.isRequired,
   changeActiveMenu: PropTypes.func.isRequired,
 };
+
+const mapStateToProps = (state) => ({
+  currentMenu: state.currentCity,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  changeActiveMenu(city) {
+    dispatch(ActionCreator.changeCity(city));
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(CityNavigation);

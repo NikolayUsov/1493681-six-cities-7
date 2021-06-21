@@ -5,11 +5,14 @@
 
 import React, { useState } from 'react';
 import classNames from 'classnames';
-import { SORT_TYPES } from '../../const';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { SortFunctions } from '../../const';
+import { ActionCreator } from '../../store/actions';
 
-export default function SortOffers() {
+export function SortOffers({ currentSort, setCurrentSort }) {
   const [isVisible, setVisible] = useState(false);
-  const [currentSort, setCurrentSort] = useState(SORT_TYPES[0]);
+
   const sortMenuClasses = classNames('places__options', 'places__options--custom', { 'places__options--opened': isVisible });
 
   const handleOnChangeSort = (evt, currSort) => {
@@ -43,7 +46,7 @@ export default function SortOffers() {
         </svg>
       </span>
       <ul className={sortMenuClasses}>
-        {SORT_TYPES.map((elem, index) => (
+        {Object.keys(SortFunctions).map((elem, index) => (
           <li
             onKeyDown={(evt) => handleOnChangeSort(evt, elem)}
             onClick={(evt) => handleOnChangeSort(evt, elem)}
@@ -58,3 +61,19 @@ export default function SortOffers() {
     </form>
   );
 }
+
+SortOffers.propTypes = {
+  currentSort: PropTypes.string.isRequired,
+  setCurrentSort: PropTypes.func.isRequired,
+};
+
+const stateToProps = (state) => ({
+  currentSort: state.sortType,
+});
+
+const dispatchToProps = (dispatch) => ({
+  setCurrentSort(value) {
+    dispatch(ActionCreator.changeSortType(value));
+  },
+});
+export default connect(stateToProps, dispatchToProps)(SortOffers);
