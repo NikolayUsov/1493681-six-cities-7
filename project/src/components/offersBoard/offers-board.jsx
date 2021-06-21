@@ -19,7 +19,7 @@ export function OffersBoard({
 }) {
   const [activeOffer, setActiveCard] = useState(null);
   const sortComponent = offers.length > 1 ? <SortOffers /> : null;
-  const citiesLocation = createCityLocation(allOffers);// возможно от этого надо избавиться to-do
+  const citiesLocation = createCityLocation(allOffers);// to-do
 
   const handleActiveOfferCard = (offerCard) => {
     setActiveCard(offerCard);
