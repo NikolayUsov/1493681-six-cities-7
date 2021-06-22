@@ -4,11 +4,18 @@ export const ActionType = {
   CHANGE_CURRENT_CITY: 'changeCurrentCity',
   CHANGE_SORT_TYPE: 'changeSortType',
   TOGGLE_AUTH: 'toggleAuth',
+  DOWNLOAD_OFFERS: 'downloadOffers',
+  REQUIRED_AUTHORIZATION: 'requiredAuthorization',
+  LOG_OUT: 'logOut',
 };
 
 export const ActionCreator = {
   successLoadData: () => ({
     type: ActionType.SUCCESS_LOAD_DATA,
+  }),
+  downloadOffers: (offers) => ({
+    type: ActionType.DOWNLOAD_OFFERS,
+    payload: offers,
   }),
   errorLoadData: () => ({
     type: ActionType.ERROR_LOAD_DATA,
@@ -23,5 +30,12 @@ export const ActionCreator = {
   }),
   toggleAuth: () => ({
     type: ActionType.TOGGLE_AUTH,
+  }),
+  requiredAuthorization: (status) => ({
+    type: ActionType.REQUIRED_AUTHORIZATION,
+    payload: status,
+  }),
+  logOut: () => ({
+    type: ActionType.LOG_OUT,
   }),
 };

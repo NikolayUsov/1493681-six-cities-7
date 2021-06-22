@@ -3,28 +3,20 @@
 /* eslint-disable react/jsx-filename-extension */
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
 import App from './components/app/app';
 import reducer from './store/reducer';
-import { ActionCreator } from './store/actions';
+import createAPI from './services/api';
+import { fetchHostels } from './store/api-action';
 
-const store = createStore(reducer, composeWithDevTools());
+const api = createAPI();
+const store = createStore(reducer,
+  composeWithDevTools(applyMiddleware(thunk.withExtraArgument(api))));
 
-const promiseFunction = (resolve, reject) => {
-  setTimeout(() => (Math.random() > 0.5
-    ? resolve()
-    : reject()), 3000);
-};
-
-const pseudoFetch = new Promise(promiseFunction);
-
-pseudoFetch
-  .then(() => {
-    store.dispatch(ActionCreator.successLoadData());
-  })
-  .catch(() => store.dispatch(ActionCreator.errorLoadData()));
+store.dispatch(fetchHostels());
 
 ReactDOM.render(
   <Provider store={store}>

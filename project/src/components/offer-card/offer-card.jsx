@@ -6,9 +6,8 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
 import { createPercent } from '../../utils/utils';
-import { Types } from '../../mocs/offers';
+import { Types, AppRoutes } from '../../const';
 import OfferCardProp from './offer-card.prop';
-import { AppRoutes } from '../../const';
 
 const classNamesByPath = {
   [AppRoutes.ROOT]: {
