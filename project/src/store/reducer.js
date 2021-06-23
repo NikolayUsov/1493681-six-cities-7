@@ -14,6 +14,11 @@ const initState = {
   currentOffers: [],
   isLogin: true,
   AuthorizationStatus: AuthorizationStatus.UNKNOWN,
+  fetchOffersStatus: {
+    isError: false,
+    isLoading: false,
+    isSuccess: false,
+  },
   appStatus: {
     isLoading: true,
     isSuccess: false,
@@ -40,24 +45,29 @@ export default function reducer(state = initState, action) {
         ...state,
         isLogin: !state.isLogin,
       };
-    case ActionType.DOWNLOAD_OFFERS:
+    case ActionType.FETCH_OFFERS_REQUEST:
+      return {
+        ...state,
+        fetchOffersStatus: { ...state.fetchOffersStatus, isLoading: true },
+      };
+    case ActionType.FETCH_OFFERS_SUCCESS:
       return {
         ...state,
         offers: action.payload,
-        appStatus: { ...state.appStatus, isLoading: false, isSuccess: true },
+        fetchOffersStatus: { ...state.fetchOffersStatus, isLoading: false, isSuccess: true },
         currentOffers: getCurrentOffers(action.payload, state.currentCity, state.sortType),
       };
-    case ActionType.ERROR_LOAD_DATA:
+    case ActionType.FETCH_OFFERS_ERROR:
       return {
         ...state,
-        appStatus: { ...state.appStatus, isLoading: false, isError: true },
+        fetchOffersStatus: { ...state.fetchOffersStatus, isLoading: false, isError: true },
       };
     case ActionType.REQUIRED_AUTHORIZATION:
       return {
         ...state,
         AuthorizationStatus: action.payload,
       };
-    case ActionType.LOG_OUT:
+    case ActionType.LOGOUT:
       return {
         ...state,
         AuthorizationStatus: AuthorizationStatus.NO_AUTH,

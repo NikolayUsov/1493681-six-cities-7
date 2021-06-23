@@ -2,11 +2,16 @@
 import adaptedToClient from '../utils/adapte-to-client';
 import { ActionCreator } from './actions';
 
-export const fetchHostels = () => (dispatch, _store, api) => (
-  api.get('/hotels')
+const ApiRoute = {
+  HOSTELS: '/hotels',
+};
+
+export const fetchHostels = () => (dispatch, _store, api) => {
+  dispatch(ActionCreator.fetchOffersRequest());
+  api.get(ApiRoute.HOSTELS)
     .then(({ data }) => {
       const offers = data.map(adaptedToClient);
-      dispatch(ActionCreator.downloadOffers(offers));
+      dispatch(ActionCreator.fetchOffersSuccess(offers));
     })
-    .catch(() => { ActionCreator.errorLoadData(); })
-);
+    .catch(() => { dispatch(ActionCreator.fetchOffersError()); });
+};

@@ -74,8 +74,8 @@ const mapStateToProps = (state) => ({
   offers: state.currentOffers,
   allOffers: state.offers,
   currentCity: state.currentCity,
-  isLoading: state.appStatus.isLoading,
-  isError: state.appStatus.isError,
+  isLoading: state.fetchOffersStatus.isLoading,
+  isError: state.fetchOffersStatus.isError,
 });
 
 export default connect(mapStateToProps)(OffersBoard);
