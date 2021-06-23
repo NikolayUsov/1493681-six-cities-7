@@ -4,6 +4,7 @@ import { ActionCreator } from './actions';
 
 const ApiRoute = {
   HOSTELS: '/hotels',
+  LOGIN: '/login',
 };
 
 export const fetchHostels = () => (dispatch, _store, api) => {
@@ -14,4 +15,13 @@ export const fetchHostels = () => (dispatch, _store, api) => {
       dispatch(ActionCreator.fetchOffersSuccess(offers));
     })
     .catch(() => { dispatch(ActionCreator.fetchOffersError()); });
+};
+
+export const checkAuth = () => (dispatch, _store, api) => {
+  dispatch(ActionCreator.checkAuthRequest());
+  api.get(ApiRoute.LOGIN)
+    .then(({ data }) => {
+      dispatch(ActionCreator.checkAuthSuccess(data));
+    })
+    .catch(() => { dispatch(ActionCreator.checkAuthError()); });
 };
