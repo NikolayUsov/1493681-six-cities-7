@@ -13,7 +13,7 @@ const initState = {
   sortType: SORT_TYPE_DEFAULT,
   currentOffers: [],
   isLogin: true,
-  AuthorizationStatus: AuthorizationStatus.UNKNOWN,
+  authorizationStatus: AuthorizationStatus.UNKNOWN,
   userInfo: {},
   fetchOffersStatus: {
     isError: false,
@@ -78,20 +78,20 @@ export default function reducer(state = initState, action) {
       return {
         ...state,
         userInfo: action.payload,
-        AuthorizationStatus: AuthorizationStatus.AUTH,
+        authorizationStatus: AuthorizationStatus.AUTH,
         checkAuthStatus: { ...state.checkAuthStatus, isLoading: false, isSuccess: true },
       };
     case ActionType.CHECK_AUTH_NO_AUTH:
       return {
         ...state,
         userInfo: action.payload,
-        AuthorizationStatus: AuthorizationStatus.NO_AUTH,
+        authorizationStatus: AuthorizationStatus.NO_AUTH,
         checkAuthStatus: { ...state.checkAuthStatus, isLoading: false, isSuccess: true },
       };
     case ActionType.LOGOUT:
       return {
         ...state,
-        AuthorizationStatus: AuthorizationStatus.NO_AUTH,
+        authorizationStatus: AuthorizationStatus.NO_AUTH,
       };
     default: return state;
   }

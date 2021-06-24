@@ -15,6 +15,7 @@ import NotFound from '../../pages/not-found';
 import { AppRoutes } from '../../const';
 import { createRandomReviews } from '../../mocs/reviews';
 import offerCardProp from '../offer-card/offer-card.prop';
+import PrivateRoute from '../private-route/private-route';
 
 const reviews = createRandomReviews();
 
@@ -28,16 +29,20 @@ function App({ offers }) {
         <Route exact path={AppRoutes.LOGIN}>
           <Login />
         </Route>
-        <Route exact path={AppRoutes.FAVORITES}>
-          <Favorites offers={offers} />
-        </Route>
+        <PrivateRoute
+          exact
+          path={AppRoutes.FAVORITES}
+          render={() => (
+            <Favorites offers={offers} />
+          )}
+        />
+
         <Route path={AppRoutes.OFFER_DETAILS}>
           <Details offers={offers} reviews={reviews} />
         </Route>
         <Route>
           <NotFound />
         </Route>
-
       </Switch>
     </BrowserRouter>
   );
