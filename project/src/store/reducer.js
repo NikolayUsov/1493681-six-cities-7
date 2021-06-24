@@ -1,6 +1,5 @@
 import { ActionType } from './actions';
-import { offers } from '../mocs/offers';
-import { CITIES, SortFunctions } from '../const';
+import { CITIES, SortFunctions, AuthorizationStatus } from '../const';
 
 const SORT_TYPE_DEFAULT = 'Popular';
 
@@ -8,14 +7,18 @@ const getCurrentOffers = (arr, city, sortType) => arr
   .filter((elem) => elem.city.name === city)
   .sort(SortFunctions[sortType]);
 
-const currentOffers = getCurrentOffers(offers, CITIES[0], SORT_TYPE_DEFAULT);
-
 const initState = {
-  offers,
+  offers: [],
   currentCity: CITIES[0],
   sortType: SORT_TYPE_DEFAULT,
-  currentOffers,
+  currentOffers: [],
   isLogin: true,
+  AuthorizationStatus: AuthorizationStatus.UNKNOWN,
+  fetchOffersStatus: {
+    isError: false,
+    isLoading: false,
+    isSuccess: false,
+  },
   appStatus: {
     isLoading: true,
     isSuccess: false,
@@ -42,15 +45,32 @@ export default function reducer(state = initState, action) {
         ...state,
         isLogin: !state.isLogin,
       };
-    case ActionType.SUCCESS_LOAD_DATA:
+    case ActionType.FETCH_OFFERS_REQUEST:
       return {
         ...state,
-        appStatus: { ...state.appStatus, isLoading: false, isSuccess: true },
+        fetchOffersStatus: { ...state.fetchOffersStatus, isLoading: true },
       };
-    case ActionType.ERROR_LOAD_DATA:
+    case ActionType.FETCH_OFFERS_SUCCESS:
       return {
         ...state,
-        appStatus: { ...state.appStatus, isLoading: false, isError: true },
+        offers: action.payload,
+        fetchOffersStatus: { ...state.fetchOffersStatus, isLoading: false, isSuccess: true },
+        currentOffers: getCurrentOffers(action.payload, state.currentCity, state.sortType),
+      };
+    case ActionType.FETCH_OFFERS_ERROR:
+      return {
+        ...state,
+        fetchOffersStatus: { ...state.fetchOffersStatus, isLoading: false, isError: true },
+      };
+    case ActionType.REQUIRED_AUTHORIZATION:
+      return {
+        ...state,
+        AuthorizationStatus: action.payload,
+      };
+    case ActionType.LOGOUT:
+      return {
+        ...state,
+        AuthorizationStatus: AuthorizationStatus.NO_AUTH,
       };
     default: return state;
   }

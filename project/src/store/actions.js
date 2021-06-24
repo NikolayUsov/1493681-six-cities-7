@@ -1,18 +1,30 @@
 export const ActionType = {
-  SUCCESS_LOAD_DATA: 'successLoadData',
-  ERROR_LOAD_DATA: 'errorLoadData',
   CHANGE_CURRENT_CITY: 'changeCurrentCity',
   CHANGE_SORT_TYPE: 'changeSortType',
   TOGGLE_AUTH: 'toggleAuth',
+
+  FETCH_OFFERS_REQUEST: 'offers/fetch-request',
+  FETCH_OFFERS_SUCCESS: 'offers/fetch-success',
+  FETCH_OFFERS_ERROR: 'offers/fetch-error',
+
+  REQUIRED_AUTHORIZATION: 'requiredAuthorization',
+  LOGOUT: 'logout',
 };
 
 export const ActionCreator = {
-  successLoadData: () => ({
-    type: ActionType.SUCCESS_LOAD_DATA,
+
+  fetchOffersSuccess: (offers) => ({
+    type: ActionType.FETCH_OFFERS_SUCCESS,
+    payload: offers,
   }),
-  errorLoadData: () => ({
-    type: ActionType.ERROR_LOAD_DATA,
+  fetchOffersRequest: () => ({
+    type: ActionType.FETCH_OFFERS_REQUEST,
+
   }),
+  fetchOffersError: () => ({
+    type: ActionType.FETCH_OFFERS_ERROR,
+  }),
+
   changeCity: (currentCity) => ({
     type: ActionType.CHANGE_CURRENT_CITY,
     payload: currentCity,
@@ -23,5 +35,12 @@ export const ActionCreator = {
   }),
   toggleAuth: () => ({
     type: ActionType.TOGGLE_AUTH,
+  }),
+  requiredAuthorization: (status) => ({
+    type: ActionType.REQUIRED_AUTHORIZATION,
+    payload: status,
+  }),
+  logout: () => ({
+    type: ActionType.LOGOUT,
   }),
 };
