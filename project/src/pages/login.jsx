@@ -1,8 +1,25 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React from 'react';
+import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import Logo from '../components/logo/logo';
+import { fetchLogin } from '../store/api-action';
 
-export default function Login() {
+const InitFormValue = {
+  email: '',
+  password: '',
+};
+
+export function Login({ loginSubbmit }) {
+  const [inputsValue, setInputsValue] = useState(InitFormValue);
+
+  const onFormSubmit = (evt) => {
+    evt.preventDefault();
+    // eslint-disable-next-line no-debugger
+    debugger;
+    loginSubbmit(inputsValue);
+  };
+
   return (
     <div className="page page--gray page--login">
       <header className="header">
@@ -28,14 +45,40 @@ export default function Login() {
         <div className="page__login-container container">
           <section className="login">
             <h1 className="login__title">Sign in</h1>
-            <form className="login__form form" action="#" method="post">
+            <form
+              className="login__form form"
+              action="#"
+              method="post"
+              onSubmit={onFormSubmit}
+            >
               <div className="login__input-wrapper form__input-wrapper">
                 <label htmlFor="email" className="visually-hidden">E-mail</label>
-                <input id="email" className="login__input form__input" type="email" name="email" placeholder="Email" required />
+                <input
+                  value={inputsValue.email}
+                  onChange={
+                    (evt) => setInputsValue((pref) => ({ ...pref, email: evt.target.value }))
+                  }
+                  id="email"
+                  className="login__input form__input"
+                  type="email"
+                  name="email"
+                  placeholder="Email"
+                  required
+                />
               </div>
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">Password</label>
-                <input className="login__input form__input" type="password" name="password" placeholder="Password" required />
+                <input
+                  value={inputsValue.password}
+                  onChange={
+                    (evt) => setInputsValue((pref) => ({ ...pref, password: evt.target.value }))
+                  }
+                  className="login__input form__input"
+                  type="password"
+                  name="password"
+                  placeholder="Password"
+                  required
+                />
               </div>
               <button className="login__submit form__submit button" type="submit">Sign in</button>
             </form>
@@ -52,3 +95,15 @@ export default function Login() {
     </div>
   );
 }
+Login.propTypes = {
+  // eslint-disable-next-line react/require-default-props
+  loginSubbmit: PropTypes.func,
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  loginSubbmit(inputsValue) {
+    dispatch(fetchLogin(inputsValue));
+  },
+});
+
+export default connect(null, mapDispatchToProps)(Login);

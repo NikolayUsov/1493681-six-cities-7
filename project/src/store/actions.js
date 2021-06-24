@@ -12,6 +12,10 @@ export const ActionType = {
   CHECK_AUTH_ERROR: 'checkauth/error',
   CHECK_AUTH_NO_AUTH: 'checkauth/noAuth',
 
+  LOGIN_REQUEST: 'login/request',
+  LOGIN_SUCCESS: 'login/success',
+  LOGIN_ERROR: 'login/error',
+
   REQUIRED_AUTHORIZATION: 'requiredAuthorization',
   LOGOUT: 'logout',
 };
@@ -42,6 +46,7 @@ export const ActionCreator = {
   checkAuthError: () => ({
     type: ActionType.CHECK_AUTH_ERROR,
   }),
+
   changeCity: (currentCity) => ({
     type: ActionType.CHANGE_CURRENT_CITY,
     payload: currentCity,
@@ -50,8 +55,13 @@ export const ActionCreator = {
     type: ActionType.CHANGE_SORT_TYPE,
     payload: sortType,
   }),
-  toggleAuth: () => ({
-    type: ActionType.TOGGLE_AUTH,
+
+  loginRequest: () => ({
+    type: ActionType.LOGIN_REQUEST,
+  }),
+  loginSuccess: (userInfo) => ({
+    type: ActionType.LOGIN_SUCCESS,
+    payload: userInfo,
   }),
   requiredAuthorization: (status) => ({
     type: ActionType.REQUIRED_AUTHORIZATION,

@@ -25,6 +25,12 @@ const initState = {
     isLoading: false,
     isSuccess: false,
   },
+
+  loginStatus: {
+    isError: false,
+    isLoading: false,
+    isSuccess: false,
+  },
   appStatus: {
     isLoading: true,
     isSuccess: false,
@@ -87,6 +93,17 @@ export default function reducer(state = initState, action) {
         userInfo: action.payload,
         authorizationStatus: AuthorizationStatus.NO_AUTH,
         checkAuthStatus: { ...state.checkAuthStatus, isLoading: false, isSuccess: true },
+      };
+    case ActionType.LOGIN_REQUEST:
+      return {
+        ...state,
+        loginStatus: { ...state.loginStatus, isLoading: true },
+      };
+    case ActionType.LOGIN_SUCCESS:
+      return {
+        ...state,
+        loginStatus: { ...state.loginStatus, isLoading: false, isSuccess: true },
+        userInfo: action.payload,
       };
     case ActionType.LOGOUT:
       return {

@@ -25,3 +25,9 @@ export const checkAuth = () => (dispatch, _store, api) => {
     })
     .catch(() => { dispatch(ActionCreator.checkAuthError()); });
 };
+
+export const fetchLogin = (loginData) => (dispatch, _store, api) => {
+  dispatch(ActionCreator.loginRequest());
+  api.post(ApiRoute.LOGIN, loginData)
+    .then(({ data }) => { dispatch(ActionCreator.loginSuccess(data)); });
+};
