@@ -14,9 +14,7 @@ export function Login({ loginSubbmit }) {
   const [inputsValue, setInputsValue] = useState(InitFormValue);
 
   const onFormSubmit = (evt) => {
-    evt.preventDefault();
-    // eslint-disable-next-line no-debugger
-    debugger;
+    evt.preventdefault();
     loginSubbmit(inputsValue);
   };
 

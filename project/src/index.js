@@ -12,11 +12,15 @@ import reducer from './store/reducer';
 import createAPI from './services/api';
 import { checkAuth, fetchHostels } from './store/api-action';
 import { ActionCreator } from './store/actions';
+// import RedirectMiddlewares from './store/middlewares';
 
 // eslint-disable-next-line no-use-before-define
 const api = createAPI(() => store.dispatch(ActionCreator.checkAuthNoAuth()));
 const store = createStore(reducer,
-  composeWithDevTools(applyMiddleware(thunk.withExtraArgument(api))));
+  composeWithDevTools(
+    applyMiddleware(thunk.withExtraArgument(api)),
+  /*   applyMiddleware(RedirectMiddlewares), */
+  ));
 
 store.dispatch(fetchHostels());
 store.dispatch(checkAuth());

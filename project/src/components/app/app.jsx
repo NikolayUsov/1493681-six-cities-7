@@ -1,7 +1,7 @@
 /* eslint-disable import/no-named-as-default */
 import React from 'react';
 import {
-  BrowserRouter,
+  Router,
   Switch,
   Route,
 } from 'react-router-dom';
@@ -16,12 +16,13 @@ import { AppRoutes } from '../../const';
 import { createRandomReviews } from '../../mocs/reviews';
 import offerCardProp from '../offer-card/offer-card.prop';
 import PrivateRoute from '../private-route/private-route';
+import browserHistory from '../../browser-history';
 
 const reviews = createRandomReviews();
 
 function App({ offers }) {
   return (
-    <BrowserRouter>
+    <Router history={browserHistory}>
       <Switch>
         <Route exact path={AppRoutes.ROOT}>
           <Main offers={offers} />
@@ -44,7 +45,7 @@ function App({ offers }) {
           <NotFound />
         </Route>
       </Switch>
-    </BrowserRouter>
+    </Router>
   );
 }
 

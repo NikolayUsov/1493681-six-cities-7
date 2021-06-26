@@ -12,7 +12,6 @@ const initState = {
   currentCity: CITIES[0],
   sortType: SORT_TYPE_DEFAULT,
   currentOffers: [],
-  isLogin: true,
   authorizationStatus: AuthorizationStatus.UNKNOWN,
   userInfo: {},
   fetchOffersStatus: {
@@ -51,11 +50,6 @@ export default function reducer(state = initState, action) {
         ...state,
         sortType: action.payload,
         currentOffers: getCurrentOffers(state.offers, state.currentCity, action.payload),
-      };
-    case ActionType.TOGGLE_AUTH:
-      return {
-        ...state,
-        isLogin: !state.isLogin,
       };
     case ActionType.FETCH_OFFERS_REQUEST:
       return {
@@ -102,12 +96,14 @@ export default function reducer(state = initState, action) {
     case ActionType.LOGIN_SUCCESS:
       return {
         ...state,
+        authorizationStatus: AuthorizationStatus.AUTH,
         loginStatus: { ...state.loginStatus, isLoading: false, isSuccess: true },
         userInfo: action.payload,
       };
     case ActionType.LOGOUT:
       return {
         ...state,
+        userInfo: {},
         authorizationStatus: AuthorizationStatus.NO_AUTH,
       };
     default: return state;

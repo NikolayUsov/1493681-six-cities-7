@@ -24,8 +24,12 @@ export default function PrivateRoute({
 PrivateRoute.propTypes = {
   path: PropTypes.string.isRequired,
   exact: PropTypes.bool.isRequired,
-  authorizationStatus: PropTypes.string.isRequired,
+  authorizationStatus: PropTypes.string,
   render: PropTypes.func.isRequired,
+};
+
+PrivateRoute.defaultProps = {
+  authorizationStatus: AuthorizationStatus.UNKNOWN,
 };
 
 const mapStateToProps = (state) => ({
