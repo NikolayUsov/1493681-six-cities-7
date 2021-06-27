@@ -7,16 +7,15 @@ export const ActionType = {
   FETCH_OFFERS_SUCCESS: 'offers/fetch-success',
   FETCH_OFFERS_ERROR: 'offers/fetch-error',
 
-  CHECK_AUTH_REQUEST: 'checkauth/request',
-  CHECK_AUTH_SUCCESS: 'checkauth/success',
-  CHECK_AUTH_ERROR: 'checkauth/error',
-  CHECK_AUTH_NO_AUTH: 'checkauth/noAuth',
-
   LOGIN_REQUEST: 'login/request',
   LOGIN_SUCCESS: 'login/success',
   LOGIN_ERROR: 'login/error',
 
-  REQUIRED_AUTHORIZATION: 'requiredAuthorization',
+  LOGOUT_REQUEST: 'logout/request',
+  LOGOUT_SUCCESS: 'logout/success',
+  LOGOUT_ERROR: 'logout/error',
+  SET_USER_INFO: 'auth/setUserInfo',
+  REQUIRED_AUTHORIZATION: 'auth/requiredAuthorization',
   LOGOUT: 'logout',
 
   REDIRECT_TO_ROUTE: 'route/redirect',
@@ -35,18 +34,14 @@ export const ActionCreator = {
     type: ActionType.FETCH_OFFERS_ERROR,
   }),
 
-  checkAuthRequest: () => ({
-    type: ActionType.CHECK_AUTH_REQUEST,
+  requiredAuthorization: (status) => ({
+    type: ActionType.REQUIRED_AUTHORIZATION,
+    payload: status,
   }),
-  checkAuthSuccess: (authInfo) => ({
-    type: ActionType.CHECK_AUTH_SUCCESS,
-    payload: authInfo,
-  }),
-  checkAuthNoAuth: () => ({
-    type: ActionType.CHECK_AUTH_NO_AUTH,
-  }),
-  checkAuthError: () => ({
-    type: ActionType.CHECK_AUTH_ERROR,
+
+  setAuthUserData: (userInfo) => ({
+    type: ActionType.SET_USER_INFO,
+    payload: userInfo,
   }),
 
   changeCity: (currentCity) => ({
@@ -61,17 +56,23 @@ export const ActionCreator = {
   loginRequest: () => ({
     type: ActionType.LOGIN_REQUEST,
   }),
-  loginSuccess: (userInfo) => ({
+  loginSuccess: () => ({
     type: ActionType.LOGIN_SUCCESS,
-    payload: userInfo,
   }),
-  requiredAuthorization: (status) => ({
-    type: ActionType.REQUIRED_AUTHORIZATION,
-    payload: status,
+  loginError: () => ({
+    type: ActionType.LOGIN_ERROR,
   }),
 
-  logout: () => ({
-    type: ActionType.LOGOUT,
+  logoutRequest: () => ({
+    type: ActionType.LOGOUT_REQUEST,
+  }),
+
+  logoutSuccess: () => ({
+    type: ActionType.LOGOUT_SUCCESS,
+  }),
+
+  logoutError: () => ({
+    type: ActionType.LOGOUT_ERROR,
   }),
 
   redirectToRoute: (url) => ({

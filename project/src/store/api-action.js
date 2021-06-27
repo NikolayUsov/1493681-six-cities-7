@@ -1,10 +1,9 @@
 /* eslint-disable import/prefer-default-export */
-import browserHistory from '../browser-history';
-import { AppRoutes } from '../const';
+import { AppRoutes, AuthorizationStatus } from '../const';
 import adaptedToClient from '../utils/adapte-to-client';
 import { ActionCreator } from './actions';
 
-const ApiRoute = {
+const ApiRoutes = {
   HOSTELS: '/hotels',
   LOGIN: '/login',
   LOGOUT: '/logout',
@@ -12,7 +11,7 @@ const ApiRoute = {
 
 export const fetchHostels = () => (dispatch, _store, api) => {
   dispatch(ActionCreator.fetchOffersRequest());
-  api.get(ApiRoute.HOSTELS)
+  api.get(ApiRoutes.HOSTELS)
     .then(({ data }) => {
       const offers = data.map(adaptedToClient);
       dispatch(ActionCreator.fetchOffersSuccess(offers));
@@ -21,27 +20,38 @@ export const fetchHostels = () => (dispatch, _store, api) => {
 };
 
 export const checkAuth = () => (dispatch, _store, api) => {
-  dispatch(ActionCreator.checkAuthRequest());
-  api.get(ApiRoute.LOGIN)
+  api.get(ApiRoutes.LOGIN)
     .then(({ data }) => {
-      dispatch(ActionCreator.checkAuthSuccess(data));
+      dispatch(ActionCreator.requiredAuthorization(AuthorizationStatus.AUTH));
+      dispatch(ActionCreator.setAuthUserData(data));
     })
-    .catch(() => { dispatch(ActionCreator.checkAuthError()); });
+    .catch(() => {
+      dispatch(ActionCreator.setAuthUserData({}));
+    });
 };
 
 export const fetchLogin = (loginData) => (dispatch, _store, api) => {
   dispatch(ActionCreator.loginRequest());
-  api.post(ApiRoute.LOGIN, loginData)
+  api.post(ApiRoutes.LOGIN, loginData)
     .then(({ data }) => {
       localStorage.setItem('token', data.token);
-      dispatch(ActionCreator.loginSuccess(data));
-      browserHistory.push(AppRoutes.FAVORITES);
-      // dispatch(ActionCreator.redirectToRoute(AppRoutes.FAVORITES));
+      dispatch(ActionCreator.requiredAuthorization(AuthorizationStatus.AUTH));
+      dispatch(ActionCreator.setAuthUserData(data));
+      dispatch(ActionCreator.loginSuccess());
+      dispatch(ActionCreator.redirectToRoute(AppRoutes.ROOT));
+    })
+    .catch(() => {
+      dispatch(ActionCreator.loginError());
     });
 };
 
 export const fetchLogout = () => (dispatch, _store, api) => {
-  api.delete(ApiRoute.LOGOUT)
-    .then(() => { dispatch(ActionCreator.logout()); })
-    .then(() => { dispatch(ActionCreator.redirectToRoute(AppRoutes.ROOT)); });
+  dispatch(ActionCreator.logoutRequest());
+  api.delete(ApiRoutes.LOGOUT)
+    .then(() => {
+      dispatch(ActionCreator.logoutSuccess());
+      dispatch(ActionCreator.requiredAuthorization(AuthorizationStatus.NO_AUTH));
+    })
+    .then(() => { dispatch(ActionCreator.redirectToRoute(AppRoutes.ROOT)); })
+    .catch(() => dispatch(ActionCreator.logoutError()));
 };

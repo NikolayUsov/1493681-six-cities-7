@@ -14,7 +14,7 @@ export function Login({ loginSubbmit }) {
   const [inputsValue, setInputsValue] = useState(InitFormValue);
 
   const onFormSubmit = (evt) => {
-    evt.preventdefault();
+    evt.preventDefault();
     loginSubbmit(inputsValue);
   };
 

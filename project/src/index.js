@@ -12,14 +12,17 @@ import reducer from './store/reducer';
 import createAPI from './services/api';
 import { checkAuth, fetchHostels } from './store/api-action';
 import { ActionCreator } from './store/actions';
-// import RedirectMiddlewares from './store/middlewares';
+import RedirectMiddlewares from './store/middlewars/redirect';
+import { AuthorizationStatus } from './const';
 
-// eslint-disable-next-line no-use-before-define
-const api = createAPI(() => store.dispatch(ActionCreator.checkAuthNoAuth()));
+const api = createAPI(() => {
+  // eslint-disable-next-line no-use-before-define
+  store.dispatch(ActionCreator.requiredAuthorization(AuthorizationStatus.NO_AUTH));
+});
 const store = createStore(reducer,
   composeWithDevTools(
     applyMiddleware(thunk.withExtraArgument(api)),
-  /*   applyMiddleware(RedirectMiddlewares), */
+    applyMiddleware(RedirectMiddlewares),
   ));
 
 store.dispatch(fetchHostels());

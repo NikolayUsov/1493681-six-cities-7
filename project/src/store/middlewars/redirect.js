@@ -1,5 +1,5 @@
-import browserHistory from '../browser-history';
-import { ActionType } from './actions';
+import browserHistory from '../../browser-history';
+import { ActionType } from '../actions';
 
 export default () => (next) => (action) => {
   if (action.type === ActionType.REDIRECT_TO_ROUTE) {
