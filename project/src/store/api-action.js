@@ -38,7 +38,7 @@ export const fetchLogin = (loginData) => (dispatch, _store, api) => {
       dispatch(ActionCreator.requiredAuthorization(AuthorizationStatus.AUTH));
       dispatch(ActionCreator.setAuthUserData(data));
       dispatch(ActionCreator.loginSuccess());
-      dispatch(ActionCreator.redirectToRoute(AppRoutes.ROOT));
+      dispatch(ActionCreator.redirectToRoute(AppRoutes.FAVORITES));
     })
     .catch(() => {
       dispatch(ActionCreator.loginError());

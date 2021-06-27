@@ -8,13 +8,16 @@ import { fetchLogout } from '../../store/api-action';
 export function UserNavigation({ authorizationStatus, logout, userInfo }) {
   const history = useHistory();
   const isAuth = authorizationStatus === AuthorizationStatus.AUTH;
-  const avatarStyle = {
+  const avatarStyle = isAuth ? {
     backgroundImage: `url(${userInfo?.avatar_url})`,
-  };
+  } : {};
+
   const onLoginClick = (evt) => {
     evt.preventDefault();
     if (!isAuth) {
       history.push(AppRoutes.LOGIN);
+    } else {
+      history.push(AppRoutes.FAVORITES);
     }
   };
 
@@ -43,10 +46,10 @@ export function UserNavigation({ authorizationStatus, logout, userInfo }) {
 
 UserNavigation.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
-  logout: PropTypes.func.isRequired,
+  logout: PropTypes.func,
   userInfo: PropTypes.shape({
     id: PropTypes.number,
-    email: PropTypes.number,
+    email: PropTypes.string,
     name: PropTypes.string,
     avatar_url: PropTypes.string,
     is_pro: PropTypes.bool,
@@ -56,6 +59,7 @@ UserNavigation.propTypes = {
 
 UserNavigation.defaultProps = {
   userInfo: {},
+  logout: () => {},
 };
 const mapStateToProps = (state) => ({
   authorizationStatus: state.authorizationStatus,

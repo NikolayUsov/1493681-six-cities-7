@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
 import { AppRoutes, AuthorizationStatus } from '../../const';
 
-export default function PrivateRoute({
+export function PrivateRoute({
   path, exact, authorizationStatus, render,
 }) {
   return (
@@ -24,16 +24,13 @@ export default function PrivateRoute({
 PrivateRoute.propTypes = {
   path: PropTypes.string.isRequired,
   exact: PropTypes.bool.isRequired,
-  authorizationStatus: PropTypes.string,
+  // eslint-disable-next-line react/require-default-props
+  authorizationStatus: PropTypes.string.isRequired,
   render: PropTypes.func.isRequired,
-};
-
-PrivateRoute.defaultProps = {
-  authorizationStatus: AuthorizationStatus.UNKNOWN,
 };
 
 const mapStateToProps = (state) => ({
   authorizationStatus: state.authorizationStatus,
 });
 
-connect(mapStateToProps)(PrivateRoute);
+export default connect(mapStateToProps)(PrivateRoute);

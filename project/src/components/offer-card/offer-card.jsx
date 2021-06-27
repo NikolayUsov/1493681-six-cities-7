@@ -1,13 +1,14 @@
 import React from 'react';
 import {
-  Link, useRouteMatch, useHistory,
+  Link, useRouteMatch,
 } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
 import { createPercent } from '../../utils/utils';
-import { Types, AppRoutes } from '../../const';
+import { Types, AppRoutes, AuthorizationStatus } from '../../const';
 import OfferCardProp from './offer-card.prop';
+import browserHistory from '../../browser-history';
 
 const classNamesByPath = {
   [AppRoutes.ROOT]: {
@@ -27,7 +28,9 @@ const classNamesByPath = {
   },
 };
 
-function OfferCard({ offer, handleActiveOfferCard, isAuth }) {
+function OfferCard({ offer, handleActiveOfferCard, authorizationStatus }) {
+  const isAuth = authorizationStatus === AuthorizationStatus.AUTH;
+
   const {
     id,
     price,
@@ -38,7 +41,7 @@ function OfferCard({ offer, handleActiveOfferCard, isAuth }) {
     isPremium,
     previewImage,
   } = offer;
-  const history = useHistory();
+
   const { path } = useRouteMatch();
   const isFavoriteView = path === AppRoutes.FAVORITES;
   const PictureSize = {
@@ -51,7 +54,7 @@ function OfferCard({ offer, handleActiveOfferCard, isAuth }) {
 
   const handleAddFavorites = () => {
     if (!isAuth) {
-      history.push(AppRoutes.LOGIN);
+      browserHistory.push(AppRoutes.LOGIN);
     }
   };
 
@@ -112,7 +115,7 @@ function OfferCard({ offer, handleActiveOfferCard, isAuth }) {
 OfferCard.propTypes = {
   handleActiveOfferCard: PropTypes.func,
   offer: OfferCardProp.isRequired,
-  isAuth: PropTypes.bool.isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
 };
 
 OfferCard.defaultProps = {
@@ -120,7 +123,8 @@ OfferCard.defaultProps = {
 };
 
 const mapStateToProps = (state) => ({
-  isAuth: state.isLogin,
+  authorizationStatus: state.authorizationStatus,
 });
+
 export { OfferCard };
 export default connect(mapStateToProps)(OfferCard);

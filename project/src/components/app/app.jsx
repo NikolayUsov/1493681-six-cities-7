@@ -4,6 +4,7 @@ import {
   Router,
   Switch,
   Route,
+  Redirect,
 } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -12,7 +13,7 @@ import Login from '../../pages/login';
 import Favorites from '../../pages/favorites';
 import Details from '../../pages/details';
 import NotFound from '../../pages/not-found';
-import { AppRoutes } from '../../const';
+import { AppRoutes, AuthorizationStatus } from '../../const';
 import { createRandomReviews } from '../../mocs/reviews';
 import offerCardProp from '../offer-card/offer-card.prop';
 import PrivateRoute from '../private-route/private-route';
@@ -20,7 +21,7 @@ import browserHistory from '../../browser-history';
 
 const reviews = createRandomReviews();
 
-function App({ offers }) {
+function App({ offers, authorizationStatus }) {
   return (
     <Router history={browserHistory}>
       <Switch>
@@ -28,7 +29,9 @@ function App({ offers }) {
           <Main offers={offers} />
         </Route>
         <Route exact path={AppRoutes.LOGIN}>
-          <Login />
+          {authorizationStatus === AuthorizationStatus.AUTH
+            ? <Redirect to={AppRoutes.ROOT} />
+            : <Login />}
         </Route>
         <PrivateRoute
           exact
@@ -51,10 +54,12 @@ function App({ offers }) {
 
 App.propTypes = {
   offers: PropTypes.arrayOf(offerCardProp).isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   offers: state.offers,
+  authorizationStatus: state.authorizationStatus,
 });
 
 export { App };
