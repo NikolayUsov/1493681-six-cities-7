@@ -1,0 +1,10 @@
+.login__input-wrapper{
+    position: relative;
+}
+.login__input-error{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    color: red;
+}
