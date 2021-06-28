@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/named
 import { ActionType } from './actions';
 import { CITIES, SortFunctions, AuthorizationStatus } from '../const';
 
@@ -12,9 +13,26 @@ const initState = {
   currentCity: CITIES[0],
   sortType: SORT_TYPE_DEFAULT,
   currentOffers: [],
-  isLogin: true,
-  AuthorizationStatus: AuthorizationStatus.UNKNOWN,
+  authorizationStatus: AuthorizationStatus.UNKNOWN,
+  userInfo: {},
   fetchOffersStatus: {
+    isError: false,
+    isLoading: false,
+    isSuccess: false,
+  },
+  checkAuthStatus: {
+    isError: false,
+    isLoading: false,
+    isSuccess: false,
+  },
+
+  loginStatus: {
+    isError: false,
+    isLoading: false,
+    isSuccess: false,
+  },
+
+  logoutStatus: {
     isError: false,
     isLoading: false,
     isSuccess: false,
@@ -40,11 +58,6 @@ export default function reducer(state = initState, action) {
         sortType: action.payload,
         currentOffers: getCurrentOffers(state.offers, state.currentCity, action.payload),
       };
-    case ActionType.TOGGLE_AUTH:
-      return {
-        ...state,
-        isLogin: !state.isLogin,
-      };
     case ActionType.FETCH_OFFERS_REQUEST:
       return {
         ...state,
@@ -65,12 +78,44 @@ export default function reducer(state = initState, action) {
     case ActionType.REQUIRED_AUTHORIZATION:
       return {
         ...state,
-        AuthorizationStatus: action.payload,
+        authorizationStatus: action.payload,
       };
-    case ActionType.LOGOUT:
+
+    case ActionType.SET_USER_INFO:
       return {
         ...state,
-        AuthorizationStatus: AuthorizationStatus.NO_AUTH,
+        userInfo: action.payload,
+      };
+    case ActionType.LOGIN_REQUEST:
+      return {
+        ...state,
+        loginStatus: { ...state.loginStatus, isLoading: true },
+      };
+    case ActionType.LOGIN_SUCCESS:
+      return {
+        ...state,
+        loginStatus: { ...state.loginStatus, isLoading: false, isSuccess: true },
+      };
+    case ActionType.LOGIN_ERROR:
+      return {
+        ...state,
+        loginStatus: { ...state.loginStatus, isLoading: false, isError: true },
+      };
+
+    case ActionType.LOGOUT_REQUEST:
+      return {
+        ...state,
+        logoutStatus: { ...state.loginStatus, isLoading: true },
+      };
+    case ActionType.LOGOUT_SUCCESS:
+      return {
+        ...state,
+        logoutStatus: { ...state.loginStatus, isLoading: false, isSuccess: true },
+      };
+    case ActionType.LOGOUT_ERROR:
+      return {
+        ...state,
+        logoutStatus: { ...state.loginStatus, isLoading: false, isError: true },
       };
     default: return state;
   }

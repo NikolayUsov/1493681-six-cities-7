@@ -10,14 +10,23 @@ import thunk from 'redux-thunk';
 import App from './components/app/app';
 import reducer from './store/reducer';
 import createAPI from './services/api';
-import { fetchHostels } from './store/api-action';
+import { checkAuth, fetchHostels } from './store/api-action';
+import { ActionCreator } from './store/actions';
+import RedirectMiddlewares from './store/middlewars/redirect';
+import { AuthorizationStatus } from './const';
 
-const api = createAPI();
+const api = createAPI(() => {
+  // eslint-disable-next-line no-use-before-define
+  store.dispatch(ActionCreator.requiredAuthorization(AuthorizationStatus.NO_AUTH));
+});
 const store = createStore(reducer,
-  composeWithDevTools(applyMiddleware(thunk.withExtraArgument(api))));
+  composeWithDevTools(
+    applyMiddleware(thunk.withExtraArgument(api)),
+    applyMiddleware(RedirectMiddlewares),
+  ));
 
 store.dispatch(fetchHostels());
-
+store.dispatch(checkAuth());
 ReactDOM.render(
   <Provider store={store}>
     <React.StrictMode>

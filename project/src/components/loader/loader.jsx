@@ -8,7 +8,7 @@ const loaderStyle = {
 };
 
 const DEFAULT_COLOR = '#4481c3';
-const DEFAULT_SIZE = '150';
+const DEFAULT_SIZE = '150px';
 
 function Loader({ color, size }) {
   return (
