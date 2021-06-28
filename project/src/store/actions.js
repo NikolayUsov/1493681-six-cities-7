@@ -18,10 +18,54 @@ export const ActionType = {
   REQUIRED_AUTHORIZATION: 'auth/requiredAuthorization',
   LOGOUT: 'logout',
 
+  FETCH_OFFER_DETAILS_REQUEST: 'offer-details/request',
+  FETCH_OFFER_DETAILS_SUCCESS: 'offer-details/succes',
+  FETCH_OFFER_DETAILS_ERROR: 'offer-details/error',
+
+  FETCH_NEARBY_OFFER_REQUEST: 'offer-nearby/request',
+  FETCH_NEARBY_OFFER_SUCCESS: 'offer-nearby/success',
+  FETCH_NEARBY_OFFER_ERROR: 'offer-nearby/error',
+
+  FETCH_REVIEWS_REQUEST: 'review/request',
+  FETCH_REVIEWS_ERROR: 'review/error',
+  FETCH_REVIEWS_SUCCESS: 'review/success',
+
   REDIRECT_TO_ROUTE: 'route/redirect',
 };
 
 export const ActionCreator = {
+  fetchReviewRequest: () => ({
+    type: ActionType.FETCH_REVIEWS_REQUEST,
+  }),
+  fetchReviewSuccess: (reviews) => ({
+    type: ActionType.FETCH_REVIEWS_SUCCESS,
+    payload: reviews,
+  }),
+  fetchReviewError: () => ({
+    type: ActionType.FETCH_REVIEWS_ERROR,
+  }),
+
+  fetchNearbyOffersRequest: () => ({
+    type: ActionType.FETCH_NEARBY_OFFER_REQUEST,
+  }),
+  fetchNearbyOffersSuccess: (offers) => ({
+    type: ActionType.FETCH_NEARBY_OFFER_SUCCESS,
+    payload: offers,
+  }),
+  fetchNearbyOffersError: () => ({
+    type: ActionType.FETCH_NEARBY_OFFER_ERROR,
+  }),
+
+  fetchOfferDetailRequest: () => ({
+    type: ActionType.FETCH_OFFER_DETAILS_REQUEST,
+  }),
+  fetchOfferDetailSuccess: (offer) => ({
+    type: ActionType.FETCH_OFFER_DETAILS_SUCCESS,
+    payload: offer,
+  }),
+  fetchOfferDetailError: () => ({
+    type: ActionType.FETCH_OFFER_DETAILS_ERROR,
+  }),
 
   fetchOffersSuccess: (offers) => ({
     type: ActionType.FETCH_OFFERS_SUCCESS,
