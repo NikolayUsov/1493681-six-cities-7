@@ -1,26 +1,30 @@
+/* eslint-disable no-useless-escape */
 /* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import classNames from 'classnames';
 import { fetchLogin } from '../../store/api-action';
-import './login-form.css';
+import styles from './login-form.module.css';
 
-// eslint-disable-next-line no-useless-escape
-const EMAIL_REGXP = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+const PASSWORD_REGEX = /^.{6,}$/;
+const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const MIN_LENGTH = 6;
-const InitFormInput = {
+const initFormInput = {
   email: {
     value: '',
     isValid: false,
-    showError: false,
+    touched: false,
     errorText: '',
+    rule: EMAIL_REGEX,
   },
   password: {
     value: '',
     isValid: false,
-    showError: false,
+    touched: false,
     errorText: '',
+    rule: PASSWORD_REGEX,
   },
 };
 
@@ -29,88 +33,104 @@ const INPUTS = [
   { type: 'password', label: 'Password' },
 ];
 
-const checkValidStatus = (inputType, inputText) => {
-  if (!inputText) {
-    return [false, ''];
-  }
-  if (inputType === 'email' && !EMAIL_REGXP.test(inputText)) {
-    return [false, 'Неправильный формат почтового адресса'];
-  }
-
-  if (inputType === 'password' && /\s/.test(inputText)) {
-    return [false, 'Пароль не должен включать пробелы'];
-  }
-
-  if (inputType === 'password' && inputText.length < MIN_LENGTH) {
-    return [false, `Введите еще ${MIN_LENGTH - inputText.length} зн.`];
-  }
-  return [true, ''];
-};
-
 export function LoginForm({ sendLogin }) {
-  const [inputsState, setInputsState] = useState(InitFormInput);
+  const [inputsState, setInputsState] = useState(initFormInput);
   const isButtonDissabled = inputsState.email.isValid && inputsState.password.isValid;
-  const onInputChange = (inputType, evt) => {
-    const [status, errorText] = checkValidStatus(inputType, evt.target.value);
 
-    if (!evt.target.value) {
-      setInputsState((pref) => ({
-        ...pref,
-        [inputType]: {
-          value: evt.target.value, isValid: status, errorText, showError: false,
+  const onInputBlur = (evt) => {
+    const { type, value } = evt.target;
+    if (!value) {
+      setInputsState((prev) => ({
+        ...prev,
+        [type]: { ...prev[type], touched: false },
+      }));
+      return;
+    }
+
+    setInputsState((prev) => ({
+      ...prev,
+      [type]: { ...prev[type], touched: true },
+    }));
+  };
+
+  const handleInputChange = (evt) => {
+    const { type, value } = evt.target;
+    if (!value) {
+      setInputsState((prev) => ({
+        ...prev,
+        [type]: {
+          ...prev[type],
+          value,
+          isValid: false,
+          errorText: '',
+          touched: false,
         },
       }));
+      return;
     }
-    setInputsState((pref) => ({
-      ...pref,
-      [inputType]: {
-        ...pref[inputType], value: evt.target.value, isValid: status, errorText,
+
+    const isValid = inputsState[type].rule.test(value);
+    const errorText = `Wrong format ${type}`;
+
+    setInputsState((prev) => ({
+      ...prev,
+      [type]: {
+        ...prev[type],
+        value,
+        isValid,
+        touched: true,
+        errorText,
       },
     }));
   };
 
-  const onInputBlur = (inputType) => {
-    setInputsState((pref) => ({
-      ...pref,
-      [inputType]: { ...pref[inputType], showError: true },
-    }));
-  };
   const onFormSubmit = (evt) => {
     evt.preventDefault();
-    sendLogin({ email: inputsState.email.value, password: inputsState.password.value });
+    sendLogin({
+      email: inputsState.email.value,
+      password: inputsState.password.value,
+    });
   };
   return (
-    <form
-      className="login__form form"
-      action="#"
-      method="post"
-      onSubmit={onFormSubmit}
-    >
-      {INPUTS.map(({ type, label }) => (
-        <div className="login__input-wrapper form__input-wrapper" key={label}>
-          <label htmlFor="email" className="visually-hidden">{label}</label>
-          <input
-            value={inputsState[type].value}
-            onChange={(evt) => onInputChange(type, evt)}
-            onBlur={() => onInputBlur(type)}
-            id={type}
-            className="login__input form__input"
-            type={type}
-            name={type}
-            placeholder={type[0].toUpperCase() + type.slice(1)}
-            required
-          />
-          {(!inputsState[type].isValid && inputsState[type].showError) && <span className="login__input-error">{inputsState[type].errorText}</span>}
-        </div>
-      ))}
-      <button
-        className="login__submit form__submit button"
-        type="submit"
-        disabled={!isButtonDissabled}
+    <section className="login">
+      <h1 className="login__title">Sign in</h1>
+      <form
+        className="login__form form"
+        action="#"
+        method="post"
+        onSubmit={onFormSubmit}
       >
-        Sign in
-      </button>
-    </form>
+        {INPUTS.map(({ type, label }) => (
+          <div
+            className={classNames('login__input-wrapper', { [styles.wrapper]: true })}
+            key={label}
+          >
+            <label htmlFor="email" className="visually-hidden">{label}</label>
+            <input
+              value={inputsState[type].value}
+              onBlur={onInputBlur}
+              onChange={handleInputChange}
+              id={type}
+              className={classNames('login__input', 'form__input', { [styles.borderError]: (!inputsState[type].isValid && inputsState[type].touched) })}
+              type={type}
+              name={type}
+              placeholder={type[0].toUpperCase() + type.slice(1)}
+              required
+            />
+            {(!inputsState[type].isValid && inputsState[type].touched) && (
+            <span className={[styles.messageError]}>{inputsState[type].errorText}</span>)}
+          </div>
+        ))}
+        <button
+          className="login__submit form__submit button"
+          type="submit"
+          disabled={!isButtonDissabled}
+        >
+          Sign in
+        </button>
+      </form>
+    </section>
+
   );
 }
 

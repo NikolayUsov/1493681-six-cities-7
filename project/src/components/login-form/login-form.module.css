@@ -1,10 +1,17 @@
-.login__input-wrapper{
+.wrapper {
     position: relative;
 }
-.login__input-error{
+
+.borderError {
+    outline: none;
+    border-color: red;
+}
+
+.messageError {
     position: absolute;
     bottom: 0;
     left: 0;
     width: 100%;
+    font-size: 14px;
     color: red;
 }

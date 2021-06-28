@@ -1,40 +1,41 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { useHistory } from 'react-router';
+import { Link } from 'react-router-dom';
 import { AppRoutes, AuthorizationStatus } from '../../const';
 import { fetchLogout } from '../../store/api-action';
 
 export function UserNavigation({ authorizationStatus, logout, userInfo }) {
-  const history = useHistory();
   const isAuth = authorizationStatus === AuthorizationStatus.AUTH;
   const avatarStyle = isAuth ? {
     backgroundImage: `url(${userInfo?.avatar_url})`,
   } : {};
+  const classUserName = isAuth
+    ? 'header__user-name user__name'
+    : 'header__login';
 
-  const onLoginClick = (evt) => {
+  const handleLogoutClick = (evt) => {
     evt.preventDefault();
-    if (!isAuth) {
-      history.push(AppRoutes.LOGIN);
-    } else {
-      history.push(AppRoutes.FAVORITES);
-    }
+    logout();
   };
-
   return (
     <nav className="header__nav">
       <ul className="header__nav-list">
         <li className="header__nav-item user">
-          <a onClick={onLoginClick} className="header__nav-link header__nav-link--profile" href="/#">
+          <Link
+            to={isAuth ? AppRoutes.FAVORITES : AppRoutes.LOGIN}
+            className="header__nav-link header__nav-link--profile"
+            href="/#"
+          >
             <div className="header__avatar-wrapper user__avatar-wrapper" style={avatarStyle} />
-            <span className="header__user-name user__name">
+            <span className={classUserName}>
               {`${isAuth ? `${userInfo.email}` : 'Sign in'}`}
             </span>
-          </a>
+          </Link>
         </li>
         {isAuth && (
         <li className="header__nav-item">
-          <a className="header__nav-link" href="/#" onClick={logout}>
+          <a className="header__nav-link" href="/#" onClick={handleLogoutClick}>
             <span className="header__signout">Sign out</span>
           </a>
         </li>
