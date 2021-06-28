@@ -62,6 +62,11 @@ const initState = {
     isSuccess: false,
     isError: false,
   },
+  postNewReview: {
+    isLoading: false,
+    isSuccess: false,
+    isError: false,
+  },
 };
 
 export default function reducer(state = initState, action) {
@@ -187,6 +192,23 @@ export default function reducer(state = initState, action) {
       return {
         ...state,
         fetchReviewsStatus: { ...state.fetchReviewsStatus, isLoading: false, isError: true },
+      };
+
+    case ActionType.POST_NEW_REVIEW_REQUEST:
+      return {
+        ...state,
+        postNewReview: { ...state.postNewReview, isLoading: true },
+      };
+    case ActionType.POST_NEW_REVIEW_SUCCESS:
+      return {
+        ...state,
+        postNewReview: { ...state.postNewReview, isLoading: true },
+        reviews: action.payload,
+      };
+    case ActionType.POST_NEW_REVIEW_ERROR:
+      return {
+        ...state,
+        postNewReview: { ...state.postNewReview, isLoading: false, isError: true },
       };
     default: return state;
   }

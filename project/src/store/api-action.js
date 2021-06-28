@@ -84,3 +84,10 @@ export const fetchReviews = (id) => (dispatch, _store, api) => {
     })
     .catch(() => dispatch(ActionCreator.fetchReviewError));
 };
+
+export const postNewReview = (id, newComment) => (dispatch, _store, api) => {
+  dispatch(ActionCreator.postNewReviewRequest());
+  api.post(`${ApiRoutes.COMMENTS}/${id}`, newComment)
+    .then(({ data }) => dispatch(ActionCreator.postNewReviewSuccess(data)))
+    .catch(() => dispatch(ActionCreator.postNewReviewError()));
+};

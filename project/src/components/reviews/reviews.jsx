@@ -1,3 +1,4 @@
+/* eslint-disable import/no-named-as-default */
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -9,7 +10,7 @@ import { fetchReviews } from '../../store/api-action';
 export function Reviews({ reviews, id, getReviews }) {
   useEffect(() => {
     getReviews(id);
-  });
+  }, [id]);
   return (
     <section className="property__reviews reviews">
       <h2 className="reviews__title">
@@ -17,7 +18,7 @@ export function Reviews({ reviews, id, getReviews }) {
         <span className="reviews__amount">{reviews.length}</span>
       </h2>
       <ReviewList reviews={reviews} />
-      <ReviewForm />
+      <ReviewForm id={id} />
     </section>
   );
 }

@@ -1,27 +1,23 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import dayjs from 'dayjs';
+import { connect } from 'react-redux';
 import StarRating from '../star-rating/star-rating';
+import { postNewReview } from '../../store/api-action';
+import { AuthorizationStatus } from '../../const';
 
 const MIN_LENGTH_COMMENT = 50;
 
-export default function ReviewForm({ addComment }) {
+export function ReviewForm({ authorizationStatus, addReview, id }) {
   const [rating, setRating] = useState(0);
   const [textComment, setTextComment] = useState('');
   const isValid = rating && textComment.length > MIN_LENGTH_COMMENT;
-
+  if (authorizationStatus !== AuthorizationStatus.AUTH) {
+    return (null);
+  }
   const createNewComment = (value, text) => ({
     comment: text,
-    date: dayjs(),
-    id: 1400,
     rating: value,
-    user: {
-      avatarUrl: 'https://i.pravatar.cc/1411',
-      isPro: true,
-      name: 'your name',
-      id: 1400,
-    },
   });
 
   const handleChangeRating = (value) => {
@@ -34,7 +30,7 @@ export default function ReviewForm({ addComment }) {
 
   const onFormSubmit = (evt) => {
     evt.preventDefault();
-    addComment(createNewComment(rating, textComment));
+    addReview(id, createNewComment(rating, textComment));
     setRating(0);
     setTextComment('');
   };
@@ -76,5 +72,18 @@ export default function ReviewForm({ addComment }) {
 }
 
 ReviewForm.propTypes = {
-  addComment: PropTypes.func.isRequired,
+  addReview: PropTypes.func.isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
 };
+
+const mapStateToProps = (state) => ({
+  authorizationStatus: state.authorizationStatus,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  addReview(id, review) {
+    dispatch(postNewReview(id, review));
+  },
+});
+export default connect(mapStateToProps, mapDispatchToProps)(ReviewForm);

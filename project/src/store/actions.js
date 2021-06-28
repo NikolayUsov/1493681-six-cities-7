@@ -30,10 +30,25 @@ export const ActionType = {
   FETCH_REVIEWS_ERROR: 'review/error',
   FETCH_REVIEWS_SUCCESS: 'review/success',
 
+  POST_NEW_REVIEW_REQUEST: 'review/post-request',
+  POST_NEW_REVIEW_ERROR: 'review/post-error',
+  POST_NEW_REVIEW_SUCCESS: 'review/post-success',
+
   REDIRECT_TO_ROUTE: 'route/redirect',
 };
 
 export const ActionCreator = {
+  postNewReviewRequest: () => ({
+    type: ActionType.POST_NEW_REVIEW_REQUEST,
+  }),
+  postNewReviewSuccess: (reviews) => ({
+    type: ActionType.POST_NEW_REVIEW_SUCCESS,
+    payload: reviews,
+  }),
+  postNewReviewError: () => ({
+    type: ActionType.POST_NEW_REVIEW_ERROR,
+  }),
+
   fetchReviewRequest: () => ({
     type: ActionType.FETCH_REVIEWS_REQUEST,
   }),
