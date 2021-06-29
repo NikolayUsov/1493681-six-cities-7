@@ -5,10 +5,14 @@ import { connect } from 'react-redux';
 import StarRating from '../star-rating/star-rating';
 import { postNewReview } from '../../store/api-action';
 import { AuthorizationStatus } from '../../const';
+import { apiRequestProp } from '../../utils/prop-types';
 
 const MIN_LENGTH_COMMENT = 50;
 
-export function ReviewForm({ authorizationStatus, addReview, id }) {
+export function ReviewForm({
+  authorizationStatus, addReview, id, postNewReviewStatus,
+}) {
+  const { isLoading } = postNewReviewStatus;
   const [rating, setRating] = useState(0);
   const [textComment, setTextComment] = useState('');
   const isValid = rating && textComment.length > MIN_LENGTH_COMMENT;
@@ -50,6 +54,7 @@ export function ReviewForm({ authorizationStatus, addReview, id }) {
           className="reviews__textarea form__textarea"
           id="review"
           name="review"
+          disabled={isLoading}
           placeholder="Tell how was your stay, what you like and what can be improved"
           value={textComment}
         />
@@ -64,7 +69,7 @@ export function ReviewForm({ authorizationStatus, addReview, id }) {
             <b className="reviews__text-amount">50 characters</b>
             .
           </p>
-          <button className="reviews__submit form__submit button" type="submit" disabled={!isValid}>Submit</button>
+          <button className="reviews__submit form__submit button" type="submit" disabled={!isValid || isLoading}>Submit</button>
         </div>
       </form>
     </>
@@ -75,10 +80,12 @@ ReviewForm.propTypes = {
   addReview: PropTypes.func.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
+  postNewReviewStatus: apiRequestProp.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   authorizationStatus: state.authorizationStatus,
+  postNewReviewStatus: state.postNewReviewStatus,
 });
 
 const mapDispatchToProps = (dispatch) => ({

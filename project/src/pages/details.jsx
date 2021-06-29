@@ -21,7 +21,7 @@ export function Details({
   offerDetails, offerDetailsFetchStatus, offersNearby, getOfferDetails, getOffersNearby,
 }) {
   const { id } = useParams();
-
+  const { isLoading } = offerDetailsFetchStatus;
   useEffect(() => {
     getOfferDetails(id);
     getOffersNearby(id);
@@ -47,7 +47,7 @@ export function Details({
     'property__bookmark-button--active': isFavorite,
   });
 
-  if (offerDetailsFetchStatus.isLoading) {
+  if (isLoading) {
     return <Loader />;
   }
   return (

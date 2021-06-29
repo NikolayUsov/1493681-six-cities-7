@@ -19,6 +19,11 @@ export const AuthorizationStatus = {
   UNKNOWN: 'UNKNOWN',
 };
 
+export const LoaderType = {
+  page: 'loader/page',
+  button: 'loader/butto',
+};
+
 export const CITIES = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
 export const SORT_TYPES = ['Popular', 'Price: low to high', 'Price: high to low', 'Top rated first'];
 export const SortFunctions = {

@@ -5,8 +5,12 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
+import Loader from '../loader/loader';
 import { fetchLogin } from '../../store/api-action';
 import styles from './login-form.module.css';
+import { apiRequestProp } from '../../utils/prop-types';
+import { LoaderType } from '../../const';
+import useInput from '../../hooks/useInput';
 
 const PASSWORD_REGEX = /^.{6,}$/;
 const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -33,56 +37,11 @@ const INPUTS = [
   { type: 'password', label: 'Password' },
 ];
 
-export function LoginForm({ sendLogin }) {
+export function LoginForm({ sendLogin, loginStatus }) {
+  const { isLoading } = loginStatus;
   const [inputsState, setInputsState] = useState(initFormInput);
-  const isButtonDissabled = inputsState.email.isValid && inputsState.password.isValid;
-
-  const onInputBlur = (evt) => {
-    const { type, value } = evt.target;
-    if (!value) {
-      setInputsState((prev) => ({
-        ...prev,
-        [type]: { ...prev[type], touched: false },
-      }));
-      return;
-    }
-
-    setInputsState((prev) => ({
-      ...prev,
-      [type]: { ...prev[type], touched: true },
-    }));
-  };
-
-  const handleInputChange = (evt) => {
-    const { type, value } = evt.target;
-    if (!value) {
-      setInputsState((prev) => ({
-        ...prev,
-        [type]: {
-          ...prev[type],
-          value,
-          isValid: false,
-          errorText: '',
-          touched: false,
-        },
-      }));
-      return;
-    }
-
-    const isValid = inputsState[type].rule.test(value);
-    const errorText = `Wrong format ${type}`;
-
-    setInputsState((prev) => ({
-      ...prev,
-      [type]: {
-        ...prev[type],
-        value,
-        isValid,
-        touched: true,
-        errorText,
-      },
-    }));
-  };
+  const isButtonDisabled = (inputsState.email.isValid && inputsState.password.isValid);
+  const [onInputBlur, handleInputChange] = useInput(inputsState, setInputsState);
 
   const onFormSubmit = (evt) => {
     evt.preventDefault();
@@ -116,6 +75,7 @@ export function LoginForm({ sendLogin }) {
               name={type}
               placeholder={type[0].toUpperCase() + type.slice(1)}
               required
+              disabled={isLoading}
             />
             {(!inputsState[type].isValid && inputsState[type].touched) && (
             <span className={[styles.messageError]}>{inputsState[type].errorText}</span>)}
@@ -124,9 +84,9 @@ export function LoginForm({ sendLogin }) {
         <button
           className="login__submit form__submit button"
           type="submit"
-          disabled={!isButtonDissabled}
+          disabled={!isButtonDisabled || isLoading}
         >
-          Sign in
+          {isLoading ? <Loader type={LoaderType.button} /> : 'Sign in'}
         </button>
       </form>
     </section>
@@ -135,13 +95,16 @@ export function LoginForm({ sendLogin }) {
 }
 
 LoginForm.propTypes = {
-
+  loginStatus: apiRequestProp.isRequired,
   sendLogin: PropTypes.func.isRequired,
 };
 
+const mapStateToProps = (state) => ({
+  loginStatus: state.loginStatus,
+});
 const mapDispatchToProps = (dispatch) => ({
   sendLogin(value) {
     dispatch(fetchLogin(value));
   },
 });
-export default connect(null, mapDispatchToProps)(LoginForm);
+export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
