@@ -144,7 +144,7 @@ export function Details({
 }
 
 Details.propTypes = {
-  offerDetails: OfferCardProp.isRequired,
+  offerDetails: OfferCardProp,
   offerDetailsFetchStatus: PropTypes.shape({
     isLoading: PropTypes.bool.isRequired,
     isSuccess: PropTypes.bool.isRequired,
@@ -153,6 +153,10 @@ Details.propTypes = {
   offersNearby: PropTypes.arrayOf(OfferCardProp).isRequired,
   getOfferDetails: PropTypes.func.isRequired,
   getOffersNearby: PropTypes.func.isRequired,
+};
+
+Details.defaultProps = {
+  offerDetails: {},
 };
 
 const mapStateToProps = () => (state) => ({

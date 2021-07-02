@@ -21,8 +21,6 @@ export function UserNavigation({
 
   const handleLogoutClick = (evt) => {
     evt.preventDefault();
-    // eslint-disable-next-line no-debugger
-    debugger;
     logout();
   };
   if (isLoading) {

@@ -13,8 +13,6 @@ const DEFAULT_COLOR = '#4481c3';
 const DEFAULT_SIZE = '150px';
 
 function Loader({ color, size, type }) {
-  // eslint-disable-next-line no-debugger
-  debugger;
   switch (type) {
     case LoaderType.button:
       return (<ClipLoader color={color} />);
@@ -26,14 +24,7 @@ function Loader({ color, size, type }) {
           size={size}
         />
       );
-    default:
-      return (
-        <HashLoader
-          css={loaderStyle}
-          color={color}
-          size={size}
-        />
-      );
+    default: throw new Error(`Unknow loader ${type}`);
   }
 }
 

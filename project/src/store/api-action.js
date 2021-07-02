@@ -40,7 +40,7 @@ export const fetchLogin = (loginData) => (dispatch, _store, api) => {
       dispatch(ActionCreator.requiredAuthorization(AuthorizationStatus.AUTH));
       dispatch(ActionCreator.setAuthUserData(data));
       dispatch(ActionCreator.loginSuccess());
-      dispatch(ActionCreator.redirectToRoute(AppRoutes.FAVORITES));
+      dispatch(ActionCreator.redirectToBack());
     })
     .catch(() => {
       dispatch(ActionCreator.loginError());
@@ -88,6 +88,8 @@ export const fetchReviews = (id) => (dispatch, _store, api) => {
 export const postNewReview = (id, newComment) => (dispatch, _store, api) => {
   dispatch(ActionCreator.postNewReviewRequest());
   api.post(`${ApiRoutes.COMMENTS}/${id}`, newComment)
-    .then(({ data }) => dispatch(ActionCreator.postNewReviewSuccess(data)))
+    .then(({ data }) => {
+      dispatch(ActionCreator.postNewReviewSuccess(data.map(reviewAdaptedToClient)));
+    })
     .catch(() => dispatch(ActionCreator.postNewReviewError()));
 };

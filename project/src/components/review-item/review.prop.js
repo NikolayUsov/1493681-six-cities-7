@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-import dayjs from 'dayjs';
 
 const user = PropTypes.shape({
   id: PropTypes.number,
@@ -12,7 +11,7 @@ const ReviewItemProp = PropTypes.shape({
   id: PropTypes.number,
   rating: PropTypes.number,
   user,
-  date: PropTypes.instanceOf(dayjs),
+  date: PropTypes.string,
 }).isRequired;
 
 export { ReviewItemProp, user };
