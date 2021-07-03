@@ -1,31 +1,31 @@
+/* eslint-disable no-undef */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable import/no-named-as-default */
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
 import Header from '../components/header/header';
 import OfferCardProp from '../components/offer-card/offer-card.prop';
 import GalleryDetails from '../components/details-gallery/details-gallery';
 import { createPercent } from '../utils/utils';
 import HostDetails from '../components/host-details/host-details';
 import Reviews from '../components/reviews/reviews';
-import { ReviewItemProp } from '../components/review-item/review.prop';
 import OfferCard from '../components/offer-card/offer-card';
 import Map from '../components/map/map';
+import Loader from '../components/loader/loader';
+import { fetchNearbyOffers, fetchOfferDetails } from '../store/api-action';
 
-const MAX_NEIGHBORHOOD = 3;
-
-export default function Details({ offers, reviews }) {
+export function Details({
+  offerDetails, offerDetailsFetchStatus, offersNearby, getOfferDetails, getOffersNearby,
+}) {
   const { id } = useParams();
-  const idx = offers.findIndex((elem) => elem.id === +id);
-  const nearOffers = offers.slice(0, MAX_NEIGHBORHOOD);
-  if (idx === -1) {
-    return <Redirect to="/" />;
-  }
-
-  const currentElement = offers[idx];
+  const { isLoading } = offerDetailsFetchStatus;
+  useEffect(() => {
+    getOfferDetails(id);
+    getOffersNearby(id);
+  }, [id]);
 
   const {
     images,
@@ -41,12 +41,15 @@ export default function Details({ offers, reviews }) {
     host,
     description,
     city,
-  } = currentElement;
+  } = offerDetails;
 
   const addToFavoritesClass = classNames('property__bookmark-button', 'button', {
     'property__bookmark-button--active': isFavorite,
   });
 
+  if (isLoading) {
+    return <Loader />;
+  }
   return (
     <div className="page">
       <Header />
@@ -119,19 +122,19 @@ export default function Details({ offers, reviews }) {
               </div>
 
               <HostDetails host={host} description={description} />
-              <Reviews reviews={reviews} />
+              <Reviews id={id} />
             </div>
           </div>
           <Map
             city={city.location}
-            offers={nearOffers}
+            offers={offersNearby}
           />
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighborhood</h2>
             <div className="near-places__list places__list">
-              { nearOffers.map((offer) => <OfferCard offer={offer} key={offer.id} />)}
+              { offersNearby.map((offer) => <OfferCard offer={offer} key={offer.id} />)}
             </div>
           </section>
         </div>
@@ -141,6 +144,34 @@ export default function Details({ offers, reviews }) {
 }
 
 Details.propTypes = {
-  offers: PropTypes.arrayOf(OfferCardProp).isRequired,
-  reviews: PropTypes.arrayOf(ReviewItemProp).isRequired,
+  offerDetails: OfferCardProp,
+  offerDetailsFetchStatus: PropTypes.shape({
+    isLoading: PropTypes.bool.isRequired,
+    isSuccess: PropTypes.bool.isRequired,
+    isError: PropTypes.bool.isRequired,
+  }).isRequired,
+  offersNearby: PropTypes.arrayOf(OfferCardProp).isRequired,
+  getOfferDetails: PropTypes.func.isRequired,
+  getOffersNearby: PropTypes.func.isRequired,
 };
+
+Details.defaultProps = {
+  offerDetails: {},
+};
+
+const mapStateToProps = () => (state) => ({
+  offerDetails: state.offerDetails,
+  offersNearby: state.offersNearby,
+  offerDetailsFetchStatus: state.fetchOfferDetails,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  getOfferDetails(id) {
+    dispatch(fetchOfferDetails(id));
+  },
+  getOffersNearby(id) {
+    dispatch(fetchNearbyOffers(id));
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Details);

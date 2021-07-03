@@ -2,10 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { AppRoutes, AuthorizationStatus } from '../../const';
+import Loader from '../loader/loader';
+import { AppRoutes, AuthorizationStatus, LoaderType } from '../../const';
 import { fetchLogout } from '../../store/api-action';
+import { apiRequestProp } from '../../utils/prop-types';
 
-export function UserNavigation({ authorizationStatus, logout, userInfo }) {
+export function UserNavigation({
+  authorizationStatus, logout, userInfo, logoutStatus,
+}) {
+  const { isLoading } = logoutStatus;
   const isAuth = authorizationStatus === AuthorizationStatus.AUTH;
   const avatarStyle = isAuth ? {
     backgroundImage: `url(${userInfo?.avatar_url})`,
@@ -18,6 +23,9 @@ export function UserNavigation({ authorizationStatus, logout, userInfo }) {
     evt.preventDefault();
     logout();
   };
+  if (isLoading) {
+    return <Loader type={LoaderType.button} />;
+  }
   return (
     <nav className="header__nav">
       <ul className="header__nav-list">
@@ -48,6 +56,7 @@ export function UserNavigation({ authorizationStatus, logout, userInfo }) {
 UserNavigation.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
   logout: PropTypes.func,
+  logoutStatus: apiRequestProp.isRequired,
   userInfo: PropTypes.shape({
     id: PropTypes.number,
     email: PropTypes.string,
@@ -65,6 +74,7 @@ UserNavigation.defaultProps = {
 const mapStateToProps = (state) => ({
   authorizationStatus: state.authorizationStatus,
   userInfo: state.userInfo,
+  logoutStatus: state.logoutStatus,
 
 });
 

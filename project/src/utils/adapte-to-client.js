@@ -42,3 +42,20 @@ export default function adaptedToClient(hostel) {
 
   return adaptedHostel;
 }
+
+export const reviewAdaptedToClient = (review) => {
+  let adaptedReview = deepClone(review);
+  adaptedReview = {
+    ...adaptedReview,
+    user: {
+      ...adaptedReview.user,
+      avatarUrl: adaptedReview.user.avatar_url,
+      isPro: adaptedReview.user.is_pro,
+    },
+  };
+
+  delete adaptedReview.user.is_pro;
+  delete adaptedReview.user.avatar_url;
+
+  return adaptedReview;
+};

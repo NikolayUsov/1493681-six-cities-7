@@ -44,7 +44,7 @@ function App({ offers, authorizationStatus }) {
         <Route path={AppRoutes.OFFER_DETAILS}>
           <Details offers={offers} reviews={reviews} />
         </Route>
-        <Route>
+        <Route path={AppRoutes.NOT_FOUND}>
           <NotFound />
         </Route>
       </Switch>

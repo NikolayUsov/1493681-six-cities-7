@@ -42,6 +42,31 @@ const initState = {
     isSuccess: false,
     isError: false,
   },
+  offerDetails: {},
+  fetchOfferDetails: {
+    isLoading: true,
+    isSuccess: false,
+    isError: false,
+  },
+
+  offersNearby: [],
+  fetchOffersNearby: {
+    isLoading: true,
+    isSuccess: false,
+    isError: false,
+  },
+
+  reviews: [],
+  fetchReviewsStatus: {
+    isLoading: true,
+    isSuccess: false,
+    isError: false,
+  },
+  postNewReviewStatus: {
+    isLoading: false,
+    isSuccess: false,
+    isError: false,
+  },
 };
 
 export default function reducer(state = initState, action) {
@@ -116,6 +141,74 @@ export default function reducer(state = initState, action) {
       return {
         ...state,
         logoutStatus: { ...state.loginStatus, isLoading: false, isError: true },
+      };
+
+    case ActionType.FETCH_OFFER_DETAILS_REQUEST:
+      return {
+        ...state,
+        fetchOfferDetails: { ...state.fetchOfferDetails, isLoading: true },
+      };
+    case ActionType.FETCH_OFFER_DETAILS_SUCCESS:
+      return {
+        ...state,
+        fetchOfferDetails: { ...state.fetchOfferDetails, isLoading: false, isSuccess: true },
+        offerDetails: action.payload,
+      };
+    case ActionType.FETCH_OFFER_DETAILS_ERROR:
+      return {
+        ...state,
+        fetchOfferDetails: { ...state.fetchOfferDetails, isLoading: false, isError: true },
+      };
+
+    case ActionType.FETCH_NEARBY_OFFER_REQUEST:
+      return {
+        ...state,
+        fetchOffersNearby: { ...state.fetchOffersNearby, isLoading: true },
+      };
+    case ActionType.FETCH_NEARBY_OFFER_SUCCESS:
+      return {
+        ...state,
+        fetchOffersNearby: { ...state.fetchOffersNearby, isLoading: true },
+        offersNearby: action.payload,
+      };
+    case ActionType.FETCH_NEARBY_OFFER_ERROR:
+      return {
+        ...state,
+        fetchOffersNearby: { ...state.fetchOffersNearby, isLoading: false, isError: true },
+      };
+
+    case ActionType.FETCH_REVIEWS_REQUEST:
+      return {
+        ...state,
+        fetchReviewsStatus: { ...state.fetchReviewsStatus, isLoading: true },
+      };
+    case ActionType.FETCH_REVIEWS_SUCCESS:
+      return {
+        ...state,
+        fetchReviewsStatus: { ...state.fetchReviewsStatus, isLoading: true },
+        reviews: action.payload,
+      };
+    case ActionType.FETCH_REVIEWS_ERROR:
+      return {
+        ...state,
+        fetchReviewsStatus: { ...state.fetchReviewsStatus, isLoading: false, isError: true },
+      };
+
+    case ActionType.POST_NEW_REVIEW_REQUEST:
+      return {
+        ...state,
+        postNewReviewStatus: { ...state.postNewReviewStatus, isLoading: true },
+      };
+    case ActionType.POST_NEW_REVIEW_SUCCESS:
+      return {
+        ...state,
+        postNewReviewStatus: { ...state.postNewReviewStatus, isLoading: false, isSuccess: true },
+        reviews: action.payload,
+      };
+    case ActionType.POST_NEW_REVIEW_ERROR:
+      return {
+        ...state,
+        postNewReviewStatus: { ...state.postNewReviewStatus, isLoading: false, isError: true },
       };
     default: return state;
   }

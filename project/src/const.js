@@ -3,6 +3,7 @@ export const AppRoutes = {
   LOGIN: '/login',
   FAVORITES: '/favorites',
   OFFER_DETAILS: '/offer/:id',
+  NOT_FOUND: '/404',
 };
 
 export const Types = {
@@ -16,6 +17,11 @@ export const AuthorizationStatus = {
   AUTH: 'AUTH',
   NO_AUTH: 'NO_AUTH',
   UNKNOWN: 'UNKNOWN',
+};
+
+export const LoaderType = {
+  page: 'loader/page',
+  button: 'loader/butto',
 };
 
 export const CITIES = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
