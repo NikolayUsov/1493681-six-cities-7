@@ -1,6 +1,5 @@
 /* eslint-disable import/no-named-as-default */
 import React from 'react';
-import { connect } from 'react-redux';
 
 import CityNavigation from '../components/city-navigation/city-navigation';
 import OffersBoard from '../components/offersBoard/offers-board';
@@ -19,9 +18,4 @@ export function Main() {
   );
 }
 
-const mapStateToProps = (state) => ({
-  isLoading: state.appStatus.isLoading,
-  isError: state.appStatus.isError,
-});
-
-export default connect(mapStateToProps)(Main);
+export default Main;

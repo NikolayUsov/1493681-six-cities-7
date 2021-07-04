@@ -2,6 +2,8 @@
 import { AppRoutes, AuthorizationStatus } from '../const';
 import adaptedToClient, { reviewAdaptedToClient } from '../utils/adapte-to-client';
 import { ActionCreator } from './actions';
+import { fetchOffersRequest, fetchOffersSuccess } from './reducers/main-offers';
+import { requiredAuthorization, setAuthUserData } from './reducers/authorization';
 
 const ApiRoutes = {
   HOSTELS: '/hotels',
@@ -12,11 +14,11 @@ const ApiRoutes = {
 };
 
 export const fetchHostels = () => (dispatch, _store, api) => {
-  dispatch(ActionCreator.fetchOffersRequest());
+  dispatch(fetchOffersRequest());
   api.get(ApiRoutes.HOSTELS)
     .then(({ data }) => {
       const offers = data.map(adaptedToClient);
-      dispatch(ActionCreator.fetchOffersSuccess(offers));
+      dispatch(fetchOffersSuccess(offers));
     })
     .catch(() => { dispatch(ActionCreator.fetchOffersError()); });
 };
@@ -24,8 +26,8 @@ export const fetchHostels = () => (dispatch, _store, api) => {
 export const checkAuth = () => (dispatch, _store, api) => {
   api.get(ApiRoutes.LOGIN)
     .then(({ data }) => {
-      dispatch(ActionCreator.requiredAuthorization(AuthorizationStatus.AUTH));
-      dispatch(ActionCreator.setAuthUserData(data));
+      dispatch(requiredAuthorization(AuthorizationStatus.AUTH));
+      dispatch(setAuthUserData(data));
     })
     .catch(() => {
       dispatch(ActionCreator.setAuthUserData({}));

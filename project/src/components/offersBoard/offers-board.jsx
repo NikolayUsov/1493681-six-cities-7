@@ -8,6 +8,7 @@ import offerCardProp from '../offer-card/offer-card.prop';
 import Map from '../map/map';
 import OffersBoardEmpty from '../offers-board-empty/offers-board-empty';
 import Loader from '../loader/loader';
+import currentOffers from '../../store/selectors/current-offers';
 
 const createCityLocation = (offers) => offers.reduce((acc, offer) => {
   acc[offer.city.name] = offer.city.location;
@@ -71,11 +72,11 @@ OffersBoard.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  offers: state.currentOffers,
+  offers: currentOffers(state),
   allOffers: state.offers,
   currentCity: state.currentCity,
-  isLoading: state.fetchOffersStatus.isLoading,
-  isError: state.fetchOffersStatus.isError,
+  isLoading: state.mainOffers.isLoading,
+  isError: state.mainOffers.isError,
 });
 
 export default connect(mapStateToProps)(OffersBoard);

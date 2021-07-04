@@ -72,9 +72,9 @@ UserNavigation.defaultProps = {
   logout: () => {},
 };
 const mapStateToProps = (state) => ({
-  authorizationStatus: state.authorizationStatus,
-  userInfo: state.userInfo,
-  logoutStatus: state.logoutStatus,
+  authorizationStatus: state.authorization.authorizationStatus,
+  userInfo: state.authorization.userInfo,
+  logoutStatus: state.authorization.logoutStatus,
 
 });
 
