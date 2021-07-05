@@ -1,5 +1,6 @@
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
+import { fetchHostels } from '../../../api-action';
 
 const initialState = {
   offers: [],
@@ -21,7 +22,20 @@ const offersMain = createSlice({
       state.offers = action.payload;
     },
   },
+  extraReducers: {
+    [fetchHostels.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [fetchHostels.fulfilled]: (state, action) => {
+      state.offers = action.payload;
+      state.isLoading = false;
+    },
+    [fetchHostels.rejected]: (state) => {
+      state.isError = true;
+    },
+  },
 });
 
+export { fetchHostels };
 export const { fetchOffersRequest, fetchOffersSuccess } = offersMain.actions;
 export default offersMain.reducer;

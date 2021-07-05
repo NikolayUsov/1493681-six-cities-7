@@ -1,9 +1,9 @@
 /* eslint-disable import/prefer-default-export */
-import { AppRoutes, AuthorizationStatus } from '../const';
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import { AuthorizationStatus } from '../const';
 import adaptedToClient, { reviewAdaptedToClient } from '../utils/adapte-to-client';
 import { ActionCreator } from './actions';
-import { fetchOffersRequest, fetchOffersSuccess } from './reducers/main-offers';
-import { requiredAuthorization, setAuthUserData } from './reducers/authorization';
+import { requiredAuthorization, setAuthUserData } from './reducers/features/user/user-slice';
 
 const ApiRoutes = {
   HOSTELS: '/hotels',
@@ -13,15 +13,16 @@ const ApiRoutes = {
   COMMENTS: '/comments',
 };
 
-export const fetchHostels = () => (dispatch, _store, api) => {
-  dispatch(fetchOffersRequest());
-  api.get(ApiRoutes.HOSTELS)
-    .then(({ data }) => {
-      const offers = data.map(adaptedToClient);
-      dispatch(fetchOffersSuccess(offers));
-    })
-    .catch(() => { dispatch(ActionCreator.fetchOffersError()); });
-};
+export const fetchHostels = createAsyncThunk('offers/fetchOffers',
+  async (_, { extra }) => {
+    const apiInstance = extra;
+    try {
+      const { data } = await apiInstance.get(ApiRoutes.HOSTELS);
+      return data.map(adaptedToClient);
+    } catch (err) {
+      throw new Error(err);
+    }
+  });
 
 export const checkAuth = () => (dispatch, _store, api) => {
   api.get(ApiRoutes.LOGIN)
@@ -30,11 +31,11 @@ export const checkAuth = () => (dispatch, _store, api) => {
       dispatch(setAuthUserData(data));
     })
     .catch(() => {
-      dispatch(ActionCreator.setAuthUserData({}));
+      dispatch(setAuthUserData({}));
     });
 };
 
-export const fetchLogin = (loginData) => (dispatch, _store, api) => {
+/* export const fetchLoginWillDelete = (loginData) => (dispatch, _store, api) => {
   dispatch(ActionCreator.loginRequest());
   api.post(ApiRoutes.LOGIN, loginData)
     .then(({ data }) => {
@@ -47,9 +48,9 @@ export const fetchLogin = (loginData) => (dispatch, _store, api) => {
     .catch(() => {
       dispatch(ActionCreator.loginError());
     });
-};
+}; */
 
-export const fetchLogout = () => (dispatch, _store, api) => {
+/* export const fetchLogout = () => (dispatch, _store, api) => {
   dispatch(ActionCreator.logoutRequest());
   api.delete(ApiRoutes.LOGOUT)
     .then(() => {
@@ -59,7 +60,7 @@ export const fetchLogout = () => (dispatch, _store, api) => {
     .then(() => { dispatch(ActionCreator.redirectToRoute(AppRoutes.ROOT)); })
     .catch(() => dispatch(ActionCreator.logoutError()));
 };
-
+ */
 export const fetchOfferDetails = (id) => (dispatch, _store, api) => {
   dispatch(ActionCreator.fetchOfferDetailRequest());
   api.get(`${ApiRoutes.HOSTELS}/${id}`)

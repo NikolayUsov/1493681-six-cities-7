@@ -1,17 +1,18 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Loader from '../loader/loader';
 import { AppRoutes, AuthorizationStatus, LoaderType } from '../../const';
-import { fetchLogout } from '../../store/api-action';
-import { apiRequestProp } from '../../utils/prop-types';
+import { fetchLogout } from '../../store/reducers/features/user/user-slice';
+import { selectAuthorizationStatus, selectLogoutStatus, selectUserInfo } from '../../store/reducers/features/user/user-selector';
 
-export function UserNavigation({
-  authorizationStatus, logout, userInfo, logoutStatus,
-}) {
-  const { isLoading } = logoutStatus;
+export function UserNavigation() {
+  const userInfo = useSelector(selectUserInfo);
+  const authorizationStatus = useSelector(selectAuthorizationStatus);
+  const { isLoading } = useSelector(selectLogoutStatus);
   const isAuth = authorizationStatus === AuthorizationStatus.AUTH;
+  const dispatch = useDispatch();
+
   const avatarStyle = isAuth ? {
     backgroundImage: `url(${userInfo?.avatar_url})`,
   } : {};
@@ -21,7 +22,7 @@ export function UserNavigation({
 
   const handleLogoutClick = (evt) => {
     evt.preventDefault();
-    logout();
+    dispatch(fetchLogout());
   };
   if (isLoading) {
     return <Loader type={LoaderType.button} />;
@@ -53,34 +54,4 @@ export function UserNavigation({
   );
 }
 
-UserNavigation.propTypes = {
-  authorizationStatus: PropTypes.string.isRequired,
-  logout: PropTypes.func,
-  logoutStatus: apiRequestProp.isRequired,
-  userInfo: PropTypes.shape({
-    id: PropTypes.number,
-    email: PropTypes.string,
-    name: PropTypes.string,
-    avatar_url: PropTypes.string,
-    is_pro: PropTypes.bool,
-    token: PropTypes.string,
-  }),
-};
-
-UserNavigation.defaultProps = {
-  userInfo: {},
-  logout: () => {},
-};
-const mapStateToProps = (state) => ({
-  authorizationStatus: state.authorization.authorizationStatus,
-  userInfo: state.authorization.userInfo,
-  logoutStatus: state.authorization.logoutStatus,
-
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  logout() {
-    dispatch(fetchLogout());
-  },
-});
-export default connect(mapStateToProps, mapDispatchToProps)(UserNavigation);
+export default UserNavigation;
