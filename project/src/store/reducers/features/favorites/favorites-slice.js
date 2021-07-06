@@ -19,6 +19,7 @@ const fetchChangeFavorites = createAsyncThunk(
   'favorites/changeStatus',
   async ({ id, status }, { extra: apiInstance }) => {
     const { data } = await apiInstance.post(`${ApiRoutes.FAVORITES}/${id}/${status}`);
+    console.log(data);
     return adaptedToClient(data);
   },
 );
@@ -52,6 +53,7 @@ const favorites = createSlice({
     },
     [fetchChangeFavorites.fulfilled]: (state, action) => {
       state.favoritesLoadState.isLoading = false;
+      console.log(action);
       state.favorites = state.favorites.push(action.payload).filter((offer) => offer.isFavorite);
     },
     [fetchChangeFavorites.rejected]: (state) => {
