@@ -63,8 +63,8 @@ const initialState = {
 
 };
 
-const offersMain = createSlice({
-  name: 'main-offers',
+const offers = createSlice({
+  name: 'offers',
   initialState,
   extraReducers: {
     [fetchOffers.pending]: (state) => {
@@ -103,4 +103,4 @@ const offersMain = createSlice({
 });
 
 export { fetchOffers, fetchOfferDetails, fetchOffersNearby };
-export default offersMain.reducer;
+export default offers.reducer;

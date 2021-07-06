@@ -1,6 +1,5 @@
+/* eslint-disable import/prefer-default-export */
 import { AuthorizationStatus } from '../const';
-import adaptedToClient, { reviewAdaptedToClient } from '../utils/adapte-to-client';
-import { ActionCreator } from './actions';
 import { requiredAuthorization, setAuthUserData } from './reducers/features/user/user-slice';
 
 const ApiRoutes = {
@@ -48,7 +47,7 @@ export const checkAuth = () => (dispatch, _store, api) => {
     .catch(() => dispatch(ActionCreator.logoutError()));
 };
  */
-export const fetchOfferDetails = (id) => (dispatch, _store, api) => {
+/* export const fetchOfferDetails = (id) => (dispatch, _store, api) => {
   dispatch(ActionCreator.fetchOfferDetailRequest());
   api.get(`${ApiRoutes.HOSTELS}/${id}`)
     .then(({ data }) => {
@@ -64,9 +63,9 @@ export const fetchNearbyOffers = (id) => (dispatch, _store, api) => {
       dispatch(ActionCreator.fetchNearbyOffersSuccess(data.map(adaptedToClient)));
     })
     .catch(() => ActionCreator.fetchNearbyOffersError());
-};
+}; */
 
-export const fetchReviews = (id) => (dispatch, _store, api) => {
+/* export const fetchReviews = (id) => (dispatch, _store, api) => {
   dispatch(ActionCreator.fetchReviewRequest());
   api.get(`${ApiRoutes.COMMENTS}/${id}`)
     .then(({ data }) => {
@@ -83,3 +82,4 @@ export const postNewReview = (id, newComment) => (dispatch, _store, api) => {
     })
     .catch(() => dispatch(ActionCreator.postNewReviewError()));
 };
+ */

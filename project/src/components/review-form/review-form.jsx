@@ -1,21 +1,22 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import StarRating from '../star-rating/star-rating';
-import { postNewReview } from '../../store/api-action';
 import { AuthorizationStatus } from '../../const';
-import { apiRequestProp } from '../../utils/prop-types';
+import { selectAuthorizationStatus } from '../../store/reducers/features/user/user-selector';
+import { selectLoadCommentsStatus } from '../../store/reducers/features/comments/comment-selector';
+import { postNewComment } from '../../store/reducers/features/comments/comment-slice';
 
 const MIN_LENGTH_COMMENT = 50;
 
-export function ReviewForm({
-  authorizationStatus, addReview, id, postNewReviewStatus,
-}) {
-  const { isLoading } = postNewReviewStatus;
+export function ReviewForm({ id }) {
   const [rating, setRating] = useState(0);
   const [textComment, setTextComment] = useState('');
   const isValid = rating && textComment.length > MIN_LENGTH_COMMENT;
+  const dispatch = useDispatch();
+  const { isLoading } = useSelector(selectLoadCommentsStatus);
+  const authorizationStatus = useSelector(selectAuthorizationStatus);
   if (authorizationStatus !== AuthorizationStatus.AUTH) {
     return (null);
   }
@@ -34,7 +35,7 @@ export function ReviewForm({
 
   const onFormSubmit = (evt) => {
     evt.preventDefault();
-    addReview(id, createNewComment(rating, textComment));
+    dispatch(postNewComment({ id, newCommentData: createNewComment(rating, textComment) }));
     setRating(0);
     setTextComment('');
   };
@@ -77,20 +78,7 @@ export function ReviewForm({
 }
 
 ReviewForm.propTypes = {
-  addReview: PropTypes.func.isRequired,
-  authorizationStatus: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
-  postNewReviewStatus: apiRequestProp.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  authorizationStatus: state.authorizationStatus,
-  postNewReviewStatus: state.postNewReviewStatus,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  addReview(id, review) {
-    dispatch(postNewReview(id, review));
-  },
-});
-export default connect(mapStateToProps, mapDispatchToProps)(ReviewForm);
+export default ReviewForm;
