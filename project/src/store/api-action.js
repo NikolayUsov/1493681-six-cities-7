@@ -1,5 +1,3 @@
-/* eslint-disable import/prefer-default-export */
-import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AuthorizationStatus } from '../const';
 import adaptedToClient, { reviewAdaptedToClient } from '../utils/adapte-to-client';
 import { ActionCreator } from './actions';
@@ -12,17 +10,6 @@ const ApiRoutes = {
   NEARBY: '/nearby',
   COMMENTS: '/comments',
 };
-
-export const fetchHostels = createAsyncThunk('offers/fetchOffers',
-  async (_, { extra }) => {
-    const apiInstance = extra;
-    try {
-      const { data } = await apiInstance.get(ApiRoutes.HOSTELS);
-      return data.map(adaptedToClient);
-    } catch (err) {
-      throw new Error(err);
-    }
-  });
 
 export const checkAuth = () => (dispatch, _store, api) => {
   api.get(ApiRoutes.LOGIN)

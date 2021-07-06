@@ -5,9 +5,8 @@ import React, { useEffect } from 'react';
 import { useParams } from 'react-router';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import Header from '../components/header/header';
-import OfferCardProp from '../components/offer-card/offer-card.prop';
 import GalleryDetails from '../components/details-gallery/details-gallery';
 import { createPercent } from '../utils/utils';
 import HostDetails from '../components/host-details/host-details';
@@ -15,16 +14,21 @@ import Reviews from '../components/reviews/reviews';
 import OfferCard from '../components/offer-card/offer-card';
 import Map from '../components/map/map';
 import Loader from '../components/loader/loader';
-import { fetchNearbyOffers, fetchOfferDetails } from '../store/api-action';
+import { fetchOfferDetails, fetchOffersNearby } from '../store/reducers/features/offers/offers-slice';
+import {
+  selectOfferDetails,
+  selectOffersDetailsFetchStatus,
+  selectOffersNearby,
+} from '../store/reducers/features/offers/offers-selector';
 
-export function Details({
-  offerDetails, offerDetailsFetchStatus, offersNearby, getOfferDetails, getOffersNearby,
-}) {
+export function Details() {
+  const dispatch = useDispatch();
   const { id } = useParams();
-  const { isLoading } = offerDetailsFetchStatus;
+  const offersNearby = useSelector(selectOffersNearby);
+  const { isLoading } = useSelector(selectOffersDetailsFetchStatus);
   useEffect(() => {
-    getOfferDetails(id);
-    getOffersNearby(id);
+    dispatch(fetchOfferDetails(id));
+    dispatch(fetchOffersNearby(id));
   }, [id]);
 
   const {
@@ -41,7 +45,7 @@ export function Details({
     host,
     description,
     city,
-  } = offerDetails;
+  } = useSelector(selectOfferDetails);
 
   const addToFavoritesClass = classNames('property__bookmark-button', 'button', {
     'property__bookmark-button--active': isFavorite,
@@ -144,34 +148,11 @@ export function Details({
 }
 
 Details.propTypes = {
-  offerDetails: OfferCardProp,
   offerDetailsFetchStatus: PropTypes.shape({
     isLoading: PropTypes.bool.isRequired,
     isSuccess: PropTypes.bool.isRequired,
     isError: PropTypes.bool.isRequired,
   }).isRequired,
-  offersNearby: PropTypes.arrayOf(OfferCardProp).isRequired,
-  getOfferDetails: PropTypes.func.isRequired,
-  getOffersNearby: PropTypes.func.isRequired,
 };
 
-Details.defaultProps = {
-  offerDetails: {},
-};
-
-const mapStateToProps = () => (state) => ({
-  offerDetails: state.offerDetails,
-  offersNearby: state.offersNearby,
-  offerDetailsFetchStatus: state.fetchOfferDetails,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  getOfferDetails(id) {
-    dispatch(fetchOfferDetails(id));
-  },
-  getOffersNearby(id) {
-    dispatch(fetchNearbyOffers(id));
-  },
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Details);
+export default Details;

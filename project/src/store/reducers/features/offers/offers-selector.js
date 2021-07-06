@@ -6,6 +6,10 @@ import { selectCurrentCity, selectSortType } from '../app/app-slice';
 const selectOffers = (state) => state[NameSpace.OFFERS].offers;
 const selectIsLoading = (state) => state[NameSpace.OFFERS].isLoading;
 const selectIsError = (state) => state[NameSpace.OFFERS].isError;
+const selectOfferDetails = (state) => state[NameSpace.OFFERS].offerDetails;
+const selectOffersDetailsFetchStatus = (state) => state[NameSpace.OFFERS].offerDetailsFetchStatus;
+const selectOffersNearby = (state) => state[NameSpace.OFFERS].offersNearby;
+const selectOffersNearbyFetchStatus = (state) => state[NameSpace.OFFERS].offersNearbyFetchStatus;
 
 const selectCurrentOffers = createSelector(
   [selectOffers, selectCurrentCity, selectSortType],
@@ -20,4 +24,8 @@ export {
   selectOffers,
   selectIsLoading,
   selectIsError,
+  selectOfferDetails,
+  selectOffersDetailsFetchStatus,
+  selectOffersNearby,
+  selectOffersNearbyFetchStatus,
 };

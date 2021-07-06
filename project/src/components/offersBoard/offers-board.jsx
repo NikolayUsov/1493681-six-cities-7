@@ -12,7 +12,7 @@ import Loader from '../loader/loader';
 import { selectCurrentCity } from '../../store/reducers/features/app/app-slice';
 import {
   selectCurrentOffers, selectOffers, selectIsLoading, selectIsError,
-} from '../../store/reducers/features/offers/offers-select';
+} from '../../store/reducers/features/offers/offers-selector';
 
 const createCityLocation = (offers) => offers.reduce((acc, offer) => {
   acc[offer.city.name] = offer.city.location;

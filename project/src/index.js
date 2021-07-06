@@ -13,7 +13,8 @@ import { configureStore } from '@reduxjs/toolkit';
 import thunk from 'redux-thunk';
 import App from './components/app/app';
 import createAPI from './services/api';
-import { checkAuth, fetchHostels } from './store/api-action';
+import { checkAuth } from './store/api-action';
+import { fetchOffers } from './store/reducers/features/offers/offers-slice';
 import RedirectMiddlewares from './store/middlewars/redirect';
 import { AuthorizationStatus } from './const';
 import reducer from './store/reducers/root-reducer';
@@ -33,7 +34,7 @@ const store = configureStore({
   }).concat(RedirectMiddlewares),
 });
 
-store.dispatch(fetchHostels());
+store.dispatch(fetchOffers());
 store.dispatch(checkAuth());
 ReactDOM.render(
   <Provider store={store}>
