@@ -3,6 +3,7 @@ const NameSpace = {
   APP: 'app',
   USER: 'user',
   COMMENT: 'comment',
+  FAVORITES: 'favorites',
 };
 
 export default NameSpace;

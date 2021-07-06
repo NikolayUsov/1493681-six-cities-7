@@ -1,5 +1,6 @@
 /* eslint-disable import/prefer-default-export */
 import { AuthorizationStatus } from '../const';
+import { fetchFavorites } from './reducers/features/favorites/favorites-slice';
 import { requiredAuthorization, setAuthUserData } from './reducers/features/user/user-slice';
 
 const ApiRoutes = {
@@ -13,6 +14,7 @@ const ApiRoutes = {
 export const checkAuth = () => (dispatch, _store, api) => {
   api.get(ApiRoutes.LOGIN)
     .then(({ data }) => {
+      dispatch(fetchFavorites());
       dispatch(requiredAuthorization(AuthorizationStatus.AUTH));
       dispatch(setAuthUserData(data));
     })

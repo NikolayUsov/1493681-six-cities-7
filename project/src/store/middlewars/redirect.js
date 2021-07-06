@@ -6,6 +6,8 @@ const REDIRECT_TO_ROUTE = 'route/redirect';
 const REDIRECT_TO_BACK = 'route/redirectoBack';
 
 export default () => (next) => (action) => {
+  // eslint-disable-next-line no-debugger
+  debugger;
   if (action.type === ActionType.REDIRECT_TO_ROUTE) {
     browserHistory.push(action.payload);
   }
