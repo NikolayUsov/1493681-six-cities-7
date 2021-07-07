@@ -1,26 +1,34 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable import/no-named-as-default */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { connect, useSelector, useDispatch } from 'react-redux';
 import SortOffers from '../sort-offer/sort-offers';
 import OfferCardList from '../offer-card-list/offer-card-list';
 import offerCardProp from '../offer-card/offer-card.prop';
 import Map from '../map/map';
 import OffersBoardEmpty from '../offers-board-empty/offers-board-empty';
 import Loader from '../loader/loader';
+import { selectCurrentCity } from '../../store/reducers/features/app/app-slice';
+import {
+  selectCurrentOffers, selectOffers, selectIsLoading, selectIsError,
+} from '../../store/reducers/features/offers/offers-selector';
 
 const createCityLocation = (offers) => offers.reduce((acc, offer) => {
   acc[offer.city.name] = offer.city.location;
   return acc;
 }, {});
 
-export function OffersBoard({
-  offers, currentCity, allOffers, isLoading, isError,
-}) {
+export function OffersBoard() {
+  const currentCity = useSelector(selectCurrentCity);
+  const offers = useSelector(selectCurrentOffers);
+  const allOffers = useSelector(selectOffers);
+  const isLoading = useSelector(selectIsLoading);
+  const isError = useSelector(selectIsError);
+
   const [activeOffer, setActiveCard] = useState(null);
   const sortComponent = offers.length > 1 ? <SortOffers /> : null;
-  const citiesLocation = createCityLocation(allOffers);// to-do
-
+  const citiesLocation = createCityLocation(allOffers);
   const handleActiveOfferCard = (offerCard) => {
     setActiveCard(offerCard);
   };
@@ -62,20 +70,4 @@ export function OffersBoard({
   );
 }
 
-OffersBoard.propTypes = {
-  offers: PropTypes.arrayOf(offerCardProp).isRequired,
-  allOffers: PropTypes.arrayOf(offerCardProp).isRequired,
-  currentCity: PropTypes.string.isRequired,
-  isLoading: PropTypes.bool.isRequired,
-  isError: PropTypes.bool.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  offers: state.currentOffers,
-  allOffers: state.offers,
-  currentCity: state.currentCity,
-  isLoading: state.fetchOffersStatus.isLoading,
-  isError: state.fetchOffersStatus.isError,
-});
-
-export default connect(mapStateToProps)(OffersBoard);
+export default OffersBoard;

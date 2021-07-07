@@ -1,11 +1,18 @@
 import React from 'react';
 import classNames from 'classnames';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { CITIES } from '../../const';
-import { ActionCreator } from '../../store/actions';
 
-export function CityNavigation({ currentMenu, changeActiveMenu }) {
+import { selectCurrentCity, changeCity } from '../../store/reducers/features/app/app-slice';
+
+export function CityNavigation() {
+  const currentMenu = useSelector(selectCurrentCity);
+  const dispatch = useDispatch();
+
+  const handleChangeCity = (name) => {
+    dispatch(changeCity(name));
+  };
+
   return (
     <div className="tabs">
       <section className="locations container">
@@ -18,7 +25,7 @@ export function CityNavigation({ currentMenu, changeActiveMenu }) {
               className={classNames('locations__item-link', 'tabs__item', {
                 'tabs__item--active': name === currentMenu,
               })}
-              onClick={() => { changeActiveMenu(name); }}
+              onClick={() => { handleChangeCity(name); }}
             >
               <span>{name}</span>
             </a>
@@ -31,19 +38,4 @@ export function CityNavigation({ currentMenu, changeActiveMenu }) {
   );
 }
 
-CityNavigation.propTypes = {
-  currentMenu: PropTypes.string.isRequired,
-  changeActiveMenu: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  currentMenu: state.currentCity,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  changeActiveMenu(city) {
-    dispatch(ActionCreator.changeCity(city));
-  },
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(CityNavigation);
+export default CityNavigation;

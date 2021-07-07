@@ -1,3 +1,6 @@
+/* eslint-disable import/no-cycle */
+/* eslint-disable import/prefer-default-export */
+/* eslint-disable no-unused-vars */
 /* eslint-disable import/no-named-as-default */
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable react/jsx-filename-extension */
@@ -5,28 +8,35 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import { createStore, applyMiddleware } from 'redux';
+/* import { createStore, applyMiddleware } from 'redux'; */
+import { configureStore } from '@reduxjs/toolkit';
 import thunk from 'redux-thunk';
 import App from './components/app/app';
-import reducer from './store/reducer';
 import createAPI from './services/api';
-import { checkAuth, fetchHostels } from './store/api-action';
-import { ActionCreator } from './store/actions';
+import { checkAuth } from './store/api-action';
+import { fetchOffers } from './store/reducers/features/offers/offers-slice';
 import RedirectMiddlewares from './store/middlewars/redirect';
 import { AuthorizationStatus } from './const';
+import reducer from './store/reducers/root-reducer';
+import { requiredAuthorization } from './store/reducers/features/user/user-slice';
 
 const api = createAPI(() => {
   // eslint-disable-next-line no-use-before-define
-  store.dispatch(ActionCreator.requiredAuthorization(AuthorizationStatus.NO_AUTH));
+  store.dispatch(requiredAuthorization(AuthorizationStatus.NO_AUTH));
 });
-const store = createStore(reducer,
-  composeWithDevTools(
-    applyMiddleware(thunk.withExtraArgument(api)),
-    applyMiddleware(RedirectMiddlewares),
-  ));
 
-store.dispatch(fetchHostels());
+const store = configureStore({
+  reducer,
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware({
+    thunk: {
+      extraArgument: api,
+    },
+  }).concat(RedirectMiddlewares),
+});
+
+store.dispatch(fetchOffers());
 store.dispatch(checkAuth());
+
 ReactDOM.render(
   <Provider store={store}>
     <React.StrictMode>
@@ -35,3 +45,5 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('root'),
 );
+
+export { api };

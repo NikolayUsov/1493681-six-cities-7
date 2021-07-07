@@ -14,19 +14,16 @@ import Favorites from '../../pages/favorites';
 import Details from '../../pages/details';
 import NotFound from '../../pages/not-found';
 import { AppRoutes, AuthorizationStatus } from '../../const';
-import { createRandomReviews } from '../../mocs/reviews';
-import offerCardProp from '../offer-card/offer-card.prop';
 import PrivateRoute from '../private-route/private-route';
 import browserHistory from '../../browser-history';
+import { selectAuthorizationStatus } from '../../store/reducers/features/user/user-selector';
 
-const reviews = createRandomReviews();
-
-function App({ offers, authorizationStatus }) {
+function App({ authorizationStatus }) {
   return (
     <Router history={browserHistory}>
       <Switch>
         <Route exact path={AppRoutes.ROOT}>
-          <Main offers={offers} />
+          <Main />
         </Route>
         <Route exact path={AppRoutes.LOGIN}>
           {authorizationStatus === AuthorizationStatus.AUTH
@@ -37,12 +34,12 @@ function App({ offers, authorizationStatus }) {
           exact
           path={AppRoutes.FAVORITES}
           render={() => (
-            <Favorites offers={offers} />
+            <Favorites />
           )}
         />
 
         <Route path={AppRoutes.OFFER_DETAILS}>
-          <Details offers={offers} reviews={reviews} />
+          <Details />
         </Route>
         <Route path={AppRoutes.NOT_FOUND}>
           <NotFound />
@@ -53,13 +50,11 @@ function App({ offers, authorizationStatus }) {
 }
 
 App.propTypes = {
-  offers: PropTypes.arrayOf(offerCardProp).isRequired,
   authorizationStatus: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  offers: state.offers,
-  authorizationStatus: state.authorizationStatus,
+  authorizationStatus: selectAuthorizationStatus(state),
 });
 
 export { App };

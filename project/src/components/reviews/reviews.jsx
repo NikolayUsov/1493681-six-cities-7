@@ -1,16 +1,19 @@
 /* eslint-disable import/no-named-as-default */
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import ReviewForm from '../review-form/review-form';
 import ReviewList from '../review-list/review-list';
-import { ReviewItemProp } from '../review-item/review.prop';
-import { fetchReviews } from '../../store/api-action';
+import { fetchComments } from '../../store/reducers/features/comments/comment-slice';
+import { selectComments } from '../../store/reducers/features/comments/comment-selector';
 
-export function Reviews({ reviews, id, getReviews }) {
+export function Reviews({ id }) {
+  const dispatch = useDispatch();
+  const reviews = useSelector(selectComments);
   useEffect(() => {
-    getReviews(id);
+    dispatch((fetchComments(id)));
   }, [id]);
+
   return (
     <section className="property__reviews reviews">
       <h2 className="reviews__title">
@@ -25,17 +28,6 @@ export function Reviews({ reviews, id, getReviews }) {
 
 Reviews.propTypes = {
   id: PropTypes.string.isRequired,
-  reviews: PropTypes.arrayOf(ReviewItemProp).isRequired,
-  getReviews: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  reviews: state.reviews,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  getReviews(id) {
-    dispatch(fetchReviews(id));
-  },
-});
-export default connect(mapStateToProps, mapDispatchToProps)(Reviews);
+export default Reviews;

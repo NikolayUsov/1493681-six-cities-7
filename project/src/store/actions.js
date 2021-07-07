@@ -1,10 +1,10 @@
 export const ActionType = {
-  CHANGE_CURRENT_CITY: 'changeCurrentCity',
-  CHANGE_SORT_TYPE: 'changeSortType',
+  CHANGE_CURRENT_CITY: 'changeCurrentCity', // done
+  CHANGE_SORT_TYPE: 'changeSortType', // done
   TOGGLE_AUTH: 'toggleAuth',
 
-  FETCH_OFFERS_REQUEST: 'offers/fetch-request',
-  FETCH_OFFERS_SUCCESS: 'offers/fetch-success',
+  FETCH_OFFERS_REQUEST: 'offers/fetch-request', // done
+  FETCH_OFFERS_SUCCESS: 'offers/fetch-success', // done
   FETCH_OFFERS_ERROR: 'offers/fetch-error',
 
   LOGIN_REQUEST: 'login/request',

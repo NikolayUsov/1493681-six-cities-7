@@ -3,15 +3,15 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { connect, useSelector, useDispatch } from 'react-redux';
 import classNames from 'classnames';
 import Loader from '../loader/loader';
-import { fetchLogin } from '../../store/api-action';
 import styles from './login-form.module.scss';
-import { apiRequestProp } from '../../utils/prop-types';
 import { LoaderType } from '../../const';
 import useForm from '../../hooks/useForm';
 import ErrorRequest from '../error-request/error-request';
+import { selectLoginStatus } from '../../store/reducers/features/user/user-selector';
+import { fetchLogin } from '../../store/reducers/features/user/user-slice';
 
 const PASSWORD_REGEX = /^.{6,}$/;
 const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -38,24 +38,24 @@ const INPUTS = [
   { type: 'password', label: 'Password' },
 ];
 
-export function LoginForm({ sendLogin, loginStatus }) {
-  const { isLoading, isError } = loginStatus;
+export function LoginForm() {
+  const { isLoading, isError } = useSelector(selectLoginStatus);
   const [inputs, handleBlur, handleChange, handleFocus] = useForm(initFormInput);
   const isButtonDisabled = (inputs.email.isValid && inputs.password.isValid);
-
+  const dispatch = useDispatch();
   const onFormSubmit = (evt) => {
     evt.preventDefault();
-    sendLogin({
+    dispatch(fetchLogin({
       email: inputs.email.value,
       password: inputs.password.value,
-    });
+    }));
   };
 
   const onErrorLogin = () => {
-    sendLogin({
+    dispatch(fetchLogin({
       email: inputs.email.value,
       password: inputs.password.value,
-    });
+    }));
   };
   return (
     <section className="login">
@@ -103,17 +103,4 @@ export function LoginForm({ sendLogin, loginStatus }) {
   );
 }
 
-LoginForm.propTypes = {
-  loginStatus: apiRequestProp.isRequired,
-  sendLogin: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  loginStatus: state.loginStatus,
-});
-const mapDispatchToProps = (dispatch) => ({
-  sendLogin(value) {
-    dispatch(fetchLogin(value));
-  },
-});
-export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
+export default LoginForm;

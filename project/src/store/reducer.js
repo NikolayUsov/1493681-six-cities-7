@@ -9,30 +9,30 @@ const getCurrentOffers = (arr, city, sortType) => arr
   .sort(SortFunctions[sortType]);
 
 const initState = {
-  offers: [],
-  currentCity: CITIES[0],
-  sortType: SORT_TYPE_DEFAULT,
-  currentOffers: [],
-  authorizationStatus: AuthorizationStatus.UNKNOWN,
-  userInfo: {},
-  fetchOffersStatus: {
+  offers: [], // done
+  currentCity: CITIES[0], // done
+  sortType: SORT_TYPE_DEFAULT, // done
+  currentOffers: [], // done
+  authorizationStatus: AuthorizationStatus.UNKNOWN, // done
+  userInfo: {}, // done
+  fetchOffersStatus: { // done
     isError: false,
     isLoading: false,
     isSuccess: false,
   },
-  checkAuthStatus: {
-    isError: false,
-    isLoading: false,
-    isSuccess: false,
-  },
-
-  loginStatus: {
+  checkAuthStatus: { // done
     isError: false,
     isLoading: false,
     isSuccess: false,
   },
 
-  logoutStatus: {
+  loginStatus: { // done
+    isError: false,
+    isLoading: false,
+    isSuccess: false,
+  },
+
+  logoutStatus: { // done
     isError: false,
     isLoading: false,
     isSuccess: false,

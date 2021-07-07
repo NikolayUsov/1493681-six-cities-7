@@ -4,11 +4,13 @@ import {
 } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { connect } from 'react-redux';
+import { connect, useSelector, useDispatch } from 'react-redux';
 import { createPercent } from '../../utils/utils';
 import { Types, AppRoutes, AuthorizationStatus } from '../../const';
 import OfferCardProp from './offer-card.prop';
 import browserHistory from '../../browser-history';
+import { selectAuthorizationStatus } from '../../store/reducers/features/user/user-selector';
+import { fetchChangeFavorites } from '../../store/reducers/features/favorites/favorites-slice';
 
 const classNamesByPath = {
   [AppRoutes.ROOT]: {
@@ -28,9 +30,9 @@ const classNamesByPath = {
   },
 };
 
-function OfferCard({ offer, handleActiveOfferCard, authorizationStatus }) {
-  const isAuth = authorizationStatus === AuthorizationStatus.AUTH;
-
+function OfferCard({ offer, handleActiveOfferCard }) {
+  const isAuth = useSelector(selectAuthorizationStatus) === AuthorizationStatus.AUTH;
+  const dispatch = useDispatch();
   const {
     id,
     price,
@@ -55,7 +57,10 @@ function OfferCard({ offer, handleActiveOfferCard, authorizationStatus }) {
   const handleAddFavorites = () => {
     if (!isAuth) {
       browserHistory.push(AppRoutes.LOGIN);
+      return;
     }
+
+    dispatch(fetchChangeFavorites({ id, status: Number(!isFavorite), path }));
   };
 
   return (
@@ -115,7 +120,6 @@ function OfferCard({ offer, handleActiveOfferCard, authorizationStatus }) {
 OfferCard.propTypes = {
   handleActiveOfferCard: PropTypes.func,
   offer: OfferCardProp.isRequired,
-  authorizationStatus: PropTypes.string.isRequired,
 };
 
 OfferCard.defaultProps = {
