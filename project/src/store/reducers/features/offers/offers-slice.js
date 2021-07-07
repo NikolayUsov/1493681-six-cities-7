@@ -66,6 +66,18 @@ const initialState = {
 const offers = createSlice({
   name: 'offers',
   initialState,
+  reducers: {
+    updateOffers: (state, action) => {
+      // eslint-disable-next-line no-debugger
+      debugger;
+      const idx = state.offers.findIndex((offer) => offer.id === action.payload.id);
+      state.offers = [
+        ...state.offers.slice(0, idx),
+        action.payload,
+        ...state.offers.slice(idx + 1),
+      ];
+    },
+  },
   extraReducers: {
     [fetchOffers.pending]: (state) => {
       state.isLoading = true;
@@ -104,3 +116,4 @@ const offers = createSlice({
 
 export { fetchOffers, fetchOfferDetails, fetchOffersNearby };
 export default offers.reducer;
+export const { updateOffers } = offers.actions;

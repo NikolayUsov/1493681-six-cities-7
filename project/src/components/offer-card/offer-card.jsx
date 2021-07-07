@@ -60,7 +60,7 @@ function OfferCard({ offer, handleActiveOfferCard }) {
       return;
     }
 
-    dispatch(fetchChangeFavorites({ id, status: Number(!isFavorite) }));
+    dispatch(fetchChangeFavorites({ id, status: Number(!isFavorite), path }));
   };
 
   return (

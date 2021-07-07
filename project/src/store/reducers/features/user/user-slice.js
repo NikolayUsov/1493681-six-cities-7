@@ -3,7 +3,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { AppRoutes, AuthorizationStatus } from '../../../../const';
 import { redirectToBack, redirectToRoute } from '../../../middlewars/redirect';
-import { fetchFavorites } from '../favorites/favorites-slice';
 
 const ApiRoutes = {
   HOSTELS: '/hotels',
@@ -20,7 +19,6 @@ export const fetchLogin = createAsyncThunk('user/login',
     try {
       const { data } = await apiInstance.post(ApiRoutes.LOGIN, loginData);
       localStorage.setItem('token', data.token);
-      dispatch(fetchFavorites());
       dispatch(redirectToBack());
       return data;
     } catch (err) {
