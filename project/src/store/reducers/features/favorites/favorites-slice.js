@@ -27,7 +27,11 @@ const fetchChangeFavorites = createAsyncThunk(
 const initialState = {
   favorites: [],
   favoritesLoadStatus: {
-    updateCard: null,
+    isLoading: false,
+    isSuccess: false,
+    isError: false,
+  },
+  favoritesPostStatus: {
     isLoading: false,
     isSuccess: false,
     isError: false,
@@ -49,19 +53,12 @@ const favorites = createSlice({
       state.favoritesLoadStatus.isError = true;
     },
 
-    [fetchChangeFavorites.pending]: (state, action) => {
-      console.log(action);
-      state.favoritesLoadStatus.isLoading = true;
+    [fetchChangeFavorites.pending]: (state) => {
+      state.favoritesPostStatus.isLoading = true;
     },
     [fetchChangeFavorites.fulfilled]: (state, action) => {
-      state.favoritesLoadStatus.isLoading = false;
-      state.favorites = state.favorites.map((offer) => {
-        if (action.payload.id === offer.id) {
-          offer.isFavorite = !offer.isFavorite;
-          return offer;
-        }
-        return offer;
-      });
+      state.favoritesPostStatus.isLoading = false;
+      state.favorites = state.favorites.filter((offer) => offer.id !== action.payload.id);
     },
     [fetchChangeFavorites.rejected]: (state) => {
       state.favoritesLoadStatus.isError = true;

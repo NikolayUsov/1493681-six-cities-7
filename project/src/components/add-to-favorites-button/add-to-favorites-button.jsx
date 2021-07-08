@@ -4,11 +4,9 @@ import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { useRouteMatch } from 'react-router';
 import { selectAuthorizationStatus } from '../../store/reducers/features/user/user-selector';
-import { AppRoutes, AuthorizationStatus, LoaderType } from '../../const';
+import { AppRoutes, AuthorizationStatus } from '../../const';
 import browserHistory from '../../browser-history';
 import { fetchChangeFavorites } from '../../store/reducers/features/favorites/favorites-slice';
-import { selectFavoritesLoadStatus } from '../../store/reducers/features/favorites/favorites-selector';
-import Loader from '../loader/loader';
 
 function AddFavoritesButton({ isFavorite, id }) {
   const isAuth = useSelector(selectAuthorizationStatus) === AuthorizationStatus.AUTH;
@@ -20,30 +18,21 @@ function AddFavoritesButton({ isFavorite, id }) {
   const addToFavoritesClass = classNames(`${classNamePrefix}__bookmark-button`, 'button', {
     [`${classNamePrefix}__bookmark-button--active`]: isFavorite && isAuth,
   });
-  const { isLoading } = useSelector(selectFavoritesLoadStatus);
 
   const handleAddFavorites = () => {
     if (!isAuth) {
       browserHistory.push(AppRoutes.LOGIN);
       return;
     }
-
     dispatch(fetchChangeFavorites({ id, status: Number(!isFavorite), path }));
   };
 
-  const buttonInner = isLoading
-    ? <Loader type={LoaderType.button} />
-    : (
-      <>
-        <svg className={`${classNamePrefix}__bookmark-icon`} width={width} height={height}>
-          <use xlinkHref="#icon-bookmark" />
-        </svg>
-        <span className="visually-hidden">To bookmarks</span>
-      </>
-    );
   return (
     <button className={addToFavoritesClass} type="button" onClick={handleAddFavorites}>
-      {buttonInner}
+      <svg className={`${classNamePrefix}__bookmark-icon`} width={width} height={height}>
+        <use xlinkHref="#icon-bookmark" />
+      </svg>
+      <span className="visually-hidden">To bookmarks</span>
     </button>
   );
 }
