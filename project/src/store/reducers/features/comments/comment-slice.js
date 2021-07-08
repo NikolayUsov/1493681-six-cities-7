@@ -17,9 +17,10 @@ const fetchComments = createAsyncThunk(
 
 const postNewComment = createAsyncThunk(
   'comments/postNewComment',
-  async ({ id, newCommentData }, { extra: apiInstance }) => {
+  async ({ id, newCommentData, resetForm }, { extra: apiInstance }) => {
     try {
       const { data } = await apiInstance.post(`${ApiRoutes.COMMENTS}/${id}`, newCommentData);
+      resetForm();
       return data.map(reviewAdaptedToClient);
     } catch (err) {
       throw new Error(err);

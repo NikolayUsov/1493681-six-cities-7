@@ -4,7 +4,6 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import { useSelector, useDispatch } from 'react-redux';
 import Header from '../components/header/header';
 import GalleryDetails from '../components/details-gallery/details-gallery';
@@ -20,12 +19,14 @@ import {
   selectOffersDetailsFetchStatus,
   selectOffersNearby,
 } from '../store/reducers/features/offers/offers-selector';
+import AddFavoritesButton from '../components/add-to-favorites-button/add-to-favorites-button';
 
 export function Details() {
   const dispatch = useDispatch();
   const { id } = useParams();
   const offersNearby = useSelector(selectOffersNearby);
   const { isLoading } = useSelector(selectOffersDetailsFetchStatus);
+
   useEffect(() => {
     dispatch(fetchOfferDetails(id));
     dispatch(fetchOffersNearby(id));
@@ -46,10 +47,6 @@ export function Details() {
     description,
     city,
   } = useSelector(selectOfferDetails);
-
-  const addToFavoritesClass = classNames('property__bookmark-button', 'button', {
-    'property__bookmark-button--active': isFavorite,
-  });
 
   if (isLoading) {
     return <Loader />;
@@ -79,12 +76,7 @@ export function Details() {
                 <h1 className="property__name">
                   {title}
                 </h1>
-                <button className={addToFavoritesClass} type="button">
-                  <svg className="property__bookmark-icon" width={31} height={33}>
-                    <use xlinkHref="#icon-bookmark" />
-                  </svg>
-                  <span className="visually-hidden">To bookmarks</span>
-                </button>
+                <AddFavoritesButton isFavorite={isFavorite} id={id} />
               </div>
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">

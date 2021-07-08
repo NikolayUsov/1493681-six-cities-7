@@ -15,7 +15,7 @@ const createFavoritesList = (arr) => arr.reduce((acc, element) => {
 }, {});
 
 export default function FavoriteList({ offers }) {
-  const favoritesList = createFavoritesList(offers.filter((elem) => elem.isFavorite));
+  const favoritesList = createFavoritesList(offers);
   return (
 
     <section className="favorites">

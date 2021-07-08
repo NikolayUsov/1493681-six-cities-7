@@ -33,11 +33,18 @@ export function ReviewForm({ id }) {
     setTextComment(evt.target.value);
   };
 
-  const onFormSubmit = (evt) => {
-    evt.preventDefault();
-    dispatch(postNewComment({ id, newCommentData: createNewComment(rating, textComment) }));
+  const resetForm = () => {
     setRating(0);
     setTextComment('');
+  };
+
+  const onFormSubmit = (evt) => {
+    evt.preventDefault();
+    dispatch(postNewComment({
+      id,
+      newCommentData: createNewComment(rating, textComment),
+      resetForm,
+    }));
   };
 
   return (

@@ -1,7 +1,9 @@
+/* eslint-disable import/no-cycle */
 /* eslint-disable no-param-reassign */
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import adaptedToClient from '../../../../utils/adapte-to-client';
 import { redirectToRoute } from '../../../middlewars/redirect';
+import { fetchChangeFavorites } from '../favorites/favorites-slice';
 
 const ApiRoutes = {
   HOSTELS: '/hotels',
@@ -66,18 +68,6 @@ const initialState = {
 const offers = createSlice({
   name: 'offers',
   initialState,
-  reducers: {
-    updateOffers: (state, action) => {
-      // eslint-disable-next-line no-debugger
-      debugger;
-      const idx = state.offers.findIndex((offer) => offer.id === action.payload.id);
-      state.offers = [
-        ...state.offers.slice(0, idx),
-        action.payload,
-        ...state.offers.slice(idx + 1),
-      ];
-    },
-  },
   extraReducers: {
     [fetchOffers.pending]: (state) => {
       state.isLoading = true;
@@ -110,6 +100,12 @@ const offers = createSlice({
     },
     [fetchOffersNearby.rejected]: (state) => {
       state.offersNearbyFetchStatus.isError = true;
+    },
+
+    [fetchChangeFavorites.fulfilled]: (state, action) => {
+      const idx = state.offers.findIndex((offer) => offer.id === action.payload.id);
+      state.offers[idx].isFavorite = !state.offers[idx].isFavorite;
+      state.offerDetails.isFavorite = !state.offerDetails.isFavorite;
     },
   },
 });

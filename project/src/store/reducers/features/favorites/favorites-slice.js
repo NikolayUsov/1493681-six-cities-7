@@ -2,7 +2,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { ApiRoutes } from '../../../../const';
 import adaptedToClient from '../../../../utils/adapte-to-client';
-import { updateOffers } from '../offers/offers-slice';
 
 const fetchFavorites = createAsyncThunk(
   'favorites/fetch',
@@ -18,10 +17,9 @@ const fetchFavorites = createAsyncThunk(
 
 const fetchChangeFavorites = createAsyncThunk(
   'favorites/changeStatus',
-  async ({ id, status }, { dispatch, extra: apiInstance }) => {
+  async ({ id, status }, { extra: apiInstance }) => {
     const { data } = await apiInstance.post(`${ApiRoutes.FAVORITES}/${id}/${status}`);
     const offer = adaptedToClient(data);
-    dispatch(updateOffers(offer));
     return offer;
   },
 );
@@ -29,7 +27,8 @@ const fetchChangeFavorites = createAsyncThunk(
 const initialState = {
   favorites: [],
   favoritesLoadStatus: {
-    isLoading: true,
+    updateCard: null,
+    isLoading: false,
     isSuccess: false,
     isError: false,
   },
@@ -50,7 +49,8 @@ const favorites = createSlice({
       state.favoritesLoadStatus.isError = true;
     },
 
-    [fetchChangeFavorites.pending]: (state) => {
+    [fetchChangeFavorites.pending]: (state, action) => {
+      console.log(action);
       state.favoritesLoadStatus.isLoading = true;
     },
     [fetchChangeFavorites.fulfilled]: (state, action) => {
@@ -71,4 +71,3 @@ const favorites = createSlice({
 
 export { fetchFavorites, fetchChangeFavorites };
 export default favorites.reducer;
-export const { updateFavorites } = favorites.actions;
