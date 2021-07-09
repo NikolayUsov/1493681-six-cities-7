@@ -29,8 +29,8 @@ export const fetchLogout = createAsyncThunk('user/logout',
   async (_, ThunkApi) => {
     const { dispatch, extra: apiInstance } = ThunkApi;
     try {
-      await apiInstance.delete(ApiRoutes.LOGOUT);
       localStorage.removeItem('token');
+      await apiInstance.delete(ApiRoutes.LOGOUT);
       dispatch(redirectToRoute(AppRoutes.ROOT));
     } catch (err) {
       throw new Error(err);

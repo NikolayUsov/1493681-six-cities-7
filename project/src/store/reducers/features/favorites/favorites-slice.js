@@ -10,6 +10,7 @@ const fetchFavorites = createAsyncThunk(
       const { data } = await apiInstance.get(ApiRoutes.FAVORITES);
       return data.map(adaptedToClient);
     } catch (err) {
+      console.log(err);
       throw new Error(err);
     }
   },
