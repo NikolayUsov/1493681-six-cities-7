@@ -22,6 +22,7 @@ export const AuthorizationStatus = {
 export const LoaderType = {
   page: 'loader/page',
   button: 'loader/button',
+  buttonFavorites: 'loader/btn-favorites',
 };
 export const ApiRoutes = {
   HOSTELS: '/hotels',

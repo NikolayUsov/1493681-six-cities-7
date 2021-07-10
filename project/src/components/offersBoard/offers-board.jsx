@@ -9,7 +9,7 @@ import offerCardProp from '../offer-card/offer-card.prop';
 import Map from '../map/map';
 import OffersBoardEmpty from '../offers-board-empty/offers-board-empty';
 import Loader from '../loader/loader';
-import { selectCurrentCity } from '../../store/reducers/features/app/app-slice';
+import { selectCityLocations, selectCurrentCity } from '../../store/reducers/features/app/app-slice';
 import {
   selectCurrentOffers, selectOffers, selectIsLoading, selectIsError,
 } from '../../store/reducers/features/offers/offers-selector';
@@ -22,13 +22,12 @@ const createCityLocation = (offers) => offers.reduce((acc, offer) => {
 export function OffersBoard() {
   const currentCity = useSelector(selectCurrentCity);
   const offers = useSelector(selectCurrentOffers);
-  const allOffers = useSelector(selectOffers);
   const isLoading = useSelector(selectIsLoading);
   const isError = useSelector(selectIsError);
-
+  const cityLocations = useSelector(selectCityLocations);
   const [activeOffer, setActiveCard] = useState(null);
   const sortComponent = offers.length > 1 ? <SortOffers /> : null;
-  const citiesLocation = createCityLocation(allOffers);
+
   const handleActiveOfferCard = (offerCard) => {
     setActiveCard(offerCard);
   };
@@ -57,7 +56,7 @@ export function OffersBoard() {
           </section>
           <div className="cities__right-section">
             <Map
-              city={citiesLocation[currentCity]}
+              city={cityLocations[currentCity]}
               offers={offers}
               activeOffer={activeOffer}
             />

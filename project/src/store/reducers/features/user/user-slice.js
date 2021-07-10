@@ -14,8 +14,7 @@ const ApiRoutes = {
 
 export const fetchLogin = createAsyncThunk('user/login',
   async (loginData, ThunkApi) => {
-    const { dispatch, extra } = ThunkApi;
-    const apiInstance = extra;
+    const { dispatch, extra: apiInstance } = ThunkApi;
     try {
       const { data } = await apiInstance.post(ApiRoutes.LOGIN, loginData);
       localStorage.setItem('token', data.token);
@@ -28,12 +27,11 @@ export const fetchLogin = createAsyncThunk('user/login',
 
 export const fetchLogout = createAsyncThunk('user/logout',
   async (_, ThunkApi) => {
-    const { dispatch, extra } = ThunkApi;
-    const apiInstance = extra;
+    const { dispatch, extra: apiInstance } = ThunkApi;
     try {
       localStorage.removeItem('token');
+      await apiInstance.delete(ApiRoutes.LOGOUT);
       dispatch(redirectToRoute(AppRoutes.ROOT));
-      return await apiInstance.delete(ApiRoutes.LOGOUT);
     } catch (err) {
       throw new Error(err);
     }

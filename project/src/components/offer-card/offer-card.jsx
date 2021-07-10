@@ -1,16 +1,14 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
 import {
   Link, useRouteMatch,
 } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import { connect, useSelector, useDispatch } from 'react-redux';
+import { connect } from 'react-redux';
 import { createPercent } from '../../utils/utils';
 import { Types, AppRoutes, AuthorizationStatus } from '../../const';
 import OfferCardProp from './offer-card.prop';
-import browserHistory from '../../browser-history';
-import { selectAuthorizationStatus } from '../../store/reducers/features/user/user-selector';
-import { fetchChangeFavorites } from '../../store/reducers/features/favorites/favorites-slice';
+import AddFavoritesButton from '../add-to-favorites-button/add-to-favorites-button';
 
 const classNamesByPath = {
   [AppRoutes.ROOT]: {
@@ -31,8 +29,6 @@ const classNamesByPath = {
 };
 
 function OfferCard({ offer, handleActiveOfferCard }) {
-  const isAuth = useSelector(selectAuthorizationStatus) === AuthorizationStatus.AUTH;
-  const dispatch = useDispatch();
   const {
     id,
     price,
@@ -49,18 +45,6 @@ function OfferCard({ offer, handleActiveOfferCard }) {
   const PictureSize = {
     WIDTH: isFavoriteView ? 150 : 260,
     HEIGHT: isFavoriteView ? 110 : 200,
-  };
-  const addToFavoritesClass = classNames('place-card__bookmark-button', 'button', {
-    'place-card__bookmark-button--active': isFavorite && isAuth,
-  });
-
-  const handleAddFavorites = () => {
-    if (!isAuth) {
-      browserHistory.push(AppRoutes.LOGIN);
-      return;
-    }
-
-    dispatch(fetchChangeFavorites({ id, status: Number(!isFavorite), path }));
   };
 
   return (
@@ -95,12 +79,7 @@ function OfferCard({ offer, handleActiveOfferCard }) {
             </b>
             <span className="place-card__price-text">/&nbsp;night</span>
           </div>
-          <button className={addToFavoritesClass} type="button" onClick={handleAddFavorites}>
-            <svg className="place-card__bookmark-icon" width={18} height={19}>
-              <use xlinkHref="#icon-bookmark" />
-            </svg>
-            <span className="visually-hidden">To bookmarks</span>
-          </button>
+          <AddFavoritesButton isFavorite={isFavorite} id={id} />
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">

@@ -2,7 +2,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { ApiRoutes } from '../../../../const';
 import adaptedToClient from '../../../../utils/adapte-to-client';
-import { updateOffers } from '../offers/offers-slice';
 
 const fetchFavorites = createAsyncThunk(
   'favorites/fetch',
@@ -18,10 +17,9 @@ const fetchFavorites = createAsyncThunk(
 
 const fetchChangeFavorites = createAsyncThunk(
   'favorites/changeStatus',
-  async ({ id, status }, { dispatch, extra: apiInstance }) => {
+  async ({ id, status }, { extra: apiInstance }) => {
     const { data } = await apiInstance.post(`${ApiRoutes.FAVORITES}/${id}/${status}`);
     const offer = adaptedToClient(data);
-    dispatch(updateOffers(offer));
     return offer;
   },
 );
@@ -29,7 +27,12 @@ const fetchChangeFavorites = createAsyncThunk(
 const initialState = {
   favorites: [],
   favoritesLoadStatus: {
-    isLoading: true,
+    isLoading: false,
+    isSuccess: false,
+    isError: false,
+  },
+  favoritesPostStatus: {
+    isLoading: false,
     isSuccess: false,
     isError: false,
   },
@@ -51,17 +54,11 @@ const favorites = createSlice({
     },
 
     [fetchChangeFavorites.pending]: (state) => {
-      state.favoritesLoadStatus.isLoading = true;
+      state.favoritesPostStatus.isLoading = true;
     },
     [fetchChangeFavorites.fulfilled]: (state, action) => {
-      state.favoritesLoadStatus.isLoading = false;
-      state.favorites = state.favorites.map((offer) => {
-        if (action.payload.id === offer.id) {
-          offer.isFavorite = !offer.isFavorite;
-          return offer;
-        }
-        return offer;
-      });
+      state.favoritesPostStatus.isLoading = false;
+      state.favorites = state.favorites.filter((offer) => offer.id !== action.payload.id);
     },
     [fetchChangeFavorites.rejected]: (state) => {
       state.favoritesLoadStatus.isError = true;
@@ -71,4 +68,3 @@ const favorites = createSlice({
 
 export { fetchFavorites, fetchChangeFavorites };
 export default favorites.reducer;
-export const { updateFavorites } = favorites.actions;
