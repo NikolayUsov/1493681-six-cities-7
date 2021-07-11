@@ -88,12 +88,19 @@ export function LoginForm() {
               disabled={isLoading}
             />
             {inputs[type].showError && (
-            <span className={[styles.messageError]}>{inputs[type].errorText}</span>)}
+            <span
+              data-testid="error"
+              className={[styles.messageError]}
+            >
+              {inputs[type].errorText}
+            </span>
+            )}
           </div>
         ))}
         <button
           className="login__submit form__submit button"
           type="submit"
+          data-testid="button"
           disabled={!isButtonDisabled || isLoading}
         >
           {isLoading ? <Loader type={LoaderType.button} /> : 'Sign in'}

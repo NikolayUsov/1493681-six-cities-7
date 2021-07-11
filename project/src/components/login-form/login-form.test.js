@@ -1,33 +1,48 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-unused-expressions */
 /* eslint-disable react/jsx-filename-extension */
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { Router } from 'react-router-dom';
-import { createMemoryHistory } from 'history';
+import { MemoryRouter } from 'react-router-dom';
 import configureStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 // eslint-disable-next-line no-unused-vars
 import userEvent from '@testing-library/user-event';
 // eslint-disable-next-line import/no-named-as-default
 import LoginForm from './login-form';
+import NameSpace from '../../store/reducers/name-space';
+import { AuthorizationStatus } from '../../const';
 
-const mockStore = configureStore({});
+let store;
+let history;
+let mockStore;
 
 describe('Test Form-login component', () => {
+  beforeAll(() => {
+    mockStore = configureStore({});
+  });
+
   it('Should render correctly', () => {
-    const history = createMemoryHistory();
-    history.push('/login');
+    store = mockStore({
+      [NameSpace.USER]: {
+        loginStatus: {
+          isError: false,
+          isLoading: false,
+          isSuccess: false,
+        },
+      },
+    });
 
     render(
-      <Provider store={mockStore({})}>
-        <Router history={history}>
+      <Provider store={store}>
+        <MemoryRouter>
           <LoginForm />
-        </Router>
+        </MemoryRouter>
       </Provider>,
     );
-
     expect(screen.getByLabelText(/email/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/password/i)).toBeInTheDocument();
-    expect(screen.getByText(/'Sign in'/i)).closest('button').toBeDisabled();
+    expect(screen.queryByTestId('error')).not.toBeInTheDocument();
+    expect(screen.getByTestId('button')).toBeDisabled();
   });
 });
