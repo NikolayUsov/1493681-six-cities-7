@@ -9,7 +9,6 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { configureStore } from '@reduxjs/toolkit';
-import thunk from 'redux-thunk';
 import App from './components/app/app';
 import createAPI from './services/api';
 import { checkAuth } from './store/api-action';
