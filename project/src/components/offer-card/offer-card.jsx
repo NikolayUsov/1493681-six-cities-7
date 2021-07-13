@@ -72,7 +72,7 @@ function OfferCard({ offer, handleActiveOfferCard }) {
       </div>
       <div className={`${classNamesByPath[path].info} place-card__info`}>
         <div className="place-card__price-wrapper">
-          <div className="place-card__price">
+          <div className="place-card__price" data-testid="price">
             <b className="place-card__price-value">
               €
               {price}

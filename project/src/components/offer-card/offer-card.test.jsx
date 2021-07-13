@@ -20,6 +20,7 @@ describe('Test offer-card', () => {
   beforeEach(() => {
     fakeOffer = offers[0];
   });
+
   it('Should render-correctly', () => {
     render(
       <MemoryRouter>
@@ -27,5 +28,18 @@ describe('Test offer-card', () => {
       </MemoryRouter>,
     );
     expect(screen.queryByAltText('Place pic')).toBeInTheDocument();
+    expect(screen.getByTestId('price')).toBeInTheDocument();
+  });
+
+  it('Should render-correctly isPremium', () => {
+    render(
+      <MemoryRouter>
+        <OfferCard
+          handleActiveOfferCard={fakeHandleActiveCard}
+          offer={{ ...fakeOffer, isPremium: true }}
+        />
+      </MemoryRouter>,
+    );
+    expect(screen.getByText('Premium')).toBeInTheDocument();
   });
 });
