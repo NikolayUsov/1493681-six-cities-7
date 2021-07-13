@@ -28,7 +28,7 @@ describe('Testing city navigation menu', () => {
     );
   });
 
-  it('Should render corectly', () => {
+  it('Should render correctly', () => {
     expect(CITIES.every((city) => screen.getByText(city))).toBeTruthy();
   });
 
