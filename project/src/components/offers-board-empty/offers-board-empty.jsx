@@ -30,7 +30,7 @@ OffersBoardEmpty.propTypes = {
 };
 
 OffersBoardEmpty.defaultProps = {
-  isError: PropTypes.bool,
+  isError: false,
   currentCity: '',
 };
 export default OffersBoardEmpty;

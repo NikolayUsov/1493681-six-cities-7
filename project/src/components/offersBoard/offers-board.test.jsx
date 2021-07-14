@@ -38,7 +38,8 @@ describe('Test offers-board', () => {
   beforeEach(() => {
     store = mockStore({
       app: {
-        currentCite: 'FakeCity',
+        currentCity: 'Paris',
+        currentSortType: 'Popular',
       },
       [NameSpace.OFFERS]: {
         offers,
@@ -55,11 +56,9 @@ describe('Test offers-board', () => {
     );
   });
 
-  afterEach(() => {
-    console.log('after', store.getState());
-  });
   it('Should render correctly', () => {
-    console.log(store.getState());
     expect(screen.getByText('Places')).toBeInTheDocument();
+    expect(screen.getByTestId('fakeMap')).toBeInTheDocument();
+    expect(screen.getByTestId('fakeOfferCardList')).toBeInTheDocument();
   });
 });
