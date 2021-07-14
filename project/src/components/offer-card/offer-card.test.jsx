@@ -1,7 +1,7 @@
 /* eslint-disable prefer-destructuring */
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import configureStore from 'redux-mock-store';
+
 import '../add-to-favorites-button/add-to-favorites-button';
 import { MemoryRouter } from 'react-router';
 import { offers } from '../../mocs/mock-offer';
