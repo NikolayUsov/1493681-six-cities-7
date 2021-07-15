@@ -65,6 +65,7 @@ export function ReviewForm({ id }) {
           disabled={isLoading}
           placeholder="Tell how was your stay, what you like and what can be improved"
           value={textComment}
+          data-testid="textComment"
         />
         <div className="reviews__button-wrapper">
           <p className="reviews__help">
@@ -77,7 +78,7 @@ export function ReviewForm({ id }) {
             <b className="reviews__text-amount">50 characters</b>
             .
           </p>
-          <button className="reviews__submit form__submit button" type="submit" disabled={!isValid || isLoading}>Submit</button>
+          <button data-testid="submit" className="reviews__submit form__submit button" type="submit" disabled={!isValid || isLoading}>Submit</button>
         </div>
       </form>
     </>

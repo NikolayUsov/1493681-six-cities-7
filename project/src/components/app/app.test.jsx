@@ -5,6 +5,7 @@ import configureStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 import { App } from './app';
 import { AppRoutes, AuthorizationStatus } from '../../const';
+import NameSpace from '../../store/reducers/name-space';
 
 let store;
 let mockStore;
@@ -25,7 +26,7 @@ describe('Test routes of app', () => {
 
   it('Should render 404 page', () => {
     store = mockStore({
-      USER:
+      [NameSpace.USER]:
         {
           authorizationStatus: AuthorizationStatus.NO_AUTH,
           userInfo: {},
@@ -34,13 +35,19 @@ describe('Test routes of app', () => {
             isLoading: false,
             isSuccess: false,
           },
+          logoutStatus: {
+            isError: false,
+            isLoading: false,
+            isSuccess: false,
+          },
         },
-      OFFERS: {
+      [NameSpace.OFFERS]: {
         offers: [],
       },
-      APP: { currentCity: 'Paris', currentSortType: 'Popular' },
+      [NameSpace.APP]: { currentCity: 'Paris', currentSortType: 'Popular' },
     });
     render(getPath(AppRoutes.LOGIN, store));
+    screen.debug();
     const headerElement = screen.getByText('Что то ты свернул не туда, может найдем другое');
     const linkElement = screen.getByText('Место');
     expect(headerElement).toBeInTheDocument();
