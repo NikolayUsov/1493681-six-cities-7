@@ -1,7 +1,7 @@
 /* eslint-disable import/no-cycle */
 /* eslint-disable no-param-reassign */
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { AppRoutes, AuthorizationStatus } from '../../../../const';
+import { AppRoutes, AuthorizationStatus, CheckAuthStatus } from '../../../../const';
 import { redirectToBack, redirectToRoute } from '../../../middlewars/redirect';
 
 const ApiRoutes = {
@@ -11,6 +11,28 @@ const ApiRoutes = {
   NEARBY: '/nearby',
   COMMENTS: '/comments',
 };
+
+/* export const checkAuth = () => (dispatch, _store, api) => {
+  api.get(ApiRoutes.LOGIN)
+    .then(({ data }) => {
+      dispatch(requiredAuthorization(AuthorizationStatus.AUTH));
+      dispatch(setAuthUserData(data));
+    })
+    .catch(() => {
+      dispatch(setAuthUserData({}));
+    });
+}; */
+
+export const checkAuth = createAsyncThunk('user/checkAuth',
+  async (_, ThunkApi) => {
+    const { extra: apiInstance } = ThunkApi;
+    try {
+      const { data } = await apiInstance.get(ApiRoutes.LOGIN);
+      return data;
+    } catch (err) {
+      throw new Error(err);
+    }
+  });
 
 export const fetchLogin = createAsyncThunk('user/login',
   async (loginData, ThunkApi) => {
@@ -39,6 +61,7 @@ export const fetchLogout = createAsyncThunk('user/logout',
 
 const initialState = {
   authorizationStatus: AuthorizationStatus.UNKNOWN,
+  checkAuthStatus: CheckAuthStatus.CHECKING,
   userInfo: {},
   loginStatus: {
     isError: false,
@@ -65,6 +88,18 @@ const authorization = createSlice({
     },
   },
   extraReducers: {
+    [checkAuth.pending]: (state) => {
+      state.checkAuthStatus = CheckAuthStatus.CHECKING;
+    },
+    [checkAuth.fulfilled]: (state, action) => {
+      state.checkAuthStatus = CheckAuthStatus.CHECK_DONE;
+      state.userInfo = action.payload;
+      state.authorizationStatus = AuthorizationStatus.AUTH;
+    },
+    [checkAuth.rejected]: (state) => {
+      state.checkAuthStatus = CheckAuthStatus.CHECK_ERROR;
+    },
+
     [fetchLogin.pending]: (state) => {
       state.loginStatus.isLoading = true;
     },

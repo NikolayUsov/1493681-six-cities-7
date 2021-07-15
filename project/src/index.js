@@ -11,12 +11,11 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import { configureStore } from '@reduxjs/toolkit';
 import App from './components/app/app';
 import createAPI from './services/api';
-import { checkAuth } from './store/api-action';
+import { checkAuth, requiredAuthorization } from './store/reducers/features/user/user-slice';
 import { fetchOffers } from './store/reducers/features/offers/offers-slice';
 import RedirectMiddlewares from './store/middlewars/redirect';
 import { AuthorizationStatus } from './const';
 import reducer from './store/reducers/root-reducer';
-import { requiredAuthorization } from './store/reducers/features/user/user-slice';
 
 const api = createAPI(() => {
   // eslint-disable-next-line no-use-before-define
