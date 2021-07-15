@@ -105,9 +105,5 @@ OfferCard.defaultProps = {
   handleActiveOfferCard: () => {},
 };
 
-const mapStateToProps = (state) => ({
-  authorizationStatus: state.authorizationStatus,
-});
-
 export { OfferCard };
-export default connect(mapStateToProps)(OfferCard);
+export default React.memo(OfferCard);
