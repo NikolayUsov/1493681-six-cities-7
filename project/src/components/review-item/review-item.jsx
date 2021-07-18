@@ -27,7 +27,7 @@ export default function ReviewItem({ review }) {
       <div className="reviews__info">
         <div className="reviews__rating rating">
           <div className="reviews__stars rating__stars">
-            <span style={{ width: `${createPercent(rating, 5)}%` }} />
+            <span style={{ width: `${createPercent(rating, 5)}%` }} data-testid={`${user.name}${user.id}`} />
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

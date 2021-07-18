@@ -20,6 +20,7 @@ function StarItem({
         name="rating"
         value={value}
         id={`${value}-stars`}
+        data-testid={`${value}-testid`}
         type="radio"
         checked={currentValue === +value}
         onChange={() => handleChangeRating(value)}

@@ -15,9 +15,9 @@ export function PrivateRoute({
       exact={exact}
       path={path}
       render={(routeProps) => (
-        authorizationStatus === AuthorizationStatus.AUTH
-          ? render(routeProps)
-          : <Redirect to={AppRoutes.LOGIN} />
+        authorizationStatus === AuthorizationStatus.NO_AUTH
+          ? <Redirect to={AppRoutes.LOGIN} />
+          : render(routeProps)
       )}
     />
   );

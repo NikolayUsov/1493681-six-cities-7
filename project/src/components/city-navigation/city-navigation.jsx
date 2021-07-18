@@ -5,7 +5,7 @@ import { CITIES } from '../../const';
 
 import { selectCurrentCity, changeCity } from '../../store/reducers/features/app/app-slice';
 
-export function CityNavigation() {
+function CityNavigation() {
   const currentMenu = useSelector(selectCurrentCity);
   const dispatch = useDispatch();
 

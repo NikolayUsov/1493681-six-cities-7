@@ -79,6 +79,7 @@ export function LoginForm() {
               onChange={handleChange}
               onFocus={handleFocus}
               id={type}
+              data-testid={type}
               className={classNames('login__input', 'form__input', { [styles.borderError]: inputs[type].showError })}
               type={type}
               name={type}
@@ -87,12 +88,19 @@ export function LoginForm() {
               disabled={isLoading}
             />
             {inputs[type].showError && (
-            <span className={[styles.messageError]}>{inputs[type].errorText}</span>)}
+            <span
+              data-testid="error"
+              className={[styles.messageError]}
+            >
+              {inputs[type].errorText}
+            </span>
+            )}
           </div>
         ))}
         <button
           className="login__submit form__submit button"
           type="submit"
+          data-testid="button"
           disabled={!isButtonDisabled || isLoading}
         >
           {isLoading ? <Loader type={LoaderType.button} /> : 'Sign in'}

@@ -63,4 +63,4 @@ export function SortOffers() {
   );
 }
 
-export default SortOffers;
+export default React.memo(SortOffers);

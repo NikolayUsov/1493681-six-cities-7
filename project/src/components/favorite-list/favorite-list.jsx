@@ -31,7 +31,7 @@ export default function FavoriteList({ offers }) {
                 </a>
               </div>
             </div>
-            <div className="favorites__places">
+            <div className="favorites__places" data-testid="favorites-card-container">
               {cityOffers.map((offer) => <OfferCard key={offer.id} offer={offer} />)}
             </div>
           </li>

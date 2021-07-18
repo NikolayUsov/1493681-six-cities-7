@@ -112,4 +112,3 @@ const offers = createSlice({
 
 export { fetchOffers, fetchOfferDetails, fetchOffersNearby };
 export default offers.reducer;
-export const { updateOffers } = offers.actions;
