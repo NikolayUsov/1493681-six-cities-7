@@ -3,7 +3,6 @@
 /* eslint-disable import/no-named-as-default */
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router';
-import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import Header from '../components/header/header';
 import GalleryDetails from '../components/details-gallery/details-gallery';
@@ -76,7 +75,7 @@ export function Details() {
                 <h1 className="property__name">
                   {title}
                 </h1>
-                <AddFavoritesButton isFavorite={isFavorite} id={id} />
+                <AddFavoritesButton isFavorite={isFavorite} id={Number(id)} />
               </div>
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">
@@ -118,7 +117,7 @@ export function Details() {
               </div>
 
               <HostDetails host={host} description={description} />
-              <Reviews id={id} />
+              <Reviews id={Number(id)} />
             </div>
           </div>
           <Map
@@ -138,13 +137,5 @@ export function Details() {
     </div>
   );
 }
-
-Details.propTypes = {
-  offerDetailsFetchStatus: PropTypes.shape({
-    isLoading: PropTypes.bool.isRequired,
-    isSuccess: PropTypes.bool.isRequired,
-    isError: PropTypes.bool.isRequired,
-  }).isRequired,
-};
 
 export default Details;
