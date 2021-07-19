@@ -7,17 +7,20 @@ import FavoriteListEmpty from '../components/favorite-list-empty/favorite-list-e
 import { selectFavoritesLoadStatus, selectFavoritesOffers } from '../store/reducers/features/favorites/favorites-selector';
 import Loader from '../components/loader/loader';
 import { fetchFavorites } from '../store/reducers/features/favorites/favorites-slice';
+import { selectCheckAuthStatus } from '../store/reducers/features/user/user-selector';
+import { CheckAuthStatus } from '../const';
 
 export default function Favorites() {
   const favoritesOffers = useSelector(selectFavoritesOffers);
   const { isLoading } = useSelector(selectFavoritesLoadStatus);
+  const { checkAuthStatus } = useSelector(selectCheckAuthStatus);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchFavorites());
   }, []);
 
-  if (isLoading) {
+  if (isLoading || checkAuthStatus === CheckAuthStatus.CHECKING) {
     return <Loader />;
   }
   const mainContent = favoritesOffers.length

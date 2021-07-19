@@ -11,7 +11,7 @@ const AVATAR_URL = 'https://i.pravatar.cc/';
 const commentId = createId();
 const NAMES = ['Fedor', 'Angelina', 'Gena', 'Slava', 'Pedro', 'Roma'];
 
-const review = () => ({
+export const review = () => ({
   comment: getRandomText(),
   date: dayjs().subtract(getRandomInteger(1, 25), 'year'),
   id: commentId(),

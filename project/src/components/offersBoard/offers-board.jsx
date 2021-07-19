@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable import/no-named-as-default */
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect, useSelector, useDispatch } from 'react-redux';
 import SortOffers from '../sort-offer/sort-offers';
@@ -28,9 +28,12 @@ export function OffersBoard() {
   const [activeOffer, setActiveCard] = useState(null);
   const sortComponent = offers.length > 1 ? <SortOffers /> : null;
 
-  const handleActiveOfferCard = (offerCard) => {
-    setActiveCard(offerCard);
-  };
+  const handleActiveOfferCard = useCallback(
+    (offerCard) => {
+      setActiveCard(offerCard);
+    },
+    [],
+  );
 
   if (isLoading) {
     return <Loader />;
