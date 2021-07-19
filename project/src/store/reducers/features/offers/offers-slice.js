@@ -56,6 +56,7 @@ const initialState = {
   offerDetailsFetchStatus: {
     isLoading: true,
     isSuccess: false,
+    isError: false,
   },
   offersNearby: [],
   offersNearbyFetchStatus: {
