@@ -1,7 +1,8 @@
 import axios from 'axios';
-import { createStore } from 'redux';
 import reducer, { fetchOffers, fetchOfferDetails, fetchOffersNearby } from './offers-slice';
 import { ApiRoutes } from '../../../../const';
+import configureStore from 'redux-mock-store';
+import thunk from 'redux-thunk';
 
 let initialState;
 const fakeOffer = {
@@ -109,11 +110,12 @@ describe('Test offers-slice', () => {
   });
 
   describe('Test offers async thync', () => {
-    const dispatch = jest.fn;
     const getSpy = jest.spyOn(axios, 'get');
-    const store = createStore(reducer, initialState);
-    it('Test fetch offers', async () => {
-      await store.dispatch(fetchOffers());
+    const middleware = [thunk];
+    const mockStore = configureStore(middleware);
+    const store = mockStore(initialState);
+    it('Test fetch offers', () => {
+      store.dispatch(fetchOffers());
       expect(getSpy).toBeCalledWith(ApiRoutes.HOSTELS);
     });
   });
