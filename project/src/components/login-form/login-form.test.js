@@ -1,20 +1,13 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-unused-expressions */
-/* eslint-disable react/jsx-filename-extension */
+
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import configureStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
-// eslint-disable-next-line no-unused-vars
-import userEvent from '@testing-library/user-event';
-// eslint-disable-next-line import/no-named-as-default
 import LoginForm from './login-form';
 import NameSpace from '../../store/reducers/name-space';
-import { AuthorizationStatus } from '../../const';
 
 let store;
-let history;
 let mockStore;
 
 describe('Test Form-login component', () => {

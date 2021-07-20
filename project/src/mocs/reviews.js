@@ -4,7 +4,7 @@ import {
   getRandomInteger,
   createId,
   getRandomFloat,
-  getRandomElement,
+  getRandomElement
 } from './mock-utils';
 
 const AVATAR_URL = 'https://i.pravatar.cc/';
@@ -24,5 +24,4 @@ export const review = () => ({
   },
 });
 
-// eslint-disable-next-line import/prefer-default-export
 export const createRandomReviews = () => new Array(getRandomInteger(1, 10)).fill().map(review);

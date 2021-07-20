@@ -1,14 +1,8 @@
-/* eslint-disable no-unused-vars */
-import MockAdapter from 'axios-mock-adapter';
-import configureStore from 'redux-mock-store';
 import axios from 'axios';
 import { createStore } from 'redux';
 import reducer, { fetchOffers, fetchOfferDetails, fetchOffersNearby } from './offers-slice';
 import { ApiRoutes } from '../../../../const';
 
-const api = null;
-let mockStore;
-let thunkActionCreator;
 let initialState;
 const fakeOffer = {
   id: 3,

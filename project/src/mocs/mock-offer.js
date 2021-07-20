@@ -4,7 +4,7 @@ import {
   getRandomText,
   createId,
   shuffleArray,
-  getRandomElement,
+  getRandomElement
 } from './mock-utils';
 
 const AVATAR_URL = 'https://i.pravatar.cc/';

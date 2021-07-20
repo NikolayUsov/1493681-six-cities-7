@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { reviewAdaptedToClient } from '../../../../utils/adapte-to-client';
 import { ApiRoutes } from '../../../../const';

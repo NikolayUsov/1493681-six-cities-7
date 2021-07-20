@@ -1,12 +1,10 @@
-/* eslint-disable no-unused-vars */
 import React from 'react';
 import {
-  Link, useRouteMatch,
+  Link, useRouteMatch
 } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { createPercent } from '../../utils/utils';
-import { Types, AppRoutes, AuthorizationStatus } from '../../const';
+import { Types, AppRoutes } from '../../const';
 import OfferCardProp from './offer-card.prop';
 import AddFavoritesButton from '../add-to-favorites-button/add-to-favorites-button';
 
@@ -55,9 +53,9 @@ function OfferCard({ offer, handleActiveOfferCard }) {
       className={`${classNamesByPath[path].article} place-card`}
     >
       {isPremium && (
-      <div className="place-card__mark">
-        <span>Premium</span>
-      </div>
+        <div className="place-card__mark">
+          <span>Premium</span>
+        </div>
       )}
       <div className={`${classNamesByPath[path].image} place-card__image-wrapper`}>
         <Link to={`/offer/${id}`}>

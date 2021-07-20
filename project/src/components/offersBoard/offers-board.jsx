@@ -1,23 +1,14 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable import/no-named-as-default */
 import React, { useCallback, useState } from 'react';
-import PropTypes from 'prop-types';
-import { connect, useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import SortOffers from '../sort-offer/sort-offers';
 import OfferCardList from '../offer-card-list/offer-card-list';
-import offerCardProp from '../offer-card/offer-card.prop';
 import Map from '../map/map';
 import OffersBoardEmpty from '../offers-board-empty/offers-board-empty';
 import Loader from '../loader/loader';
 import { selectCityLocations, selectCurrentCity } from '../../store/reducers/features/app/app-slice';
 import {
-  selectCurrentOffers, selectOffers, selectIsLoading, selectIsError,
+  selectCurrentOffers, selectIsLoading, selectIsError
 } from '../../store/reducers/features/offers/offers-selector';
-
-const createCityLocation = (offers) => offers.reduce((acc, offer) => {
-  acc[offer.city.name] = offer.city.location;
-  return acc;
-}, {});
 
 export function OffersBoard() {
   const currentCity = useSelector(selectCurrentCity);

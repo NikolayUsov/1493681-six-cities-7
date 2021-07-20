@@ -1,6 +1,3 @@
-/* eslint-disable no-undef */
-/* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable import/no-named-as-default */
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router';
 import { useSelector, useDispatch } from 'react-redux';
@@ -16,7 +13,7 @@ import { fetchOfferDetails, fetchOffersNearby } from '../store/reducers/features
 import {
   selectOfferDetails,
   selectOffersDetailsFetchStatus,
-  selectOffersNearby,
+  selectOffersNearby
 } from '../store/reducers/features/offers/offers-selector';
 import AddFavoritesButton from '../components/add-to-favorites-button/add-to-favorites-button';
 
@@ -57,18 +54,18 @@ export function Details() {
         <section className="property">
           {images
             && (
-            <div className="property__gallery-container container">
-              <GalleryDetails photos={images} />
-            </div>
+              <div className="property__gallery-container container">
+                <GalleryDetails photos={images} />
+              </div>
             )}
 
           <div className="property__container container">
             <div className="property__wrapper">
               {isPrime
               && (
-              <div className="property__mark">
-                <span>Premium</span>
-              </div>
+                <div className="property__mark">
+                  <span>Premium</span>
+                </div>
               )}
 
               <div className="property__name-wrapper">

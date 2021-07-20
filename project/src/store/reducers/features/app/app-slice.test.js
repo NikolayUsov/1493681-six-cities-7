@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import reducer, { changeCity, changeSortType } from './app-slice';
 import { CITIES } from '../../../../const';
 

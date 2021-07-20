@@ -1,10 +1,9 @@
-/* eslint-disable import/no-named-as-default */
 import React from 'react';
 import {
   Router,
   Switch,
   Route,
-  Redirect,
+  Redirect
 } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';

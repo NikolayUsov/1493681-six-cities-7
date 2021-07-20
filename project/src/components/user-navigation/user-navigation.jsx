@@ -43,11 +43,11 @@ export function UserNavigation() {
           </Link>
         </li>
         {isAuth && (
-        <li className="header__nav-item">
-          <a className="header__nav-link" href="/#" onClick={handleLogoutClick}>
-            <span className="header__signout">Sign out</span>
-          </a>
-        </li>
+          <li className="header__nav-item">
+            <a className="header__nav-link" href="/#" onClick={handleLogoutClick}>
+              <span className="header__signout">Sign out</span>
+            </a>
+          </li>
         )}
       </ul>
     </nav>

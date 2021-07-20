@@ -1,13 +1,6 @@
-/* eslint-disable import/no-cycle */
-/* eslint-disable import/prefer-default-export */
-/* eslint-disable no-unused-vars */
-/* eslint-disable import/no-named-as-default */
-/* eslint-disable import/no-extraneous-dependencies */
-/* eslint-disable react/jsx-filename-extension */
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { composeWithDevTools } from 'redux-devtools-extension';
 import { configureStore } from '@reduxjs/toolkit';
 import App from './components/app/app';
 import createAPI from './services/api';

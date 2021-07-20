@@ -1,10 +1,5 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
 import Header from '../components/header/header';
-
-// eslint-disable-next-line import/no-named-as-default
-
-// eslint-disable-next-line import/no-named-as-default
 import LoginForm from '../components/login-form/login-form';
 
 export default function Login() {

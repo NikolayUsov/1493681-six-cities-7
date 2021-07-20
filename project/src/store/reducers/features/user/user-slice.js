@@ -1,5 +1,3 @@
-/* eslint-disable import/no-cycle */
-/* eslint-disable no-param-reassign */
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { AppRoutes, AuthorizationStatus, CheckAuthStatus } from '../../../../const';
 import { redirectToBack, redirectToRoute } from '../../../middlewars/redirect';
@@ -11,17 +9,6 @@ const ApiRoutes = {
   NEARBY: '/nearby',
   COMMENTS: '/comments',
 };
-
-/* export const checkAuth = () => (dispatch, _store, api) => {
-  api.get(ApiRoutes.LOGIN)
-    .then(({ data }) => {
-      dispatch(requiredAuthorization(AuthorizationStatus.AUTH));
-      dispatch(setAuthUserData(data));
-    })
-    .catch(() => {
-      dispatch(setAuthUserData({}));
-    });
-}; */
 
 export const checkAuth = createAsyncThunk('user/checkAuth',
   async (_, ThunkApi) => {

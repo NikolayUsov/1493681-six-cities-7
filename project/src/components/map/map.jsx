@@ -16,8 +16,8 @@ export default function Map({ city, offers, activeOffer }) {
   const { path } = useRouteMatch();
 
   const mapClass = classNames('map', {
-    cities__map: path === AppRoutes.ROOT,
-    property__map: path === AppRoutes.OFFER_DETAILS,
+    'cities__map': path === AppRoutes.ROOT,
+    'property__map': path === AppRoutes.OFFER_DETAILS,
   });
 
   useEffect(() => {
