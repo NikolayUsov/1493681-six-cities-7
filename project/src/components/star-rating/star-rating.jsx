@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import StarItem from '../star-item/star-item';
 
-const StarTitles = {
+export const StarTitles = {
   1: 'terribly',
   2: 'badly',
   3: 'not bad',
@@ -9,30 +10,6 @@ const StarTitles = {
   5: 'perfect',
 };
 
-function StarItem({
-  value, title, handleChangeRating, currentValue,
-}) {
-  return (
-    <>
-      <input
-        className="form__rating-input visually-hidden"
-        name="rating"
-        value={value}
-        id={`${value}-stars`}
-        data-testid={`${value}-testid`}
-        type="radio"
-        checked={currentValue === +value}
-        onChange={() => handleChangeRating(value)}
-      />
-      <label htmlFor={`${value}-stars`} className="reviews__rating-label form__rating-label" title={title}>
-        <svg className="form__star-image" width={37} height={33}>
-          <use xlinkHref="#icon-star" />
-        </svg>
-      </label>
-    </>
-
-  );
-}
 
 export default function StarRating({ currentValue, handleChangeRating }) {
   return (
@@ -52,12 +29,6 @@ export default function StarRating({ currentValue, handleChangeRating }) {
   );
 }
 
-StarItem.propTypes = {
-  value: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
-  currentValue: PropTypes.number.isRequired,
-  handleChangeRating: PropTypes.func.isRequired,
-};
 
 StarRating.propTypes = {
   handleChangeRating: PropTypes.func.isRequired,

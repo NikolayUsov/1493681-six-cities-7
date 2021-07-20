@@ -40,12 +40,11 @@ describe('Test routes of app', () => {
     render(
       <Provider store={store}>
         <MemoryRouter initialEntries={[AppRoutes.NOT_FOUND]}>
-          <App />
+          <App authorizationStatus={AuthorizationStatus.NO_AUTH} />
         </MemoryRouter>
       </Provider>,
     );
 
-    screen.debug();
     const headerElement = screen.getByText('Что то ты свернул не туда, может найдем другое');
     const linkElement = screen.getByText('Место');
     expect(headerElement).toBeInTheDocument();

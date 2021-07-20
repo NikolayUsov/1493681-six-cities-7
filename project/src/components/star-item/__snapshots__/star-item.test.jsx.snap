@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test star item component Should create snapshot correctly 1`] = `
+<DocumentFragment>
+  <input
+    class="form__rating-input visually-hidden"
+    data-testid="2-testid"
+    id="2-stars"
+    name="rating"
+    type="radio"
+    value="2"
+  />
+  <label
+    class="reviews__rating-label form__rating-label"
+    for="2-stars"
+    title="badly"
+  >
+    <svg
+      class="form__star-image"
+      height="33"
+      width="37"
+    >
+      <use
+        xlink:href="#icon-star"
+      />
+    </svg>
+  </label>
+</DocumentFragment>
+`;

@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable no-useless-escape */
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
