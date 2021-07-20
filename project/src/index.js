@@ -9,6 +9,10 @@ import { fetchOffers } from './store/reducers/features/offers/offers-slice';
 import RedirectMiddlewares from './store/middlewars/redirect';
 import { AuthorizationStatus } from './const';
 import reducer from './store/reducers/root-reducer';
+import {
+  Router
+} from 'react-router-dom';
+import browserHistory from './browser-history';
 
 const api = createAPI(() => {
   // eslint-disable-next-line no-use-before-define
@@ -30,7 +34,9 @@ store.dispatch(checkAuth());
 ReactDOM.render(
   <Provider store={store}>
     <React.StrictMode>
-      <App />
+      <Router history={browserHistory}>
+        <App />
+      </Router>
     </React.StrictMode>
   </Provider>,
   document.getElementById('root'),

@@ -57,6 +57,7 @@ export function LoginForm() {
         className="login__form form"
         action="#"
         method="post"
+        data-testid='login-form'
         onSubmit={handleFormSubmit}
       >
         {INPUTS.map(({ type, label }) => (
@@ -64,7 +65,7 @@ export function LoginForm() {
             className={classNames('login__input-wrapper', { [styles.wrapper]: true })}
             key={label}
           >
-            <label htmlFor="email" className="visually-hidden">{label}</label>
+            <label htmlFor={type} className="visually-hidden">{label}</label>
             <input
               value={inputs[type].value}
               onBlur={handleBlur}

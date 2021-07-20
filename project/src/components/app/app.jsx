@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
 import {
   Router,
@@ -19,32 +20,30 @@ import { selectAuthorizationStatus } from '../../store/reducers/features/user/us
 
 function App({ authorizationStatus }) {
   return (
-    <Router history={browserHistory}>
-      <Switch>
-        <Route exact path={AppRoutes.ROOT}>
-          <Main />
-        </Route>
-        <Route exact path={AppRoutes.LOGIN}>
-          {authorizationStatus === AuthorizationStatus.AUTH
-            ? <Redirect to={AppRoutes.ROOT} />
-            : <Login />}
-        </Route>
-        <PrivateRoute
-          exact
-          path={AppRoutes.FAVORITES}
-          render={() => (
-            <Favorites />
-          )}
-        />
+    <Switch>
+      <Route exact path={AppRoutes.ROOT}>
+        <Main />
+      </Route>
+      <Route exact path={AppRoutes.LOGIN}>
+        {authorizationStatus === AuthorizationStatus.AUTH
+          ? <Redirect to={AppRoutes.ROOT} />
+          : <Login />}
+      </Route>
+      <PrivateRoute
+        exact
+        path={AppRoutes.FAVORITES}
+        render={() => (
+          <Favorites />
+        )}
+      />
 
-        <Route path={AppRoutes.OFFER_DETAILS}>
-          <Details />
-        </Route>
-        <Route path={AppRoutes.NOT_FOUND}>
-          <NotFound />
-        </Route>
-      </Switch>
-    </Router>
+      <Route path={AppRoutes.OFFER_DETAILS}>
+        <Details />
+      </Route>
+      <Route path={AppRoutes.NOT_FOUND}>
+        <NotFound />
+      </Route>
+    </Switch>
   );
 }
 
