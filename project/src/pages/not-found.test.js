@@ -8,7 +8,6 @@ describe('Component: NotFoundScreen', () => {
   it('Should render correctly:', () => {
     const history = createMemoryHistory();
     const { getByText } = render(
-      // eslint-disable-next-line react/jsx-filename-extension
       <Router history={history}>
         <NotFoundScreen />
       </Router>,

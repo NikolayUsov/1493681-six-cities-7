@@ -6,7 +6,7 @@ import { OffersBoard } from './offers-board';
 import '../map/map';
 import '../offer-card/offer-card';
 import '../offer-card-list/offer-card-list';
-import { offers } from '../../mocs/mock-offer';
+import { offersStab } from '../../mocs/stab-offers';
 import NameSpace from '../../store/reducers/name-space';
 
 jest.mock('../map/map', () => function fakeMap() {
@@ -42,7 +42,7 @@ describe('Test offers-board', () => {
         currentSortType: 'Popular',
       },
       [NameSpace.OFFERS]: {
-        offers,
+        offers: offersStab,
         isError: false,
         isLoading: false,
         isSuccess: false,

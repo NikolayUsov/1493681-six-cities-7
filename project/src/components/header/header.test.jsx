@@ -55,12 +55,10 @@ describe('Test header', () => {
   });
 
   it('Header should has Logo', () => {
-    screen.debug();
     expect(screen.queryByTestId('logo')).toBeInTheDocument();
   });
 
   it('Header should has userNavigation', () => {
-    screen.debug();
     expect(screen.queryByTestId('userNavigation')).toBeInTheDocument();
   });
 });

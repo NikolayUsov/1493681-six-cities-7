@@ -34,7 +34,6 @@ export default function createAPI(onUnauthorized) {
 
   api.interceptors.request.use((config) => {
     const currentToken = getToken();
-    // eslint-disable-next-line no-param-reassign
     config.headers['x-token'] = currentToken;
     return config;
   });
