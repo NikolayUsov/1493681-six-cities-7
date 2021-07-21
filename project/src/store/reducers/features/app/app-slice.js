@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
 import { createSelector } from 'reselect';
 import { CITIES } from '../../../../const';

@@ -27,5 +27,5 @@ export {
   selectOfferDetails,
   selectOffersDetailsFetchStatus,
   selectOffersNearby,
-  selectOffersNearbyFetchStatus,
+  selectOffersNearbyFetchStatus
 };

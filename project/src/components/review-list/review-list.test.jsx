@@ -6,7 +6,7 @@ import ReviewList from './review-list';
 import '../review-item/review-item';
 import NameSpace from '../../store/reducers/name-space';
 import { review } from '../../mocs/reviews';
-
+import thunk from 'redux-thunk';
 jest.mock('../review-item/review-item', () => function fakeReviewItem() {
   return (
     <div data-testid="fakeReviewItem" />
@@ -23,7 +23,8 @@ let store;
 let mockStore;
 describe('Test reviews-list', () => {
   beforeAll(() => {
-    mockStore = configureStore({});
+    const middleware = [thunk];
+    mockStore = configureStore(middleware);
   });
 
   it('Should render correctly reviews-length', () => {

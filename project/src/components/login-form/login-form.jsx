@@ -1,9 +1,7 @@
+/* eslint-disable no-console */
 /* eslint-disable no-useless-escape */
-/* eslint-disable no-unused-vars */
-/* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import { connect, useSelector, useDispatch } from 'react-redux';
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import classNames from 'classnames';
 import Loader from '../loader/loader';
 import styles from './login-form.module.scss';
@@ -43,7 +41,8 @@ export function LoginForm() {
   const [inputs, handleBlur, handleChange, handleFocus] = useForm(initFormInput);
   const isButtonDisabled = (inputs.email.isValid && inputs.password.isValid);
   const dispatch = useDispatch();
-  const onFormSubmit = (evt) => {
+
+  const handleFormSubmit = (evt) => {
     evt.preventDefault();
     dispatch(fetchLogin({
       email: inputs.email.value,
@@ -51,28 +50,23 @@ export function LoginForm() {
     }));
   };
 
-  const onErrorLogin = () => {
-    dispatch(fetchLogin({
-      email: inputs.email.value,
-      password: inputs.password.value,
-    }));
-  };
   return (
     <section className="login">
-      {isError && <ErrorRequest refreshFunc={onErrorLogin} />}
+      {isError && <ErrorRequest refreshFunc={handleFormSubmit} />}
       <h1 className="login__title">Sign in</h1>
       <form
         className="login__form form"
         action="#"
         method="post"
-        onSubmit={onFormSubmit}
+        data-testid='login-form'
+        onSubmit={handleFormSubmit}
       >
         {INPUTS.map(({ type, label }) => (
           <div
             className={classNames('login__input-wrapper', { [styles.wrapper]: true })}
             key={label}
           >
-            <label htmlFor="email" className="visually-hidden">{label}</label>
+            <label htmlFor={type} className="visually-hidden">{label}</label>
             <input
               value={inputs[type].value}
               onBlur={handleBlur}
@@ -88,12 +82,12 @@ export function LoginForm() {
               disabled={isLoading}
             />
             {inputs[type].showError && (
-            <span
-              data-testid="error"
-              className={[styles.messageError]}
-            >
-              {inputs[type].errorText}
-            </span>
+              <span
+                data-testid="error"
+                className={[styles.messageError]}
+              >
+                {inputs[type].errorText}
+              </span>
             )}
           </div>
         ))}

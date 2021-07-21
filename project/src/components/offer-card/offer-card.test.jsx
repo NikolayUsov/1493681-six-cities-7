@@ -1,4 +1,3 @@
-/* eslint-disable prefer-destructuring */
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 

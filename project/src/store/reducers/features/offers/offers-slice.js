@@ -1,5 +1,3 @@
-/* eslint-disable import/no-cycle */
-/* eslint-disable no-param-reassign */
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import adaptedToClient from '../../../../utils/adapte-to-client';
 import { redirectToRoute } from '../../../middlewars/redirect';
@@ -56,6 +54,7 @@ const initialState = {
   offerDetailsFetchStatus: {
     isLoading: true,
     isSuccess: false,
+    isError: false,
   },
   offersNearby: [],
   offersNearbyFetchStatus: {

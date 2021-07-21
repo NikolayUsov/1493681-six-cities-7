@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-filename-extension */
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 import HostDetail from './host-details';

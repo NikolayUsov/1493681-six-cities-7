@@ -10,20 +10,10 @@ import NameSpace from '../../store/reducers/name-space';
 let store;
 let mockStore;
 
-const getPath = (path, initState) => (
-  <Provider store={initState}>
-    <MemoryRouter initialEntries={[path]}>
-      <App />
-    </MemoryRouter>
-  </Provider>
-
-);
-
 describe('Test routes of app', () => {
   beforeAll(() => {
     mockStore = configureStore({});
   });
-
   it('Should render 404 page', () => {
     store = mockStore({
       [NameSpace.USER]:
@@ -46,8 +36,15 @@ describe('Test routes of app', () => {
       },
       [NameSpace.APP]: { currentCity: 'Paris', currentSortType: 'Popular' },
     });
-    render(getPath(AppRoutes.LOGIN, store));
-    screen.debug();
+
+    render(
+      <Provider store={store}>
+        <MemoryRouter initialEntries={[AppRoutes.NOT_FOUND]}>
+          <App authorizationStatus={AuthorizationStatus.NO_AUTH} />
+        </MemoryRouter>
+      </Provider>,
+    );
+
     const headerElement = screen.getByText('Что то ты свернул не туда, может найдем другое');
     const linkElement = screen.getByText('Место');
     expect(headerElement).toBeInTheDocument();

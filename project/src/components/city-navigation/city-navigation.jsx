@@ -18,20 +18,20 @@ function CityNavigation() {
       <section className="locations container">
         <ul className="locations__list tabs__list">
           {
-        CITIES.map((name, index) => (
-          <li key={name + String(index)} className="locations__item">
-            <a
-              href="/#"
-              className={classNames('locations__item-link', 'tabs__item', {
-                'tabs__item--active': name === currentMenu,
-              })}
-              onClick={() => { handleChangeCity(name); }}
-            >
-              <span>{name}</span>
-            </a>
-          </li>
-        ))
-      }
+            CITIES.map((name, index) => (
+              <li key={name + String(index)} className="locations__item">
+                <a
+                  href="/#"
+                  className={classNames('locations__item-link', 'tabs__item', {
+                    'tabs__item--active': name === currentMenu,
+                  })}
+                  onClick={() => { handleChangeCity(name); }}
+                >
+                  <span>{name}</span>
+                </a>
+              </li>
+            ))
+          }
         </ul>
       </section>
     </div>

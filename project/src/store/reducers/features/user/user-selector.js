@@ -10,5 +10,5 @@ export {
   selectLogoutStatus,
   selectLoginStatus,
   selectUserInfo,
-  selectCheckAuthStatus,
+  selectCheckAuthStatus
 };

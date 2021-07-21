@@ -35,8 +35,7 @@
     "extends": [
       "react-app",
       "react-app/jest",
-      "htmlacademy/react",
-      "airbnb"
+      "htmlacademy/react"
     ]
   },
   "browserslist": {

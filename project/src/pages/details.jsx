@@ -1,9 +1,5 @@
-/* eslint-disable no-undef */
-/* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable import/no-named-as-default */
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router';
-import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import Header from '../components/header/header';
 import GalleryDetails from '../components/details-gallery/details-gallery';
@@ -17,7 +13,7 @@ import { fetchOfferDetails, fetchOffersNearby } from '../store/reducers/features
 import {
   selectOfferDetails,
   selectOffersDetailsFetchStatus,
-  selectOffersNearby,
+  selectOffersNearby
 } from '../store/reducers/features/offers/offers-selector';
 import AddFavoritesButton from '../components/add-to-favorites-button/add-to-favorites-button';
 
@@ -58,25 +54,25 @@ export function Details() {
         <section className="property">
           {images
             && (
-            <div className="property__gallery-container container">
-              <GalleryDetails photos={images} />
-            </div>
+              <div className="property__gallery-container container">
+                <GalleryDetails photos={images} />
+              </div>
             )}
 
           <div className="property__container container">
             <div className="property__wrapper">
               {isPrime
               && (
-              <div className="property__mark">
-                <span>Premium</span>
-              </div>
+                <div className="property__mark">
+                  <span>Premium</span>
+                </div>
               )}
 
               <div className="property__name-wrapper">
                 <h1 className="property__name">
                   {title}
                 </h1>
-                <AddFavoritesButton isFavorite={isFavorite} id={id} />
+                <AddFavoritesButton isFavorite={isFavorite} id={Number(id)} />
               </div>
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">
@@ -118,7 +114,7 @@ export function Details() {
               </div>
 
               <HostDetails host={host} description={description} />
-              <Reviews id={id} />
+              <Reviews id={Number(id)} />
             </div>
           </div>
           <Map
@@ -138,13 +134,5 @@ export function Details() {
     </div>
   );
 }
-
-Details.propTypes = {
-  offerDetailsFetchStatus: PropTypes.shape({
-    isLoading: PropTypes.bool.isRequired,
-    isSuccess: PropTypes.bool.isRequired,
-    isError: PropTypes.bool.isRequired,
-  }).isRequired,
-};
 
 export default Details;

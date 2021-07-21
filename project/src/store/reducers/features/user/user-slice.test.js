@@ -22,7 +22,7 @@ describe('Test user-slice:', () => {
 
   describe('Test sync function:', () => {
     it('Should return initial state', () => {
-      expect(reducer(undefined, {})).toEqual(initialState);
+      expect(reducer(initialState, {})).toEqual(initialState);
     });
 
     it('Should add auth status', () => {

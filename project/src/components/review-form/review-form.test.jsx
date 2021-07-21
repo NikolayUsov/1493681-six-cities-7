@@ -6,6 +6,7 @@ import userEvent from '@testing-library/user-event';
 import { ReviewForm } from './review-form';
 import NameSpace from '../../store/reducers/name-space';
 import { AuthorizationStatus } from '../../const';
+import thunk from 'redux-thunk';
 
 let store;
 let mockStore;
@@ -18,7 +19,8 @@ const renderTestComponent = (fakeStore) => (
 
 describe('Test review form', () => {
   beforeAll(() => {
-    mockStore = configureStore({});
+    const middleware = [thunk];
+    mockStore = configureStore(middleware);
   });
 
   it('Should return null if user did not auth', () => {
@@ -41,6 +43,7 @@ describe('Test review form', () => {
   });
 
   it('Should return form if use auth', () => {
+
     store = mockStore({
       [NameSpace.USER]: {
         authorizationStatus: AuthorizationStatus.AUTH,
@@ -55,15 +58,16 @@ describe('Test review form', () => {
     });
 
     render(renderTestComponent(store));
+    const button = screen.getByTestId('submit');
     expect(screen.queryByLabelText('Your review')).toBeInTheDocument();
     expect(screen.queryByPlaceholderText('Tell how was your stay, what you like and what can be improved')).toBeInTheDocument();
-    expect(screen.getByTestId('submit')).toBeDisabled();
+    expect(button).toBeDisabled();
 
     userEvent.type(screen.getByTestId('textComment'), 'hh');
     expect(screen.getByDisplayValue(/hh/i)).toBeInTheDocument();
-    expect(screen.getByTestId('submit')).toBeDisabled();
+    expect(button).toBeDisabled();
     userEvent.type(screen.getByTestId('textComment'), `${new Array(51).fill('a').join('')}`);
     userEvent.click(screen.getByTestId('3-testid'));
-    expect(screen.getByTestId('submit')).not.toBeDisabled();
+    expect((button)).not.toBeDisabled();
   });
 });

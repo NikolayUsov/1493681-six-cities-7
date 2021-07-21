@@ -1,5 +1,4 @@
-/* eslint-disable react/jsx-filename-extension */
-/* eslint-disable react/react-in-jsx-scope */
+import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router';
@@ -56,12 +55,10 @@ describe('Test header', () => {
   });
 
   it('Header should has Logo', () => {
-    screen.debug();
     expect(screen.queryByTestId('logo')).toBeInTheDocument();
   });
 
   it('Header should has userNavigation', () => {
-    screen.debug();
     expect(screen.queryByTestId('userNavigation')).toBeInTheDocument();
   });
 });

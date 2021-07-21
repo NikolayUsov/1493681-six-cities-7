@@ -1,2 +1,1 @@
-/* eslint-disable import/prefer-default-export */
-export const createPercent = (value, max) => (value / max) * 100;
+export const createPercent = (value, maxRating) => (Math.round(value))/maxRating * 100;
