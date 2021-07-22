@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-/* eslint-disable no-useless-escape */
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import classNames from 'classnames';
@@ -12,7 +10,7 @@ import { selectLoginStatus } from '../../store/reducers/features/user/user-selec
 import { fetchLogin } from '../../store/reducers/features/user/user-slice';
 
 const PASSWORD_REGEX = /^.{6,}$/;
-const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+const EMAIL_REGEX = /^(([^<>()\\[\]\\.,;:\s@"]+(\.[^<>()\\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const initFormInput = {
   email: {
     value: '',

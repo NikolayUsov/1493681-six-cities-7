@@ -15,7 +15,6 @@ import {
 import browserHistory from './browser-history';
 
 const api = createAPI(() => {
-  // eslint-disable-next-line no-use-before-define
   store.dispatch(requiredAuthorization(AuthorizationStatus.NO_AUTH));
 });
 

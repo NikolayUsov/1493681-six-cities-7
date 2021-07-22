@@ -1,7 +1,5 @@
-/* eslint-disable no-unused-vars */
 import React from 'react';
 import {
-  Router,
   Switch,
   Route,
   Redirect
@@ -15,7 +13,6 @@ import Details from '../../pages/details';
 import NotFound from '../../pages/not-found';
 import { AppRoutes, AuthorizationStatus } from '../../const';
 import PrivateRoute from '../private-route/private-route';
-import browserHistory from '../../browser-history';
 import { selectAuthorizationStatus } from '../../store/reducers/features/user/user-selector';
 
 function App({ authorizationStatus }) {

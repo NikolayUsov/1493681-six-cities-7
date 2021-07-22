@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test Map component Should render correctly 1`] = `
+<DocumentFragment>
+  <span
+    class="css-1dcri9m"
+  >
+    <span
+      class="css-vdd3er"
+    />
+    <span
+      class="css-119ohoe"
+    />
+  </span>
+</DocumentFragment>
+`;

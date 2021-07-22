@@ -1,9 +1,8 @@
 import React from 'react';
-// eslint-disable-next-line no-unused-vars
 import PropTypes from 'prop-types';
 import styles from './error-request.module.scss';
 
-function ErrorReques({ refreshFunc }) {
+function ErrorRequest({ refreshFunc }) {
   return (
     <div className={[styles.container]}>
       <div className={[styles.item]}>
@@ -16,11 +15,11 @@ function ErrorReques({ refreshFunc }) {
   );
 }
 
-ErrorReques.propTypes = {
+ErrorRequest.propTypes = {
   refreshFunc: PropTypes.func,
 };
 
-ErrorReques.defaultProps = {
+ErrorRequest.defaultProps = {
   refreshFunc: () => {},
 };
-export default ErrorReques;
+export default ErrorRequest;

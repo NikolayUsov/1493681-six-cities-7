@@ -26,6 +26,16 @@ const classNamesByPath = {
   },
 };
 
+const FavoritePictureSize = {
+  WIDTH: 150,
+  HEIGHT: 110,
+};
+
+const DefaultPictureSize = {
+  WIDTH: 260,
+  HEIGHT: 200,
+};
+
 function OfferCard({ offer, handleActiveOfferCard }) {
   const {
     id,
@@ -41,8 +51,8 @@ function OfferCard({ offer, handleActiveOfferCard }) {
   const { path } = useRouteMatch();
   const isFavoriteView = path === AppRoutes.FAVORITES;
   const PictureSize = {
-    WIDTH: isFavoriteView ? 150 : 260,
-    HEIGHT: isFavoriteView ? 110 : 200,
+    WIDTH: isFavoriteView ? FavoritePictureSize.WIDTH : DefaultPictureSize.WIDTH,
+    HEIGHT: isFavoriteView ? FavoritePictureSize.HEIGHT : DefaultPictureSize.HEIGHT,
   };
 
   return (

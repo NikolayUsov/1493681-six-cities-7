@@ -40,7 +40,6 @@ export const CheckAuthStatus = {
 };
 
 export const CITIES = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
-export const SORT_TYPES = ['Popular', 'Price: low to high', 'Price: high to low', 'Top rated first'];
 export const SortFunctions = {
   Popular: (arr) => arr,
   'Price: low to high': (a, b) => a.price - b.price,

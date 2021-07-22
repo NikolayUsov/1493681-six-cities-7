@@ -1,0 +1,158 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test Map component Should render correctly 1`] = `
+<DocumentFragment>
+  <section
+    class="map cities__map leaflet-container leaflet-grab leaflet-touch-drag"
+    style="position: relative;"
+    tabindex="0"
+  >
+    <div
+      class="leaflet-pane leaflet-map-pane"
+      style="left: 0px; top: 0px;"
+    >
+      <div
+        class="leaflet-pane leaflet-tile-pane"
+      >
+        <div
+          class="leaflet-layer "
+          style="z-index: 1;"
+        >
+          <div
+            class="leaflet-tile-container leaflet-zoom-animated"
+            style="z-index: 18; left: 0px; top: 0px;"
+          >
+            <img
+              alt=""
+              class="leaflet-tile"
+              role="presentation"
+              src="https://c.basemaps.cartocdn.com/rastertiles/voyager/5/16/10.png"
+              style="width: 256px; height: 256px; left: -93px; top: -111px;"
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        class="leaflet-pane leaflet-shadow-pane"
+      />
+      <div
+        class="leaflet-pane leaflet-overlay-pane"
+      />
+      <div
+        class="leaflet-pane leaflet-marker-pane"
+      >
+        <img
+          alt=""
+          class="leaflet-marker-icon leaflet-zoom-hide leaflet-interactive"
+          src="/img/pin-active.svg"
+          style="margin-left: -15px; margin-top: -40px; width: 30px; height: 40px; left: 0px; top: 0px; z-index: 0;"
+          tabindex="0"
+        />
+        <img
+          alt=""
+          class="leaflet-marker-icon leaflet-zoom-hide leaflet-interactive"
+          src="/img/pin.svg"
+          style="margin-left: -15px; margin-top: -40px; width: 30px; height: 40px; left: 7px; top: 13px; z-index: 13;"
+          tabindex="0"
+        />
+        <img
+          alt=""
+          class="leaflet-marker-icon leaflet-zoom-hide leaflet-interactive"
+          src="/img/pin.svg"
+          style="margin-left: -15px; margin-top: -40px; width: 30px; height: 40px; left: 20px; top: 10px; z-index: 10;"
+          tabindex="0"
+        />
+        <img
+          alt=""
+          class="leaflet-marker-icon leaflet-zoom-hide leaflet-interactive"
+          src="/img/pin.svg"
+          style="margin-left: -15px; margin-top: -40px; width: 30px; height: 40px; left: 12px; top: 20px; z-index: 20;"
+          tabindex="0"
+        />
+        <img
+          alt=""
+          class="leaflet-marker-icon leaflet-zoom-hide leaflet-interactive"
+          src="/img/pin.svg"
+          style="margin-left: -15px; margin-top: -40px; width: 30px; height: 40px; left: 21px; top: 12px; z-index: 12;"
+          tabindex="0"
+        />
+        <img
+          alt=""
+          class="leaflet-marker-icon leaflet-zoom-hide leaflet-interactive"
+          src="/img/pin.svg"
+          style="margin-left: -15px; margin-top: -40px; width: 30px; height: 40px; left: 10px; top: 12px; z-index: 12;"
+          tabindex="0"
+        />
+      </div>
+      <div
+        class="leaflet-pane leaflet-tooltip-pane"
+      />
+      <div
+        class="leaflet-pane leaflet-popup-pane"
+      />
+    </div>
+    <div
+      class="leaflet-control-container"
+    >
+      <div
+        class="leaflet-top leaflet-left"
+      >
+        <div
+          class="leaflet-control-zoom leaflet-bar leaflet-control"
+        >
+          <a
+            aria-label="Zoom in"
+            class="leaflet-control-zoom-in"
+            href="#"
+            role="button"
+            title="Zoom in"
+          >
+            +
+          </a>
+          <a
+            aria-label="Zoom out"
+            class="leaflet-control-zoom-out"
+            href="#"
+            role="button"
+            title="Zoom out"
+          >
+            −
+          </a>
+        </div>
+      </div>
+      <div
+        class="leaflet-top leaflet-right"
+      />
+      <div
+        class="leaflet-bottom leaflet-left"
+      />
+      <div
+        class="leaflet-bottom leaflet-right"
+      >
+        <div
+          class="leaflet-control-attribution leaflet-control"
+        >
+          <a
+            href="https://leafletjs.com"
+            title="A JS library for interactive maps"
+          >
+            Leaflet
+          </a>
+           | © 
+          <a
+            href="https://www.openstreetmap.org/copyright"
+          >
+            OpenStreetMap
+          </a>
+           contributors © 
+          <a
+            href="https://carto.com/attributions"
+          >
+            CARTO
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</DocumentFragment>
+`;
