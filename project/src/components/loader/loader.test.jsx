@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import Loader from './Loader';
+import Loader from './loader';
 
 
 describe('Test Map component', () => {
