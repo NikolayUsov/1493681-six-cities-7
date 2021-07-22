@@ -8,7 +8,6 @@ const loaderStyle = {
   display: 'block',
   margin: '100px auto 0',
 };
-
 const DEFAULT_COLOR = '#4481c3';
 const DEFAULT_SIZE = '150px';
 
